@@ -1,23 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
+import InicioSesion from './componentes/Iniciosesion';
+import CabeceraFija from "./componentes/CabeceraFija";
+import { Routes,Route } from 'react-router-dom';
+import CrearCuenta from './componentes/CrearCuenta';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <CabeceraFija />
+      <Routes>
+      <Route path="/" element={<InicioSesion/>}></Route>
+      <Route path="/CrearCuenta" element={<CrearCuenta/>}></Route>
+    </Routes>
     </div>
   );
 }
