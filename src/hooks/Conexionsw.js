@@ -44,13 +44,26 @@ export const InicioSesion = (data, accion = true) => {
 };
 
 export const IngresarSistema = async (data) => {
-  return await axios.post(URL + '/cuenta/login', data)
-    .then((response) => {
-      console.log(response);
-      if (response.data && response.data.token) {
-        const session = Session(response.data.token);
-        console.log("INGRESO AL SISTEMA", session);
-      }
-      return response.data;
+  try {
+    const response = await fetch(URL + '/cuenta/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
     });
+
+    const responseData = await response.json();
+
+    console.log(responseData);
+
+    if (responseData && responseData.token) {
+      const session = Session(responseData.token);
+      console.log("INGRESO AL SISTEMA", session);
+    }
+
+    return responseData;
+  } catch (error) {
+    console.error('Error:', error);
+  }
 }

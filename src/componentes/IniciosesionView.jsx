@@ -40,7 +40,7 @@ const InicioSesionView = () => {
                 mensajeOk("Bienvenido")
                 navegacion('/inicio');
             } else {
-                mensaje(info.msg);
+                mensaje(info.error);
             }
         });
     };
