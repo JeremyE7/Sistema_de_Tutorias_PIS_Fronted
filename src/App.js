@@ -6,6 +6,7 @@ import CrearCuenta from './componentes/CrearCuenta';
 import Inicioview from './componentes/Inicioview';
 import InicioSesionView from './componentes/IniciosesionView';
 import ListarEstudianteView from './componentes/ListarEstudianteView';
+import ListarDocenteView from './componentes/ListarDocenteView';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Route path="/CrearCuenta" element={<CrearCuenta/>}></Route>
       <Route path="/Inicio" element={<Inicioview/>}></Route>
       <Route path="/estudiante/listar" element={<ListarEstudianteView/>}></Route>
+      <Route path="/docente/listar" element={<ListarDocenteView/>}></Route>
     </Routes>
     </div>
   );
