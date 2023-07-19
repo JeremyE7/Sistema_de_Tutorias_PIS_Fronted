@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Session } from '../utilidades/UseSession'
+import { ObtenerSession } from '../utilidades/UseSession'
 
 const URL = "http://localhost:3000/api/v1"
 
@@ -61,6 +62,25 @@ export const IngresarSistema = async (data) => {
       const session = Session(responseData.token);
       console.log("INGRESO AL SISTEMA", session);
     }
+
+    return responseData;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+export const Estudiantes = async () => {
+  try {
+    const response = await fetch(URL + '/estudiante/listar', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      },
+    });
+
+    const responseData = await response.json();
+
+    console.log(responseData);
 
     return responseData;
   } catch (error) {
