@@ -34,9 +34,9 @@ const InicioSesionView = () => {
 
     const onSubmit = (data) => {
         var datos = { 'correo': data.correo, 'clave': data.clave };
+        console.log(data.token);
         IngresarSistema(datos).then((info) => {
             if (info && info.data.token) {
-                console.log(info.data.token);
                 Session(info.data.token);
                 mensajeOk("Bienvenido")
                 navegacion('/inicio');
