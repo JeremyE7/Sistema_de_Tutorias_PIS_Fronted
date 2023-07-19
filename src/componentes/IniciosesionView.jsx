@@ -1,13 +1,14 @@
 import '../css/Bootstrap.css';
 import '../css/fondo.css';
 import { useForm } from 'react-hook-form';
-//import { IngresarSistema, InicioSesion } from '../hooks/ConexionSw';
 import swal from 'sweetalert';
 import { Link, useNavigate } from 'react-router-dom';
 import { Session } from '../utilidades/UseSession';
 import CrearCuenta from './CrearCuenta';
+import { IngresarSistema } from '../hooks/Conexionsw';
 
-const InicioSesion = () => {
+const InicioSesionView = () => {
+    const navegacion = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm(); // initialise the hook
     //const {info, error, execute} = InicioSesion(undefined,false);
     const mensaje = (texto) => swal(
@@ -20,21 +21,30 @@ const InicioSesion = () => {
         }
     );
 
-    /* const llamar = (datos) => {
-           execute(datos);
-     };*/
+    const mensajeOk = (texto) => swal(
+        {
+            title: "Ingresado Correctamente",
+            text: texto,
+            icon: "success",
+            button: "Aceptar",
+            timer: 2000
+        }
+    );
 
-    /*const onSubmit = (data) => {
-        var datos = {'usuario': data.correo, 'clave': data.clave};
-        const login = IngresarSistema(datos).then((info) => {
-            if(info && info.token){
-                Session(info.token);
-                //navegacion('/principal');;
-            }else{
-                mensaje("ERROR");
+
+    const onSubmit = (data) => {
+        var datos = { 'correo': data.correo, 'clave': data.clave };
+        IngresarSistema(datos).then((info) => {
+            if (info && info.data.token) {
+                console.log(info.data.token);
+                Session(info.data.token);
+                mensajeOk("Bienvenido")
+                navegacion('/inicio');
+            } else {
+                mensaje(info.msg);
             }
-          });
-        };*/
+        });
+    };
     //llamar(datos);
     //mensaje(info)
 
@@ -43,7 +53,7 @@ const InicioSesion = () => {
             <div className="col-12 col-md-8 col-lg-6 col-xl-5">
                 <div className="card " style={{ borderRadius: "10px", backgroundColor: "#ebf1ff" }} >
                     <div className="vertical-align" style={{ textAlign: "center" }}>
-                        <form >
+                        <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="mb-md-5 mt-md-4 pb-5">
 
                                 <h2 className="fw-bold mb-5 mx-4 " style={{ fontFamily: "bold" }}> <b> LOGIN</b></h2>
@@ -51,13 +61,16 @@ const InicioSesion = () => {
 
                                 <div className="container mb-3">
                                     <label className="form-label"> <b> Email </b> </label>
-                                    <input type="email"
+                                    <input type="email" {...register('correo', { required: true, pattern: /\S+@\S+\.\S+/ })}
                                         placeholder='Correo Electronico' className="form-control container" style={{ width: "500px", height: "35px", alignContent: "center", fontFamily: "Cambria" }} />
+                                    {errors.correo && errors.correo.type === 'required' && <div className='alert alert-danger fade show' role='alert'>Se requiere su correo</div>}
+                                    {errors.correo && errors.correo.type === 'pattern' && <div className='alert alert-danger fade show' role='alert'>Ingrese un correo valido</div>}
                                 </div>
 
                                 <div className="container mb-3" style={{ justifyContent: "center", alignItems: "center" }}>
                                     <label className="form-label "><b>Clave</b> </label>
-                                    <input type="password" placeholder='Clave' className="form-control container" style={{ width: "500px", height: "35px", fontFamily: "Cambria" }} />
+                                    <input {...register('clave', { required: true })} type="password" placeholder='Clave' className="form-control container" style={{ width: "500px", height: "35px", fontFamily: "Cambria" }} />
+                                    {errors.clave && errors.clave.type === 'required' && <div className='alert alert-danger fade show' role='alert'>Se requiere su clave</div>}
                                 </div>
 
                                 <div className="mb-5">
@@ -86,4 +99,4 @@ const InicioSesion = () => {
     </section>
 }
 
-export default InicioSesion;
+export default InicioSesionView;
