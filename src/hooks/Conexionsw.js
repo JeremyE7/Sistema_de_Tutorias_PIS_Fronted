@@ -87,3 +87,24 @@ export const Estudiantes = async () => {
     console.error('Error:', error);
   }
 }
+
+export const Docentes = async () => {
+  try {
+    const response = await fetch(URL + '/docente/listar', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      },
+    });
+
+    const responseData = await response.json();
+
+    console.log(responseData);
+
+    return responseData;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
