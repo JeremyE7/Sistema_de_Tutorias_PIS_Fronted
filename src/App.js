@@ -5,6 +5,7 @@ import { Routes,Route } from 'react-router-dom';
 import CrearCuenta from './componentes/CrearCuenta';
 import Inicioview from './componentes/Inicioview';
 import InicioSesionView from './componentes/IniciosesionView';
+import ListarEstudianteView from './componentes/ListarEstudianteView';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Route path="/" element={<InicioSesionView/>}></Route>
       <Route path="/CrearCuenta" element={<CrearCuenta/>}></Route>
       <Route path="/Inicio" element={<Inicioview/>}></Route>
+      <Route path="/estudiante/listar" element={<ListarEstudianteView/>}></Route>
     </Routes>
     </div>
   );
