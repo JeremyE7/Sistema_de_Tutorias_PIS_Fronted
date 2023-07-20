@@ -1,6 +1,6 @@
 import React from "react";
 import './App.css';
-import CabeceraFija from "./componentes/CabeceraFija";
+import Nanvar from "./componentes/Nanvar";
 import { Routes, Route } from 'react-router-dom';
 import Inicioview from './componentes/Inicioview';
 import InicioSesionView from './componentes/IniciosesionView';
@@ -30,7 +30,7 @@ function App() {
   }
   return (
     <div>
-      <CabeceraFija />
+      <Nanvar />
       <Routes>
         <Route path='/' element={<MiddlewareSession><InicioSesionView /></MiddlewareSession>}></Route>
         <Route path='/CrearCuenta' element={<MiddlewareSession><CrearCuentaView /></MiddlewareSession>}></Route>
