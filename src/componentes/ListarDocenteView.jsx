@@ -2,7 +2,7 @@ import React from "react";
 import "../css/Bootstrap.css";
 import { Session } from '../utilidades/UseSession';
 import { Docentes } from "../hooks/Conexionsw";
-import {useNavigate,Link, Navigate,useParams } from 'react-router-dom';
+import { useNavigate, Link, Navigate, useParams } from 'react-router-dom';
 import swal from 'sweetalert';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -39,7 +39,7 @@ const ListarDocenteView = () => {
   if (!llamada) {
     const datos = Docentes().then((data) => {
       console.log(data);
-      
+
       setllamada(true);
       setInfo(data);
       //console.log(data);
@@ -66,12 +66,15 @@ const ListarDocenteView = () => {
         ></img>
       </div>
 
-      
+
 
       <div className="container mt-5  ">
         <table className="table table-hover table-dark tableFixHead ">
           <thead className="border-light">
             <tr>
+              <th scope="col">
+                <strong>Id</strong>
+              </th>
               <th scope="col">
                 <strong>Nombre</strong>
               </th>

@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import swal from 'sweetalert';
 import { Link, useNavigate } from 'react-router-dom';
 import { Session } from '../utilidades/UseSession';
-import CrearCuenta from './CrearCuenta';
+import CrearCuenta from './CrearCuentaView';
 import { IngresarSistema } from '../hooks/Conexionsw';
 
 const InicioSesionView = () => {

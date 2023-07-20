@@ -1,7 +1,7 @@
 import React from 'react';
 import '../css/Bootstrap.css';
 
-const CrearCuenta = () => {
+const CrearCuentaView = () => {
     return (
         <div className="container py-5 h-100">
             <div className="row d-flex justify-content-center align-items-center h-100">
@@ -79,4 +79,4 @@ const CrearCuenta = () => {
     );
 };
 
-export default CrearCuenta;
+export default CrearCuentaView;

@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const Inicioview = () => {
         return (
             <div>
-               <h1>Pagina Principal </h1> 
+               <h1> Pagina Principal </h1> 
             </div>
         );
 }
