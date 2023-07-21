@@ -3,13 +3,11 @@ import '../css/fondo.css';
 import { useForm } from 'react-hook-form';
 import swal from 'sweetalert';
 import { Link, useNavigate } from 'react-router-dom';
-import { Session } from '../utilidades/UseSession';
+import { Guardar, Session } from '../utilidades/UseSession';
 import { IngresarSistema } from '../hooks/Conexionsw';
-import { useUser } from './useContext';
 
 const InicioSesionView = () => {
     const navegacion = useNavigate();
-    const { setUser } = useUser();
     const { register, handleSubmit, formState: { errors } } = useForm(); // initialise the hook
     //const {info, error, execute} = InicioSesion(undefined,false);
     const mensaje = (texto) => swal(
@@ -37,12 +35,9 @@ const InicioSesionView = () => {
         var datos = { 'correo': data.correo, 'clave': data.clave };
         IngresarSistema(datos).then((info) => {
             if (info && info.token) {
-                const userInfo = {
-                    username: info.usuario.persona.nombre,
-                    userapellido: info.usuario.persona.apellido
-                };
-                setUser(userInfo);
-                Session(info.token);
+                const data = [info.usuario.persona.nombre,info.usuario.persona.apellido]
+                Guardar(data);
+                Session(info.token);             
                 mensajeOk("Bienvenido")
                 navegacion('/inicio');
             } else {

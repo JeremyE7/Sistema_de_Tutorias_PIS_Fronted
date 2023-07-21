@@ -4,6 +4,19 @@ export const Session = (token) => {
     localStorage.setItem('token',token);
 };
 
+export const Guardar = (dato) => {
+    localStorage.setItem('Nombre',dato);
+};
+
+export const ObtenerDatos = () => {
+    return localStorage.getItem('Nombre');
+};
+
+export const BorrarDatos = () => {
+    localStorage.removeItem('Nombre');
+    
+}
+
 export const ObtenerSession = (token) => {
     return localStorage.getItem('token');
 };
