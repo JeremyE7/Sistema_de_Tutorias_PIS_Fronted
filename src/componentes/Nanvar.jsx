@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import "../css/NavBar.css";
@@ -29,10 +29,14 @@ import {
 } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import logo from '../img/logo.png';
+import { CerrarSession } from "../utilidades/UseSession";
+import { useUser } from "./useContext";
 
 const Nanvar = () => {
+  const { user } = useUser();
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const location = useLocation();
+  const navegacion = useNavigate();
 
   const excludedRoutes = ["/"];
 
@@ -45,13 +49,15 @@ const Nanvar = () => {
     <Container>
       <Wrapper>
         <IconContext.Provider value={{ style: { fontSize: "2em" } }}>
-          <div className="mx-3 mt-1">
-            <img
+          <div className="mt-1" style={{display:"flex"}}>
+            <img onClick={() => navegacion('/Inicio')}
               src={logo}
               width={"60"}
               height={"60"}
             />
+            <h5 className="ml-3 mt-3" style={{ color: "white" }}> <b> Bienvenido {user.username} {user.userapellido} </b></h5>
           </div>
+
 
           <MobileIcon onClick={() => setShowMobileMenu(!showMobileMenu)}>
             {showMobileMenu ? <FaTimes /> : <FaBars />}
@@ -59,44 +65,49 @@ const Nanvar = () => {
 
           <Menu open={showMobileMenu}>
             <MenuItem>
-              <MenuItemLink onClick={() => setShowMobileMenu(!showMobileMenu)}>
-                <div>
-                  <AiFillSchedule/>
-                  <Link className="link-dark" style={{ color: 'inherit', textDecoration: 'inherit'}} to="/">
+              <MenuItemLink onClick={() => {
+                setShowMobileMenu(!showMobileMenu);
+                //navegacion('estudiante/listar') --> aqui va la ruta del componente tutoria ponerla ojo
+              }}>
+                <div style={{ fontWeight: "bold" }}>
+                  <AiFillSchedule />
                   TUTORÍAS
-                  </Link>
                 </div>
               </MenuItemLink>
             </MenuItem>
             <MenuItem>
-              <MenuItemLink onClick={() => setShowMobileMenu(!showMobileMenu)}>
-                <div>
-                <AiFillFilePdf />
-                <Link className="link-dark" style={{ color: 'inherit', textDecoration: 'inherit'}} to="/">
+              <MenuItemLink onClick={() => {
+                setShowMobileMenu(!showMobileMenu);
+                //navegacion('estudiante/listar') --> aqui va la ruta delcomponente reporte ponerla ojo
+              }}>
+                <div style={{ fontWeight: "bold" }}>
+                  <AiFillFilePdf />
                   REPORTES
-                  </Link>
                 </div>
               </MenuItemLink>
             </MenuItem>
             <MenuItem>
-              <MenuItemLink onClick={() => setShowMobileMenu(!showMobileMenu)}>
-                <div>
-                  <AiOutlineUser/>
-                  <Link className="link-dark" style={{ color: 'inherit', textDecoration: 'inherit'}} to="/">
+              <MenuItemLink onClick={() => {
+                setShowMobileMenu(!showMobileMenu);
+                //navegacion('estudiante/listar') --> aqui va la ruta del componente cuenta ponerla ojo
+              }}>
+                <div style={{ fontWeight: "bold" }} >
+                  <AiOutlineUser />
                   CUENTA
-                  </Link>
                 </div>
               </MenuItemLink>
             </MenuItem>
             <MenuItem>
-              <MenuItemLink onClick={() => setShowMobileMenu(!showMobileMenu)}>
-                
-                <div>
-                
-                  <AiOutlineLogout/>
-                  <Link className="link-dark" style={{ color: 'inherit', textDecoration: 'inherit'}} to="/">
+              <MenuItemLink onClick={() => {
+                setShowMobileMenu(!showMobileMenu);
+                CerrarSession();
+                navegacion('/');
+              }}>
+
+                <div style={{ fontWeight: "bold" }}>
+
+                  <AiOutlineLogout />
                   CERRAR SESIÓN
-                  </Link>
                 </div>
               </MenuItemLink>
             </MenuItem>

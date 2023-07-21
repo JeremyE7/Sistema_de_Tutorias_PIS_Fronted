@@ -9,6 +9,7 @@ import ListarDocenteView from './componentes/ListarDocenteView';
 import { EstaSession } from './utilidades/UseSession';
 import CrearCuentaView from './componentes/CrearCuentaView';
 import { useLocation, Navigate } from 'react-router-dom'
+import { UserProvider } from "./componentes/useContext";
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
   }
   return (
     <div>
+      <UserProvider>
       <Nanvar />
       <Routes>
         <Route path='/' element={<MiddlewareSession><InicioSesionView /></MiddlewareSession>}></Route>
@@ -38,6 +40,7 @@ function App() {
         <Route path='/estudiante/listar' element={<Middleware><ListarEstudianteView /></Middleware>}></Route>
         <Route path='/docente/listar' element={<Middleware><ListarDocenteView /></Middleware>}></Route>
       </Routes>
+      </UserProvider>
     </div>
   );
 }
