@@ -41,7 +41,7 @@ const InicioSesionView = () => {
                 mensajeOk("Bienvenido")
                 navegacion('/inicio');
             } else {
-                mensaje(info.error);
+                mensaje("Credenciales inválidas");
             }
         });
     };
