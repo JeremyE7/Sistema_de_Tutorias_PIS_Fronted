@@ -68,6 +68,7 @@ export const IngresarSistema = async (data) => {
     console.error('Error:', error);
   }
 }
+
 export const Estudiantes = async () => {
   try {
     const response = await fetch(URL + '/estudiante/listar', {
@@ -108,3 +109,59 @@ export const Docentes = async () => {
   }
 }
 
+export const tutoriasPendientes = async () => {
+  try {
+    const response = await fetch(URL + '/tutorias')
+    const tutorias = await response.json();
+
+    console.log(tutorias);
+
+    return tutorias.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const aceptarTutoria = async (external_id, datos) =>{
+  try {
+    console.log(datos);
+    const response = await fetch(URL + '/tutorias/docente/'+external_id,{
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      },
+      body:JSON.stringify(datos)
+    })
+    console.log(response);
+    const tutoria = await response.json();
+
+    console.log(tutoria);
+
+    return tutoria.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const cambiarEstadoTutoria = async (external_id, estado) =>{
+  try {
+    const response = await fetch(URL + '/tutorias/estado/'+external_id,{
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      },
+      body:JSON.stringify({
+        "estado": estado
+      })
+    })
+    const tutoria = await response.json();
+
+    console.log(tutoria);
+
+    return tutoria.data;
+  } catch (error) {
+    console.log(error);
+  }
+}

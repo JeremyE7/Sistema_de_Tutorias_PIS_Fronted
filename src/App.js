@@ -8,8 +8,8 @@ import ListarEstudianteView from './componentes/ListarEstudianteView';
 import ListarDocenteView from './componentes/ListarDocenteView';
 import { EstaSession } from './utilidades/UseSession';
 import CrearCuentaView from './componentes/CrearCuentaView';
-import { useLocation, Navigate } from 'react-router-dom'
-import { UserProvider } from "./componentes/useContext";
+import { useLocation, Navigate } from 'react-router-dom';
+import Solicitar from './componentes/Solicitar';
 
 function App() {
 
@@ -29,18 +29,22 @@ function App() {
       return <Navigate to="/Inicio" />;
     } else return children;
   }
+ const handleSolicitudTutoria = (data) => {
+  // Aquí puedes manejar la lógica para enviar la solicitud al docente
+  console.log("Solicitud enviada:", data);
+};
+
   return (
     <div>
-      <UserProvider>
       <Nanvar />
       <Routes>
         <Route path='/' element={<MiddlewareSession><InicioSesionView /></MiddlewareSession>}></Route>
         <Route path='/CrearCuenta' element={<MiddlewareSession><CrearCuentaView /></MiddlewareSession>}></Route>
-        <Route path='/Inicio' element={<Middleware><Inicioview /></Middleware>}></Route>
+        <Route path='/inicio' element={<Middleware><Inicioview /></Middleware>}></Route>
         <Route path='/estudiante/listar' element={<Middleware><ListarEstudianteView /></Middleware>}></Route>
         <Route path='/docente/listar' element={<Middleware><ListarDocenteView /></Middleware>}></Route>
+        <Route path="/solicitar" element={<Solicitar onSubmit={handleSolicitudTutoria}/>}></Route>
       </Routes>
-      </UserProvider>
     </div>
   );
 }

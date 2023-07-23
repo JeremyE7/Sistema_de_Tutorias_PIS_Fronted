@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&display=swap');
+
+
+.tablaTP-desktop {
+    margin-top: 50px;
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    font-family: 'Montserrat';
+}
+
+.tablaTP-desktop tr th {
+    color: black;
+    padding: 10px;
+    text-align: center;
+    border-bottom: 5px solid #dee2e6;
+    font-weight: bold;
+}
+
+
+.tablaTP-desktop tr td {
+    border-top: 0.5px solid #909090;
+    border-bottom: 0.5px solid #909090;
+    text-align: center;
+    padding: 5px;
+}
+
+.tablaTP-mobile {
+    font-family: 'Montserrat';
+    margin-top: 50px;
+    display: none;
+    width: 100%;
+}
+
+.tablaTP-mobile .fila .columna {
+    display: flex;
+    flex-direction: column;
+}
+
+.tablaTP-mobile .fila {
+    display: flex;
+    flex-direction: row;
+}
+
+.tablaTP-mobile .columna .header,
+.tablaTP-mobile .columna .contenido {
+    padding: 15px;
+}
+
+.tablaTP-mobile .fila .columna .header {
+    background-color: #ffffff;
+    border-bottom: 2.5px solid #dee2e6;
+    border-right: 5px solid #dee2e6;
+    color: black;
+    font-weight: bold;
+    padding: 9.7px;
+}
+
+.tablaTP-mobile .fila .columna .contenido {
+    background-color: #ffffff;
+    border-bottom: 2.5px solid #dee2e6;
+    padding: 9.7px;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.tablaTP-mobile .fila .columna .contenido button {
+    padding: 2px;
+    font-size: 10px;
+}
+
+
+ 
+
+
+@media (max-width: 600px) {
+    .tablaTP-mobile {
+        display: block;
+    }
+
+    .tablaTP-desktop {
+        display: none;
+    }
+}
+
+.contenedor-tablaTP {
+    margin: 20px;
+}
