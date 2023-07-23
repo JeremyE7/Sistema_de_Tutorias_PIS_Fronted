@@ -28,6 +28,7 @@ const Solicitar = ({ onSubmit }) => {
     setMateria("");
     setMensaje("");
     setCarrera("");
+    
 
   };
 
