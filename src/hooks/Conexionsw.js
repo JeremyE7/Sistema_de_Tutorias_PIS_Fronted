@@ -125,7 +125,6 @@ export const tutoriasPendientes = async () => {
 export const obtenerTutorias = async (rol,external_id) =>{
   try{
     const response = await fetch(URL + '/tutorias/'+rol+"/"+external_id,{
-      mode: 'no-cors',
       method:'GET',
       headers: {
         'Content-Type': 'application/json',
