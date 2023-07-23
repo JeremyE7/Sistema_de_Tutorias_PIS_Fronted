@@ -20,15 +20,15 @@ const PaginacionTabla = ({ totalItems, itemsPorPagina, paginaActual, setPagina})
             <nav aria-label="..."> 
                 <ul className="pagination justify-content-center">
                     <li className='page-item'>
-                        <a href="#" className='page-link' onClick={()=>setPagina(paginaAnterior)}>Anterior</a>
+                        <a href="/#" className='page-link' onClick={paginaAnterior}>Anterior</a>
                     </li>
-                    {paginas.map((pagina, i)=>{
+                    {paginas.map((pagina, i)=>(
                         <li className="page-item" key={i}>
-                            <a href="#" className="page-item" onClick={()=>setPagina(pagina)}>{pagina}</a>
+                            <a href="/#" className="page-item" onClick={()=>setPagina(pagina)}>{pagina}</a>
                         </li>
-                    })}
+                    ))}
                     <li className='page-item'>
-                        <a href="#" className='page-link' onClick={(paginaSiguiente)}>Siguiente</a>
+                        <a href="/#" className='page-link' onClick={(paginaSiguiente)}>Siguiente</a>
                     </li>
                 </ul>
             </nav>
