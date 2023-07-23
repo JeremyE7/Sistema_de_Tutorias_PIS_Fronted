@@ -2,6 +2,7 @@ import { useState } from 'react';
 import "../css/solicitar.css";
 import '../css/Bootstrap.css';
 import { Link } from 'react-router-dom';
+
 const Solicitar = ({ onSubmit }) => {
   const [nombreEstudiante, setNombreEstudiante] = useState("");
   const [materia, setMateria] = useState("");
@@ -28,68 +29,67 @@ const Solicitar = ({ onSubmit }) => {
     setMateria("");
     setMensaje("");
     setCarrera("");
-    
+
 
   };
 
   return (
-   
-    <form onSubmit={handleSubmit}>
-      <div className='container3 card'>
-        <label>Nombre del Estudiante:</label>
-        <input
-          type="text"
-          value={nombreEstudiante}
-          onChange={(e) => setNombreEstudiante(e.target.value)}
-          required
-        />
-      </div>
-      <div className='container3 card'>
-        <label>Materia:</label>
-        <select value={selectedOption} onChange={handleOptionChange}>
-          <option value="">Sistemas Distribuidos</option>
-          <option value="opcion2">Procesos de Software</option>
-          <option value="opcion3">Teoria de Automatas</option>
-          <option value="opcion4">Computacion en la nube</option>
-          <option value="opcion5">Gestion de Redes</option>
-        </select>
+    <div className='solicitar-body'>
+      <form className="form-solicitar" onSubmit={handleSubmit}>
+        <div className='container3-solicitar div-solicitar card'>
+          <label className='label-solicitar'>Nombre del Estudiante:</label>
+          <input
+            type="text"
+            value={nombreEstudiante}
+            onChange={(e) => setNombreEstudiante(e.target.value)}
+            required
+          />
+        </div>
+        <div className='container3-solicitar div-solicitar card'>
+          <label className='label-solicitar'>Materia:</label>
+          <select value={selectedOption} onChange={handleOptionChange}>
+            <option value="">Sistemas Distribuidos</option>
+            <option value="opcion2">Procesos de Software</option>
+            <option value="opcion3">Teoria de Automatas</option>
+            <option value="opcion4">Computacion en la nube</option>
+            <option value="opcion5">Gestion de Redes</option>
+          </select>
 
-      </div>
-      <div className='container3 card'>
-        <label>Carrera:</label>
-        <input
-          type="text"
-          value={carrera}
-          onChange={(e) => setCarrera(e.target.value)}
-          required
-        />
-      </div>
-      <div className='container3 card'>
-        <label>Docente:</label>
-        <select value={selectedOption} onChange={handleOptionChange}>
-          <option value="">Ing Rene Guaman</option>
-          <option value="opcion2">Ing. Francisco Alvarez</option>
-          <option value="opcion3">Ing. Genoveva Suing</option>
-          <option value="opcion4">Ing. Cristian Narvaez</option>
-          <option value="opcion5">Ing. Mario Cueva</option>
-        </select>
+        </div>
+        <div className='container3-solicitar div-solicitar card'>
+          <label className='label-solicitar'>Carrera:</label>
+          <input
+            type="text"
+            value={carrera}
+            onChange={(e) => setCarrera(e.target.value)}
+            required
+          />
+        </div>
+        <div className='container3-solicitar div-solicitar card'>
+          <label className='label-solicitar'>Docente:</label>
+          <select value={selectedOption} onChange={handleOptionChange}>
+            <option value="">Ing Rene Guaman</option>
+            <option value="opcion2">Ing. Francisco Alvarez</option>
+            <option value="opcion3">Ing. Genoveva Suing</option>
+            <option value="opcion4">Ing. Cristian Narvaez</option>
+            <option value="opcion5">Ing. Mario Cueva</option>
+          </select>
 
-      </div>
-      <div className='container3 card'>
-        <label>Mensaje:</label>
-        <input
-          type='text'
-          background
-          value={mensaje}
-          onChange={(e) => setMensaje(e.target.value)}
-          required
-        ></input>
-      </div>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <button type="submit">Solicitar Tutoría</button>
-    
-
-    </form>
+        </div>
+        <div className='container3-solicitar div-solicitar card'>
+          <label className='label-solicitar'>Mensaje:</label>
+          <input
+            type='text'
+            background
+            value={mensaje}
+            onChange={(e) => setMensaje(e.target.value)}
+            required
+          ></input>
+        </div>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        <button className='button-solicitar' type="submit">Solicitar Tutoría</button>
+      </form>
+    </div>
   );
 
 };
