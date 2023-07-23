@@ -1,10 +1,9 @@
 import React from 'react';
-import TablaTutoriasPendientes from './TablaTutoriasPendientes';
 
 const Inicioview = () => {
         return (
             <div>
-                <TablaTutoriasPendientes/>
+               <h1> Pagina Principal </h1> 
             </div>
         );
 }
