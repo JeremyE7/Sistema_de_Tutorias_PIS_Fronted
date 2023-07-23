@@ -5,6 +5,7 @@ import swal from 'sweetalert';
 import { Link, useNavigate } from 'react-router-dom';
 import { Guardar, Session } from '../utilidades/UseSession';
 import { IngresarSistema } from '../hooks/Conexionsw';
+import { encriptando } from '../utilidades/encryp';
 
 const InicioSesionView = () => {
     const navegacion = useNavigate();
@@ -36,7 +37,9 @@ const InicioSesionView = () => {
         IngresarSistema(datos).then((info) => {
             if (info && info.token) {
                 const data = [info.usuario.persona.nombre,info.usuario.persona.apellido]
-                Guardar(data);
+                const encriptado = encriptando(data);
+                Guardar('Nombre',encriptado);
+                Guardar('ExternalCuenta',info.usuario.externalId)
                 Session(info.token);             
                 mensajeOk("Bienvenido")
                 navegacion('/inicio');

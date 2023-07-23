@@ -4,16 +4,17 @@ export const Session = (token) => {
     localStorage.setItem('token',token);
 };
 
-export const Guardar = (dato) => {
-    localStorage.setItem('Nombre',dato);
+export const Guardar = (nombre,dato) => {
+    localStorage.setItem(nombre,dato);
+    // se pasa el nombre del dato y su data
 };
 
-export const ObtenerDatos = () => {
-    return localStorage.getItem('Nombre');
+export const ObtenerDatos = (nombre) => {
+    return localStorage.getItem(nombre);
 };
 
-export const BorrarDatos = () => {
-    localStorage.removeItem('Nombre');
+export const BorrarDatos = (nombre) => {
+    localStorage.removeItem(nombre);
     
 }
 

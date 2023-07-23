@@ -30,6 +30,7 @@ import {
 import { IconContext } from "react-icons";
 import logo from '../img/logo.png';
 import { BorrarDatos, CerrarSession, ObtenerDatos } from "../utilidades/UseSession";
+import { desencriptando } from "../utilidades/encryp";
 
 const Nanvar = () => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -39,6 +40,7 @@ const Nanvar = () => {
   const excludedRoutes = ["/"];
 
   const shouldRenderNavbar = !excludedRoutes.includes(location.pathname);
+
 
   if (!shouldRenderNavbar) {
     return null;
@@ -53,7 +55,7 @@ const Nanvar = () => {
               width={"60"}
               height={"60"}
             />
-              <h5 className="ml-3 mt-3" style={{ color: "white" }}> <b> Bienvenido {ObtenerDatos().replace(',',' ')} </b></h5>
+              <h5 className="ml-3 mt-3" style={{ color: "white" }}> <b> Bienvenido {desencriptando('Nombre')}  </b></h5>
           </div>
 
 
@@ -99,7 +101,7 @@ const Nanvar = () => {
               <MenuItemLink onClick={() => {
                 setShowMobileMenu(!showMobileMenu);
                 CerrarSession();
-                BorrarDatos();
+                BorrarDatos('Nombre');
                 navegacion('/');
               }}>
 
