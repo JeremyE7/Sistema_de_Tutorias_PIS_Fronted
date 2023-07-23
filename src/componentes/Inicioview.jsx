@@ -1,9 +1,12 @@
 import React from 'react';
+import TablaTutoriasPendientes from './TablaTutoriasPendientes';
+import TablaHistorialTutorias from './TablaHistorialTutorias';
 
 const Inicioview = () => {
         return (
             <div>
-               <h1> Pagina Principal </h1> 
+                <TablaTutoriasPendientes/>
+                <TablaHistorialTutorias/>
             </div>
         );
 }

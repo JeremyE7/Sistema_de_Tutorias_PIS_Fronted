@@ -13,6 +13,9 @@ export const encriptando = (data) => {
 
 export const desencriptando = (nombre) => {
     const encrypt = localStorage.getItem(nombre);
+    if (encrypt == null) {
+      return null;
+    }
    
     const decrypt = CryptoJS.AES.decrypt(encrypt, secretKey).toString(
       CryptoJS.enc.Utf8,

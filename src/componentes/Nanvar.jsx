@@ -37,7 +37,7 @@ const Nanvar = () => {
   const location = useLocation();
   const navegacion = useNavigate();
 
-  const excludedRoutes = ["/"];
+  const excludedRoutes = ["/", "/CrearCuenta"];
 
   const shouldRenderNavbar = !excludedRoutes.includes(location.pathname);
 
@@ -55,7 +55,17 @@ const Nanvar = () => {
               width={"60"}
               height={"60"}
             />
-              <h5 className="ml-3 mt-3" style={{ color: "white" }}> <b> Bienvenido {desencriptando('Nombre')}  </b></h5>
+            {desencriptando("Nombre") !== null ? (
+              <h5 className="ml-3 mt-3" style={{ color: "white" }}>
+                <b> Bienvenido {desencriptando('Nombre')} </b>
+              </h5>
+            ) : (
+              <h5 className="ml-3 mt-3" style={{ color: "white" }}>
+                <b> Inicia Sesion para ver tu perfil </b>
+              </h5>
+            )}
+
+
           </div>
 
 
@@ -102,6 +112,7 @@ const Nanvar = () => {
                 setShowMobileMenu(!showMobileMenu);
                 CerrarSession();
                 BorrarDatos('Nombre');
+                BorrarDatos('ExternalCuenta');
                 navegacion('/');
               }}>
 
