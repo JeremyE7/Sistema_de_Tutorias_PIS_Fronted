@@ -20,9 +20,9 @@ const Inicioview = () => {
 
     return (
         <div>
-            {esDocente === true && <div style={{margin:'20px'}}>
+            {!esDocente && <div style={{margin:'20px'}}>
                 <Link to="/solicitar">
-                    <button style={{backgroundColor:'#23394d',color:'white', fontFamily:'sans-serif', fontWeight:'bold', borderColor:'#23394d', borderRadius:'4px'}}>Crear nueva tutoria</button>
+                    <button style={{backgroundColor:'#23394d',color:'white', fontFamily:'sans-serif', fontWeight:'bold', borderColor:'#23394d', borderRadius:'4px'}}>Solicitar tutoria</button>
                 </Link>
             </div>}
             <div>
