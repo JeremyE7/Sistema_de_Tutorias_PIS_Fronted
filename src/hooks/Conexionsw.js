@@ -122,6 +122,22 @@ export const tutoriasPendientes = async () => {
   }
 }
 
+export const obtenerRolCuenta = async(external_id)=>{
+  try {
+    const response = await fetch(URL+'/cuenta/'+external_id,{
+      method:'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      }, 
+    })
+    const responseData = await response.json()
+    return responseData.data.rol
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export const obtenerTutorias = async (rol,external_id) =>{
   try{
     const response = await fetch(URL + '/tutorias/'+rol+"/"+external_id,{
