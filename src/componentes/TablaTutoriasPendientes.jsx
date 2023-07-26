@@ -142,7 +142,7 @@ const TablaTutoriasPendientes = () => {
                         <div className="form-group">
                             <label htmlFor="estado">Estado</label>
                             <select name="estado" className="form-control" id="estado">
-                                <option>Completada</option>
+                                <option>Realizada</option>
                                 <option>Aceptada</option>
                             </select>
                         </div>

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import '../css/TablaTutoriasPendientes.css';
-import { aceptarTutoria, cambiarEstadoTutoria, obtenerTutorias, tutoriasPendientes } from '../hooks/Conexionsw';
+import {aceptarTutoria, cambiarEstadoTutoria, obtenerCuenta, obtenerRolCuenta, obtenerTutorias, tutoriasPendientes } from '../hooks/Conexionsw';
 import Modal from 'react-modal';
 import PaginacionTabla from './PaginacionTabla';
+import { ObtenerDatos, ObtenerSession } from '../utilidades/UseSession';
 
 
 const TablaHistorialTutorias = () => {
@@ -17,13 +18,20 @@ const TablaHistorialTutorias = () => {
     const listaTutorias = tutorias.slice(primerIndice, ulitmoIndice);
 
 
-    useEffect(()=>{
-        obtenerTutorias(rol, external).then((info)=>{
-            if(info){
-                setTutorias(info.filter(tutoria => tutoria.estado === "Finalizado"))
+    useEffect(() => {
+        const getRol = async () => {
+            const cuenta =  await obtenerCuenta(ObtenerDatos("ExternalCuenta"))
+            const rol = await obtenerRolCuenta(ObtenerDatos("ExternalCuenta"))
+            setRol(rol.nombre)
+            const externalAux = cuenta.data.persona.docente.externalId;
+            const tutsAux = await obtenerTutorias(rol, externalAux)
+            if (tutsAux.data) {
+                setTutorias(tutsAux.data.filter(tutoria => tutoria.estado !== "Espera"))
             }
-        })
-    },[])
+        }
+
+        getRol()
+    }, [])
 
     return (
         <>
@@ -37,8 +45,9 @@ const TablaHistorialTutorias = () => {
                         </tr>
                     </thead>
                     <tbody>
-                    {listaTutorias && listaTutorias.map((tutoria) => (
+                        {listaTutorias && listaTutorias.map((tutoria) => (
                             <tr key={tutoria.id}>
+                                {console.log(tutoria)}
                                 <td>{tutoria.materia.nombre}</td>
                                 <td>{tutoria.estado}</td>
                                 <td>{tutoria.estudiantes.map((estudiante, key) => { return estudiante.persona.nombre + " " + estudiante.persona.apellido + ((key === tutoria.estudiantes.length - 1) ? "" : ", ") })}</td>
@@ -46,7 +55,7 @@ const TablaHistorialTutorias = () => {
                         ))}
                     </tbody>
                 </table>
-                <PaginacionTabla totalItems={listaTutorias} itemsPorPagina={itemsPorPagina} paginaActual={pagina} setPagina={setPagina}/>
+                <PaginacionTabla totalItems={listaTutorias} itemsPorPagina={itemsPorPagina} paginaActual={pagina} setPagina={setPagina} />
             </div>
         </>
     )

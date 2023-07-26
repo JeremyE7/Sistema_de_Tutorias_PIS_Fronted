@@ -9,7 +9,7 @@ const Inicioview = () => {
     const [esDocente, setDocente] = useState(false)
 
     const asignarPermiso = (rol) =>{
-        if(rol === 'DOCENTE'){
+        if(rol === 'Docente'){
             setDocente(true)
         }
     }

@@ -69,6 +69,24 @@ export const IngresarSistema = async (data) => {
   }
 }
 
+export const obtenerCuenta = async (external_id) => {
+  try {
+    const response = await fetch(URL + '/cuenta/' + external_id, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      },  
+    });
+
+    const responseData = await response.json();
+    console.log(responseData);
+    return responseData;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
 export const Estudiantes = async () => {
   try {
     const response = await fetch(URL + '/estudiante/listar', {
@@ -109,6 +127,8 @@ export const Docentes = async () => {
   }
 }
 
+
+
 export const tutoriasPendientes = async () => {
   try {
     const response = await fetch(URL + '/tutorias')
@@ -132,6 +152,7 @@ export const obtenerRolCuenta = async(external_id)=>{
       }, 
     })
     const responseData = await response.json()
+    console.log(responseData);
     return responseData.data.rol
   } catch (error) {
     console.log(error)
@@ -140,14 +161,17 @@ export const obtenerRolCuenta = async(external_id)=>{
 
 export const obtenerTutorias = async (rol,external_id) =>{
   try{
+    rol = rol.nombre.toLowerCase();
     const response = await fetch(URL + '/tutorias/'+rol+"/"+external_id,{
       method:'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': ObtenerSession()
+        'Authorization': ObtenerSession() 
       }, 
     })
+    console.log(external_id);
     const responseData = await response.json()
+    console.log(responseData);  
     return responseData
   }catch(error){
     console.log(error)
