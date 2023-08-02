@@ -49,7 +49,7 @@ const Nanvar = () => {
     <Container>
       <Wrapper>
         <IconContext.Provider value={{ style: { fontSize: "2em" } }}>
-          <div className="" style={{ display: "flex", backgroundColor: "#8d0b0e", padding: "0px 5   0px", alignItems: "center", justifyContent: "center"}}>
+          <div className="" style={{ display: "flex", backgroundColor: "#8d0b0e", padding: "0px 50px", alignItems: "center", justifyContent: "center"}}>
             <img onClick={() => navegacion('/Inicio')}
               src={logo}
               width={"60"}

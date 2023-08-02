@@ -4,12 +4,14 @@ import { cambiarEstadoTutoria, obtenerCuenta, tutoriasPendientes } from '../hook
 import TablaTutoriasPendientesMobile from './TablaTutoriasPendientesMobile';
 import VModalTutoriaDocente from './VModalTutoriaDocente';
 import { ObtenerDatos } from '../utilidades/UseSession';
+import VModalFinalizarTutoria from './VModalFinalizarTutoria';
 
 const TablaTutoriasPendientes = () => {
 
 
     const [tutorias, setTutorias] = useState([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [modalFinalizarIsOpen, setModalFinalizarIsOpen] = useState(false);
     const [externalIdTutoria, setExternalIdTutoria] = useState(null);
 
     const obtenerTutorias = async () => {
@@ -30,13 +32,15 @@ const TablaTutoriasPendientes = () => {
     }, []);
 
     const handleRechazar = async (estado, externalIdAux) => {
+        console.log(externalIdAux);
         setExternalIdTutoria(externalIdAux)
-        const res = await cambiarEstadoTutoria(externalIdTutoria, estado);
+        const res = await cambiarEstadoTutoria(externalIdAux, estado);
         if (res) {
             console.log(res);
             window.location.reload();
         }
     }
+    
 
     if (tutorias) return (
         <>
@@ -55,7 +59,7 @@ const TablaTutoriasPendientes = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {tutorias && tutorias.map((tutoria) => (
+                        {tutorias.length > 0 ? tutorias.map((tutoria) => (
                             <tr key={tutoria.id}>
                                 <td>{tutoria.materia.nombre}</td>
                                 <td>{tutoria.estado}</td>
@@ -72,7 +76,7 @@ const TablaTutoriasPendientes = () => {
                                             }}>Aceptar</button>
                                             <button className="btn btn-danger" onClick={() => {
                                                 setExternalIdTutoria(tutoria.externalId)
-                                                handleRechazar("Rechazada")
+                                                handleRechazar("Rechazada", tutoria.externalId)
                                             }}>Rechazar</button>
                                         </>
                                     ) : (
@@ -80,7 +84,7 @@ const TablaTutoriasPendientes = () => {
                                             {(new Date(tutoria.fechaInicio)).toLocaleString() <= new Date().toLocaleString() ? (
                                                 <button className="btn btn-danger" onClick={() => {
                                                     setExternalIdTutoria(tutoria.externalId)
-                                                    handleRechazar("Realizada")
+                                                    setModalFinalizarIsOpen(true)
                                                 }
                                                 }>Finalizar</button>
                                             ) : (
@@ -102,14 +106,19 @@ const TablaTutoriasPendientes = () => {
                                     )}
                                 </td>
                             </tr>
-                        ))}
+                        )): (
+                            <tr style={{backgroundColor: "#dee2e6"}}>
+                                <td colSpan="7">No hay tutorias pendientes</td>
+                            </tr>
+                        )}
                     </tbody>
                 </table>
             </div>
             <VModalTutoriaDocente externalIdTutoria={externalIdTutoria} setModalIsOpen={setModalIsOpen} modalIsOpen={modalIsOpen} />
+            <VModalFinalizarTutoria externalIdTutoria={externalIdTutoria} setModalIsOpen={setModalFinalizarIsOpen} modalIsOpen={modalFinalizarIsOpen}/>
             <TablaTutoriasPendientesMobile tutorias={tutorias} setModalIsOpen={setModalIsOpen} setExternalIdTutoria={setExternalIdTutoria} handleRechazar={handleRechazar} />
         </>
-    );
+    )
 };
 
 export default TablaTutoriasPendientes;

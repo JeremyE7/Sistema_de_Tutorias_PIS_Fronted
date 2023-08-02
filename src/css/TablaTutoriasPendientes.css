@@ -9,7 +9,6 @@
     overflow-x: scroll;
     box-shadow: 1px 22px 43px -28px rgba(0,0,0,0.75);
 -webkit-box-shadow: 1px 22px 43px -28px rgba(0,0,0,0.75);
--moz-box-shadow: 1px 22px 43px -28px rgba(0,0,0,0.75);
 }
 
 .tablaTP-desktop tr th {
@@ -30,7 +29,8 @@
 
 .tablaTP-mobile {
     font-family: 'Montserrat';
-    margin-top: 50px;
+    margin-top: 10px;
+    margin-bottom: 20px;
     display: none;
     width: 100%;
     overflow-x: scroll;

@@ -26,7 +26,7 @@ const TablaHistorialTutorias = () => {
             const externalAux = cuenta.data.persona.docente.externalId;
             const tutsAux = await obtenerTutorias(rol, externalAux)
             if (tutsAux.data) {
-                setTutorias(tutsAux.data.filter(tutoria => tutoria.estado !== "Espera" && tutoria.estado !== "Aceptada"))
+                setTutorias(tutsAux.data.filter(tutoria => tutoria.estado !== "Espera" && tutoria.estado !== "Aceptada").reverse())
             }
         }
 
@@ -42,6 +42,9 @@ const TablaHistorialTutorias = () => {
                         <tr>
                             <th>Materia</th>
                             <th>Estado</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Fecha</th>
                             <th>Estudiantes</th>
                         </tr>
                     </thead>
@@ -51,7 +54,11 @@ const TablaHistorialTutorias = () => {
                                 {console.log(tutoria)}
                                 <td>{tutoria.materia.nombre}</td>
                                 <td>{tutoria.estado}</td>
+                                <td>{tutoria.nombreTutoria}</td>
+                                <td>{tutoria.descripcion}</td>
+                                <td>{tutoria.estado === "Rechazada" ? "Rechazada" : (new Date(tutoria.fechaInicio)).toLocaleString()}</td>
                                 <td>{tutoria.estudiantes.map((estudiante, key) => { return estudiante.persona.nombre + " " + estudiante.persona.apellido + ((key === tutoria.estudiantes.length - 1) ? "" : ", ") })}</td>
+                                
                             </tr>
                         ))}
                     </tbody>

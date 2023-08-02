@@ -215,6 +215,27 @@ export const cambiarEstadoTutoria = async (external_id, estado) =>{
     })
     const tutoria = await response.json();
 
+    return tutoria.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const finalizarTutoria = async (external_id, fechaFinalizacion) =>{
+  try {
+    const response = await fetch(URL + '/tutorias/estado/'+external_id,{
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      },
+      body:JSON.stringify({
+        "estado": "Realizada",
+        "fechaFinalizacion": fechaFinalizacion
+      })
+    })
+    const tutoria = await response.json();
+
     console.log(tutoria);
 
     return tutoria.data;
