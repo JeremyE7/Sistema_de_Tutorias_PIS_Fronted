@@ -71,6 +71,7 @@ export const IngresarSistema = async (data) => {
 
 export const obtenerCuenta = async (external_id) => {
   try {
+    console.log(external_id);
     const response = await fetch(URL + '/cuenta/' + external_id, {
       method: 'GET',
       headers: {
@@ -129,9 +130,9 @@ export const Docentes = async () => {
 
 
 
-export const tutoriasPendientes = async () => {
+export const tutoriasPendientes = async (external_id_docente) => {
   try {
-    const response = await fetch(URL + '/tutorias')
+    const response = await fetch(URL + '/tutorias/docente/' + external_id_docente)
     const tutorias = await response.json();
 
     console.log(tutorias);
@@ -181,7 +182,7 @@ export const obtenerTutorias = async (rol,external_id) =>{
 export const aceptarTutoria = async (external_id, datos) =>{
   try {
     console.log(datos);
-    const response = await fetch(URL + '/tutorias/docente/'+external_id,{
+    const response = await fetch(URL + '/tutorias/docente/aceptar/'+external_id,{
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

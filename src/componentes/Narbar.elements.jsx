@@ -3,7 +3,10 @@ import styled from "styled-components";
 export const Container = styled.div`
   width: 100%;
   height: 70px;
-  background-color: #23394d; ;
+  background-color: #ffffff;
+  box-shadow: 3px 2px 12px 0px rgba(0,0,0,0.26);
+-webkit-box-shadow: 3px 2px 12px 0px rgba(0,0,0,0.26);
+-moz-box-shadow: 3px 2px 12px 0px rgba(0,0,0,0.26);
 `;
 
 export const Wrapper = styled.div`
@@ -11,9 +14,10 @@ export const Wrapper = styled.div`
   max-width: 1300px;
   height: 100%;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin: auto;
+  justify-content: space-between;   
+  @media screen and (max-width: 960px) {
+    background-color: #8d0b0e;
+  }
 `;
 
 export const LogoContainer = styled.div`
@@ -27,7 +31,7 @@ export const Menu = styled.ul`
   list-style: none;
 
   @media screen and (max-width: 960px) {
-    background-color: #23394d;
+    background-color: #ffffff;
     position: absolute;
     top: 70px;
     left: ${({ open }) => (open ? "0" : "-100%")}; //Import
@@ -67,7 +71,7 @@ export const MenuItemLink = styled.a`
 
   &:hover {
     color: #fff;
-    background-color: #d41d6d;
+    background-color: #8d0b0e;
     transition: 0.5s all ease;
 
     div {
@@ -86,7 +90,7 @@ export const MenuItemLink = styled.a`
 
     svg {
       display: none;
-      fill: #d41d6d;
+      fill: #8d0b0e;
       margin-right: 0.5rem;
     }
   }
@@ -147,7 +151,7 @@ export const MobileIcon = styled.div`
     cursor: pointer;
 
     svg {
-      fill: #d41d6d;
+      fill: black;
       margin-right: 0.5rem;
     }
   }

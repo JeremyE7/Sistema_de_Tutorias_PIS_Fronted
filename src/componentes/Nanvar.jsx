@@ -49,18 +49,18 @@ const Nanvar = () => {
     <Container>
       <Wrapper>
         <IconContext.Provider value={{ style: { fontSize: "2em" } }}>
-          <div className="mt-1" style={{ display: "flex" }}>
+          <div className="" style={{ display: "flex", backgroundColor: "#8d0b0e", padding: "0px 5   0px", alignItems: "center", justifyContent: "center"}}>
             <img onClick={() => navegacion('/Inicio')}
               src={logo}
               width={"60"}
               height={"60"}
             />
             {desencriptando("Nombre") !== null ? (
-              <h5 className="ml-3 mt-3" style={{ color: "white" }}>
-                <b> Bienvenido {desencriptando('Nombre')} </b>
+              <h5 className="ml-3 mt-3" style={{ color: "white", fontWeight: 500 }}>
+                <label> Sistema de <br /> Tutorias</label>
               </h5>
             ) : (
-              <h5 className="ml-3 mt-3" style={{ color: "white" }}>
+              <h5 className="ml-3 mt-3" style={{ color: "black" }}>
                 <b> Inicia Sesion para ver tu perfil </b>
               </h5>
             )}
@@ -79,9 +79,9 @@ const Nanvar = () => {
                 setShowMobileMenu(!showMobileMenu);
                 //navegacion('estudiante/listar') --> aqui va la ruta del componente tutoria ponerla ojo
               }}>
-                <div style={{ color: "white", fontWeight: "bold" }}>
+                <div style={{ color: "black", fontWeight: "500" }}>
                   <AiFillSchedule />
-                  TUTORÍAS
+                  Reportes
                 </div>
               </MenuItemLink>
             </MenuItem>
@@ -90,9 +90,9 @@ const Nanvar = () => {
                 setShowMobileMenu(!showMobileMenu);
                 //navegacion('estudiante/listar') --> aqui va la ruta delcomponente reporte ponerla ojo
               }}>
-                <div style={{ color: "white", fontWeight: "bold" }}>
+                <div style={{ color: "black", fontWeight: "500" }}>
                   <AiFillFilePdf />
-                  REPORTES
+                  Reportes
                 </div>
               </MenuItemLink>
             </MenuItem>
@@ -101,9 +101,9 @@ const Nanvar = () => {
                 setShowMobileMenu(!showMobileMenu);
                 //navegacion('estudiante/listar') --> aqui va la ruta del componente cuenta ponerla ojo
               }}>
-                <div style={{ color: "white", fontWeight: "bold" }} >
+                <div style={{ color: "black", fontWeight: "500" }} >
                   <AiOutlineUser />
-                  CUENTA
+                  Cuenta
                 </div>
               </MenuItemLink>
             </MenuItem>
@@ -116,10 +116,10 @@ const Nanvar = () => {
                 navegacion('/');
               }}>
 
-                <div style={{ color: "white", fontWeight: "bold" }}>
+                <div style={{ color: "black", fontWeight: 500 }}>
 
                   <AiOutlineLogout />
-                  CERRAR SESIÓN
+                  Cerrar Sesion
                 </div>
               </MenuItemLink>
             </MenuItem>

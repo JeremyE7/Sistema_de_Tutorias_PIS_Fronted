@@ -26,7 +26,7 @@ const TablaHistorialTutorias = () => {
             const externalAux = cuenta.data.persona.docente.externalId;
             const tutsAux = await obtenerTutorias(rol, externalAux)
             if (tutsAux.data) {
-                setTutorias(tutsAux.data.filter(tutoria => tutoria.estado !== "Espera"))
+                setTutorias(tutsAux.data.filter(tutoria => tutoria.estado !== "Espera" && tutoria.estado !== "Aceptada"))
             }
         }
 
@@ -36,6 +36,7 @@ const TablaHistorialTutorias = () => {
     return (
         <>
             <div className='contenedor-tablaTP'>
+                <label htmlFor="" className='ttl-tabla'>Historial de tutorias</label>
                 <table className='tablaTP-desktop'>
                     <thead>
                         <tr>
