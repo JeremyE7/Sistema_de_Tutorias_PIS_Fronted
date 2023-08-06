@@ -1,0 +1,8 @@
+version: '3.0'
+services:
+  frontend:
+    build: .
+    ports:
+      - 3006:3006
+    volumes:
+      - ./src:/app/src
