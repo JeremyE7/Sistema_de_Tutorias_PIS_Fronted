@@ -7,6 +7,7 @@ export const Container = styled.div`
   box-shadow: 3px 2px 12px 0px rgba(0,0,0,0.26);
 -webkit-box-shadow: 3px 2px 12px 0px rgba(0,0,0,0.26);
 -moz-box-shadow: 3px 2px 12px 0px rgba(0,0,0,0.26);
+  position: fixed;
 `;
 
 export const Wrapper = styled.div`
