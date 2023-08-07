@@ -42,12 +42,12 @@ const CrearCuentaView = () => {
         };
         const val = GuardarCuenta(datos).then((info) => {
             console.log(info.msj);
-            if (info && info.msj == 'OK') {
+            if (info && info.msj === 'OK') {
                 console.log("---", info);
                 //console.log(info.datos);
                 mensajeOk("Se han ingresado los datos");
             } else {
-                mensaje(info.msj);
+                mensaje("No se han ingresado los datos");  
                 console.log("NO Se han ingresado los datos");
             }
         });
