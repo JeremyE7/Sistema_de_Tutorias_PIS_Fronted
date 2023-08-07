@@ -37,7 +37,7 @@ const Nanvar = () => {
   const location = useLocation();
   const navegacion = useNavigate();
 
-  const excludedRoutes = ["/", "/CrearCuenta"];
+  const excludedRoutes = ["/", "/CrearCuenta","/Rol"];
 
   const shouldRenderNavbar = !excludedRoutes.includes(location.pathname);
 

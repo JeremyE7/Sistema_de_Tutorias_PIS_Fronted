@@ -91,6 +91,12 @@ const InicioSesionView = () => {
                                     </button>
                                 </div>
 
+                                <div>
+                                    <button>
+                                    <Link className="btn" to="/Rol"> <b>Rol Crear</b> </Link>
+                                    </button>
+                                </div>
+
 
                             </div>
 
