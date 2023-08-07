@@ -40,7 +40,7 @@ const RolCrear = () => {
                 //console.log(info.datos);
                 mensajeOk("Se han ingresado los datos");
             } else {
-                mensaje(info.message);
+                mensaje("No se han ingresado los datos");
                 console.log("NO Se han ingresado los datos");
             }
         });
