@@ -21,12 +21,12 @@ const Inicioview = () => {
 
     return (
         <div>
-            {!esDocente && <div style={{margin:'20px'}}>
+            <label htmlFor="" style={{margin: "80px 0px 0px 50px", color: "#8d0b0e", fontWeight:600, fontSize: 30}}>Bienvendio:  </label> <label style={{fontSize: 30}}>{desencriptando("Nombre")}</label>
+            {!esDocente && <div style={{margin:"20px 0px 0px 50px"}}>
                 <Link to="/solicitar">
-                    <button style={{backgroundColor:'#23394d',color:'white', fontFamily:'sans-serif', fontWeight:'bold', borderColor:'#23394d', borderRadius:'4px'}}>Solicitar tutoria</button>
+                    <button style={{backgroundColor:'#8d0b0e',color:'white', fontFamily:'sans-serif', fontWeight:'bold', borderColor:'#8d0b0e', borderRadius:'4px'}}>Solicitar tutoria</button>
                 </Link>
             </div>}
-            <label htmlFor="" style={{margin: "80px 0px 0px 50px", color: "#8d0b0e", fontWeight:600, fontSize: 30}}>Bienvendio:  </label> <label style={{fontSize: 30}}>{desencriptando("Nombre")}</label>
             <div>
                 <TablaTutoriasPendientes />
                 <TablaHistorialTutorias />
