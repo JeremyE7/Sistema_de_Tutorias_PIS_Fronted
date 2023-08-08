@@ -19,7 +19,8 @@ const TablaTutoriasPendientes = () => {
         console.log(externalId);
         const cuenta = await obtenerCuenta(externalId);
         console.log(cuenta);
-        const tutorias = await tutoriasPendientes(cuenta.data.persona.docente.externalId);
+        const externalAux = (cuenta.data.rol.nombre === "DOCENTE") ? cuenta.data.persona.docente.externalId : cuenta.data.persona.estudiante.externalId;
+        const tutorias = await tutoriasPendientes(externalAux);
         if (tutorias) {
             setTutorias(tutorias.filter(tutoria => tutoria.estado === "Espera" || tutoria.estado === "Aceptada"));
         }

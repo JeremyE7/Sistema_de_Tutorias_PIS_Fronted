@@ -17,15 +17,13 @@ const TablaHistorialTutorias = () => {
     const primerIndice = ulitmoIndice - itemsPorPagina;
     const listaTutorias = tutorias.slice(primerIndice, ulitmoIndice);
 
-
     useEffect(() => {
         const getRol = async () => {
             const cuenta =  await obtenerCuenta(ObtenerDatos("ExternalCuenta"))
-            const rol = await obtenerRolCuenta(ObtenerDatos("ExternalCuenta"))
-            setRol(rol.nombre)
-            const externalAux = cuenta.data.persona.docente.externalId;
+            setRol(cuenta.data.rol.nombre)
+            const externalAux = (cuenta.data.rol.nombre === "DOCENTE") ? cuenta.data : cuenta.data.persona.estudiante.externalId;
             const tutsAux = await obtenerTutorias(rol, externalAux)
-            if (tutsAux.data) {
+            if (tutsAux) {
                 setTutorias(tutsAux.data.filter(tutoria => tutoria.estado !== "Espera" && tutoria.estado !== "Aceptada").reverse())
             }
         }
@@ -49,7 +47,7 @@ const TablaHistorialTutorias = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {listaTutorias && listaTutorias.map((tutoria) => (
+                        {listaTutorias.length > 0 ? listaTutorias.map((tutoria) => (
                             <tr key={tutoria.id}>
                                 {console.log(tutoria)}
                                 <td>{tutoria.materia.nombre}</td>
@@ -60,7 +58,11 @@ const TablaHistorialTutorias = () => {
                                 <td>{tutoria.estudiantes.map((estudiante, key) => { return estudiante.persona.nombre + " " + estudiante.persona.apellido + ((key === tutoria.estudiantes.length - 1) ? "" : ", ") })}</td>
                                 
                             </tr>
-                        ))}
+                        )):(
+                            <tr style={{backgroundColor: "#dee2e6"}}>
+                                <td colSpan="7">Historial de tutorias vacio</td>
+                            </tr>
+                        )}
                     </tbody>
                 </table>
                 <PaginacionTabla totalItems={listaTutorias} itemsPorPagina={itemsPorPagina} paginaActual={pagina} setPagina={setPagina} />
