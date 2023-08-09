@@ -3,6 +3,7 @@ import { Materias_Docente, obtenerCuenta, obtenerTutorias } from "../hooks/Conex
 import { ObtenerDatos } from "../utilidades/UseSession";
 import TablaHistorialTutorias from "./TablaHistorialTutorias";
 import TablaRegistroTutorias from "./TablaRegistroTutorias";
+import { Link, Navigate } from "react-router-dom";
 
 const RegistroTutorias = () => {
     const [listaMaterias, setMaterias] = useState([]);
@@ -12,6 +13,11 @@ const RegistroTutorias = () => {
 
     function cambiarMateria(id){
         setNumRegistro(id)
+    }
+    function navegacion(){
+        return(
+            <Navigate to='ReportePDF'/>
+        )
     }
 
     useEffect(() => {
@@ -24,6 +30,8 @@ const RegistroTutorias = () => {
             if (tutoriasAux) {
                 setTutorias(tutoriasAux.data.filter(tutoria => tutoria.estado === "Realizada" && tutoria.materia.externalId === auxMateria[numRegistro].externalId));
             }
+            console.log(auxMateria);
+            console.log(tutoriasAux);
         }
 
         getMaterias()
@@ -39,8 +47,9 @@ const RegistroTutorias = () => {
                     </button>
                 ))}
             </div>
-            <div className="container" style={{ margin: "20px", width: '100%' }}>
+            <div className="container" style={{ margin: "20px", width: '100%'}}>
                 <TablaRegistroTutorias listTutorias={listaTutorias}></TablaRegistroTutorias>
+                <Link className='btn' style={{backgroundColor: '#8d0b0e', color: 'white', fontFamily: 'sans-serif', fontWeight: 'bold', borderColor: '#8d0b0e'}}to={"/reporte/pdf"} target="_blank" onClick={navegacion}>Generar PDF</Link>
             </div>
         </div>
     )
