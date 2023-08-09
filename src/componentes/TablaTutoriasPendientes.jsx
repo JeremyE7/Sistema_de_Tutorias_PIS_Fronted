@@ -93,7 +93,7 @@ const TablaTutoriasPendientes = () => {
                                         </>
                                     ) : (
                                         <>
-                                            {(new Date(tutoria.fechaInicio)).toLocaleString() >= new Date().toLocaleString() ? (
+                                            {(new Date(tutoria.fechaInicio)).toLocaleString() <= new Date().toLocaleString() ? (
                                                 <button className="btn btn-danger" onClick={() => {
                                                     setExternalIdTutoria(tutoria.externalId)
                                                     setModalFinalizarIsOpen(true)
@@ -109,7 +109,7 @@ const TablaTutoriasPendientes = () => {
                                                     <button className="btn btn-danger mx-10" onClick={() => {
                                                         console.log(tutoria.externalId);
                                                         setExternalIdTutoria(tutoria.externalId)
-                                                        handleRechazar("Rechazada", tutoria.externalIda)
+                                                        handleRechazar("Rechazada", tutoria.externalId)
                                                     }}>Cancelar</button>
                                                 </>
                                             )}
