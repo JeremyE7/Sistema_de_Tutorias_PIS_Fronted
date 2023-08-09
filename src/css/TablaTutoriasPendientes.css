@@ -7,8 +7,9 @@
     background-color: #ffffff;
     font-family: 'Montserrat';
     overflow-x: scroll;
-    box-shadow: 1px 22px 43px -28px rgba(0,0,0,0.75);
--webkit-box-shadow: 1px 22px 43px -28px rgba(0,0,0,0.75);
+    box-shadow: 1px 22px 43px -28px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 1px 22px 43px -28px rgba(0, 0, 0, 0.75);
+    margin-bottom: 3px;
 }
 
 .tablaTP-desktop tr th {
@@ -109,11 +110,11 @@
     text-align: center;
 }
 
-.ttl-tabla{
+.ttl-tabla {
     font-family: 'Montserrat';
     font-weight: 600;
     font-size: 30px;
     color: #8d0b0e;
     margin-bottom: 20px;
-    
+
 }
