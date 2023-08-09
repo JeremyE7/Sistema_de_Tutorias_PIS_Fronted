@@ -13,6 +13,7 @@ import Solicitar from './componentes/Solicitar';
 import RolCrear from "./componentes/RolCrear";
 import RegistroTutorias from "./componentes/RegistoTutorias";
 import AdministradorView from "./componentes/AdministradorView";
+import CrearValoresDefecto from "./componentes/CrearValoresDefecto";
 
 function App() {
 
@@ -50,6 +51,8 @@ function App() {
         <Route path='/tutoria/registros' element={<Middleware><RegistroTutorias/></Middleware>}></Route>
         <Route path="/solicitar" element={<Solicitar onSubmit={handleSolicitudTutoria}/>}></Route>
         <Route path="/administracion" element={<AdministradorView/>}></Route>
+        <Route path="/valoresDefecto" element={<CrearValoresDefecto/>}></Route>
+
       </Routes>
     </div>
   );

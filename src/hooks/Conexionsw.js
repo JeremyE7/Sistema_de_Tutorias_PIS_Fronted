@@ -359,3 +359,21 @@ export const crearMateria = async (datos) => {
     console.log(error);
   }
 }
+
+export const valoresDefecto = async () => {
+  try {
+    const response = await fetch(URL + '/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      },
+    })
+    console.log(response);
+    const tutoria = await response.json();
+
+    return tutoria.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
