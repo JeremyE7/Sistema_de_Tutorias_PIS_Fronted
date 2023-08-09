@@ -190,7 +190,6 @@ export const obtenerRolCuenta = async (external_id) => {
       },
     })
     const responseData = await response.json()
-    console.log(responseData);
     return responseData.data.rol
   } catch (error) {
     console.log(error)
@@ -207,7 +206,7 @@ export const obtenerTutorias = async (rol, external_id) => {
         'Authorization': ObtenerSession()
       },
     })
-    console.log(external_id);
+    console.log(rol, external_id);
     const responseData = await response.json()
     console.log(responseData);
     return responseData
@@ -231,6 +230,26 @@ export const aceptarTutoria = async (external_id, datos) => {
     const tutoria = await response.json();
 
     console.log(tutoria);
+
+    return tutoria.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const solicitarTutoria = async (external_id, datos) => {
+  try {
+    console.log(datos);
+    const response = await fetch(URL + '/tutorias/estudiante/' + external_id, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      },
+      body: JSON.stringify(datos)
+    })
+    console.log(response);
+    const tutoria = await response.json();
 
     return tutoria.data;
   } catch (error) {
@@ -281,3 +300,22 @@ export const finalizarTutoria = async (external_id, fechaFinalizacion) => {
   }
 }
 
+export const crearRegistroTutoria = async (datos) => {
+  try {
+    console.log(datos);
+    const response = await fetch(URL + '/registro_tutorias', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      },
+      body: JSON.stringify(datos)
+    })
+    console.log(response);
+    const tutoria = await response.json();
+
+    return tutoria.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
