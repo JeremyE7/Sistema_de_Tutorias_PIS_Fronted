@@ -24,7 +24,7 @@ const VModalFinalizarTutoria = ({setModalIsOpen, externalIdTutoria, modalIsOpen}
     const handleSubmit = async (event) => {
         event.preventDefault();
         const campos = new window.FormData(event.target);
-        const fechaFinalizacion = new Date(campos.get('fechaFinalizacion')).toISOString();
+        const fechaFinalizacion = new Date(campos.get('fecha')).toISOString();
         console.log(new Date(fechaFinalizacion));
         const res = await finalizarTutoria(externalIdTutoria, fechaFinalizacion);
         if (res) {

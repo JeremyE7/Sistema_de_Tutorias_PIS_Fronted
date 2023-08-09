@@ -69,11 +69,11 @@ const Nanvar = () => {
             />
             {desencriptando("Nombre") !== null ? (
               <h5 className="ml-3 mt-3" style={{ color: "white", fontWeight: 500 }}>
-                <label> Sistema de <br /> Tutorias</label>
+                <label> Sistema de <br /> Tutorías</label>
               </h5>
             ) : (
               <h5 className="ml-3 mt-3" style={{ color: "black" }}>
-                <b> Inicia Sesion para ver tu perfil </b>
+                <b> Inicia Sesión para ver tu perfil </b>
               </h5>
             )}
 
@@ -131,7 +131,7 @@ const Nanvar = () => {
                 <div style={{ color: "black", fontWeight: 500 }}>
 
                   <AiOutlineLogout />
-                  Cerrar Sesion
+                  Cerrar Sesión
                 </div>
               </MenuItemLink>
             </MenuItem>

@@ -35,7 +35,7 @@ const TablaRegistroTutorias = ({listTutorias}) => {
                         {listTutorias.length > 0 ? listTutorias.map((tutoria) => (
                             <tr key={tutoria.id}>
                                 <td>{(new Date(tutoria.fechaInicio)).toLocaleString()}</td>
-                                <td>{(new Date(tutoria.fechaFinalizacion)).getHours()-(new Date(tutoria.fechaInicio)).getHours()+" Horas"}</td>
+                                <td>{(new Date(tutoria.fechaFinalizacion)).getHours()-(new Date(tutoria.fechaInicio)).getHours()+" H"}</td>
                                 <td>{tutoria.estudiantes.map((estudiante, key) => { return estudiante.persona.nombre + " " + estudiante.persona.apellido + ((key === tutoria.estudiantes.length - 1) ? "" : ", ") })}</td>
                                 <td>{tutoria.nombreTutoria}</td>
                                 <td>{tutoria.descripcion}</td>
