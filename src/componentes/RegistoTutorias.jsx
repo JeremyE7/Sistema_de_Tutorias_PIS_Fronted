@@ -1,0 +1,48 @@
+import { useEffect, useState } from "react"
+import { Materias_Docente, obtenerCuenta, obtenerTutorias } from "../hooks/Conexionsw";
+import { ObtenerDatos } from "../utilidades/UseSession";
+import TablaHistorialTutorias from "./TablaHistorialTutorias";
+import TablaRegistroTutorias from "./TablaRegistroTutorias";
+
+const RegistroTutorias = () => {
+    const [listaMaterias, setMaterias] = useState([]);
+    const [numRegistro, setNumRegistro] = useState(1);
+    const [registroSelec, setRegistro] = useState(undefined);
+    const [listaTutorias, setTutorias] = useState([]);
+
+    function cambiarMateria(id){
+        setNumRegistro(id)
+    }
+
+    useEffect(() => {
+        const getMaterias = async () => {
+            const cuenta = await obtenerCuenta(ObtenerDatos("ExternalCuenta"));
+            const materias = await Materias_Docente(cuenta.data.persona.docente.externalId);
+            setMaterias(materias.data);
+            let auxMateria = materias.data;
+            const tutoriasAux = await obtenerTutorias(cuenta.data.rol, cuenta.data.persona.docente.externalId);
+            if (tutoriasAux) {
+                setTutorias(tutoriasAux.data.filter(tutoria => tutoria.estado === "Realizada" && tutoria.materia.externalId === auxMateria[numRegistro].externalId));
+            }
+        }
+
+        getMaterias()
+    }, [numRegistro])
+
+    return (
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <div className="btn-group container" style={{ margin: "20px", flexDirection: 'column', height: '100vh', width: '15%' }}>
+                <label htmlFor="" className='ttl-tabla'>Asignaturas</label>
+                {listaMaterias && listaMaterias.map((materia) => (
+                    <button onClick={()=>cambiarMateria(materia.id-1)}style={{ backgroundColor: '#8d0b0e', color: 'white', fontFamily: 'sans-serif', fontWeight: 'bold', borderColor: '#8d0b0e', borderRadius: '2px', outline: 'none' }} key={materia.id}>
+                        {materia.nombre}
+                    </button>
+                ))}
+            </div>
+            <div className="container" style={{ margin: "20px", width: '100%' }}>
+                <TablaRegistroTutorias listTutorias={listaTutorias}></TablaRegistroTutorias>
+            </div>
+        </div>
+    )
+}
+export default RegistroTutorias;
