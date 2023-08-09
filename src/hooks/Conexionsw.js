@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Session } from '../utilidades/UseSession'
 import { ObtenerSession } from '../utilidades/UseSession'
 
-const URL = "http://localhost:3000/api/v1"
+const URL = process.env.URL
 
 export const Opac = (accion = true) => {
   const [info, setInfo] = useState(null);
