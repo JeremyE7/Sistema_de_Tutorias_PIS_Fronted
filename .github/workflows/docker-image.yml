@@ -28,3 +28,4 @@ jobs:
         if [ "${{ github.ref }}" == "refs/heads/PREPROD" ]; then
           docker tag jeremye7/pis_frontend_preprod:${{ github.run_number }} jeremye7/pis_frontend_preprod:latest
           docker push jeremye7/pis_frontend_preprod:latest
+        fi
