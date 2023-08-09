@@ -52,7 +52,7 @@ const VModalTutoriaDocente = ({setModalIsOpen, externalIdTutoria, modalIsOpen}) 
                 <h2>Detalles de tutoria</h2>
                 <div>
                     <form action="submit" onSubmit={handleSubmit}>
-                        <div className="form-group">
+                        <div className="form-groups">
                             <label htmlFor="fecha">Fecha</label>
                             <input name="fecha" type="datetime-local" className="form-control" id="fecha" min={fechaActual}/>
                         </div>

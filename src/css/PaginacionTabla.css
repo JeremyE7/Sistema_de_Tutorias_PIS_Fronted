@@ -1,10 +1,10 @@
 .active .page-link{
-    background: #23394d !important;
-    border-color: #23394d !important;
+    background: #8d0b0e !important;
+    border-color: #8d0b0e !important;
 }
 
 .page-item .page-link{
-    color: #23394d;
+    color: black;
     font-family: sans-serif;
     font-weight: bold;
 }

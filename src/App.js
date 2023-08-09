@@ -10,6 +10,11 @@ import { EstaSession } from './utilidades/UseSession';
 import CrearCuentaView from './componentes/CrearCuentaView';
 import { useLocation, Navigate } from 'react-router-dom';
 import Solicitar from './componentes/Solicitar';
+import RolCrear from "./componentes/RolCrear";
+import RegistroTutorias from "./componentes/RegistoTutorias";
+import AdministradorView from "./componentes/AdministradorView";
+import CrearValoresDefecto from "./componentes/CrearValoresDefecto";
+import ReportePDFView from "./componentes/ReportePDFView";
 
 function App() {
 
@@ -40,10 +45,16 @@ function App() {
       <Routes>
         <Route path='/' element={<MiddlewareSession><InicioSesionView /></MiddlewareSession>}></Route>
         <Route path='/CrearCuenta' element={<MiddlewareSession><CrearCuentaView /></MiddlewareSession>}></Route>
+        <Route path='/Rol' element={<MiddlewareSession><RolCrear /></MiddlewareSession>}></Route>
         <Route path='/inicio' element={<Middleware><Inicioview /></Middleware>}></Route>
         <Route path='/estudiante/listar' element={<Middleware><ListarEstudianteView /></Middleware>}></Route>
         <Route path='/docente/listar' element={<Middleware><ListarDocenteView /></Middleware>}></Route>
+        <Route path='/tutoria/registros' element={<Middleware><RegistroTutorias/></Middleware>}></Route>
         <Route path="/solicitar" element={<Solicitar onSubmit={handleSolicitudTutoria}/>}></Route>
+        <Route path='/reporte/pdf' element={<Middleware><ReportePDFView/></Middleware>}></Route>
+        <Route path="/administracion" element={<AdministradorView/>}></Route>
+        <Route path="/valoresDefecto" element={<CrearValoresDefecto/>}></Route>
+
       </Routes>
     </div>
   );

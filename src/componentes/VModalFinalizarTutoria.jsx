@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { aceptarTutoria, finalizarTutoria } from '../hooks/Conexionsw';
 import Modal from 'react-modal';
+import { mensajeOk } from '../utilidades/Mensajes';
 
 
 const modalStyle = {
@@ -28,9 +29,9 @@ const VModalFinalizarTutoria = ({setModalIsOpen, externalIdTutoria, modalIsOpen}
         const res = await finalizarTutoria(externalIdTutoria, fechaFinalizacion);
         if (res) {
             console.log(res);
+            mensajeOk("Tutoria finalizada correctamente").then(() => window.location.reload());
         }
         setModalIsOpen(false);
-        // window.location.reload();
     }
 
     const closeModal = () => {
@@ -49,7 +50,7 @@ const VModalFinalizarTutoria = ({setModalIsOpen, externalIdTutoria, modalIsOpen}
                 <h2>Finalización de tutoria</h2>
                 <div>
                     <form action="submit" onSubmit={handleSubmit}>
-                        <div className="form-group">
+                        <div className="form-groups">
                             <label htmlFor="fechaFinalizacion">Fecha de finalización</label>
                             <input name="fecha" type="datetime-local" className="form-control" id="fecha" min={fechaActual}/>
                         </div>

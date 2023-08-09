@@ -98,6 +98,7 @@ const ListarDocenteView = () => {
                 <td> {element.persona.apellido}</td>
                 <td> {element.persona.identificacion}</td>
                 <td> {element.titulo}</td>
+                {console.log(element)}
               </tr>
             })}
           </tbody>

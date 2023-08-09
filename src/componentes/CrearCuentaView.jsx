@@ -1,82 +1,178 @@
-import React from 'react';
-import '../css/Bootstrap.css';
+import React, { useState } from 'react';
+import '../css/CrearCuentaView.css';
+import { useForm } from 'react-hook-form';
+import { GuardarCuenta, crearRegistroTutoria } from '../hooks/Conexionsw';
+import { mensajeError, mensajeOk } from '../utilidades/Mensajes';
+import { useNavigate } from "react-router-dom";
+
 
 const CrearCuentaView = () => {
-    return (
-        <div className="container py-5 h-100">
-            <div className="row d-flex justify-content-center align-items-center h-100">
-                <div className="col-xl-10">
-                    <div className="card rounded-3 text-black">
-                        <div className="row g-0">
-                            <div className="col-lg-6" style={{ backgroundColor: "#8fb3ff" }}>
-                                <div className="card-body p-md-5 mx-md-4" >
-                                    <form>
-                                        <div className='row d-flex justify-content-center mb-3'>
-                                            <h2 className='mx-2'> <b>CREAR CUENTA</b></h2>
-                                            <img src="https://img.icons8.com/ios-filled/50/d41d6d/user.png" width={"45"} height={"45"} />
-                                        </div>
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const [tipoCuenta, setTipoCuenta] = useState('Docente');
 
-                                        <div className="form-outline mb-4">
-                                            <input type="text" className="form-control"
-                                                placeholder="Nombres Completos" style={{border:"1px solid"}}/>
-                                            <label className="form-label">Nombres</label>
-                                        </div>
+  const navegacion = useNavigate();
 
-                                        <div className="form-outline mb-4">
-                                            <input type="text" className="form-control"
-                                                placeholder="# de Cedula" style={{border:"1px solid"}} />
-                                            <label className="form-label">Cedula</label>
-                                        </div>
 
-                                        <div className="form-outline mb-4">
-                                            <input type="email" id="form2Example11" className="form-control"
-                                                placeholder="Correo electronico" style={{border:"1px solid"}} />
-                                            <label className="form-label">Correo Electronico</label>
-                                        </div>
+  const onSubmit = async (campos) => {
+    const cuenta ={
+      nombre: campos.nombre,
+      apellido: campos.apellido,
+      identificacion: campos.identificacion,
+      correo: campos.correo,
+      clave: campos.clave,
+      telefono: campos.telefono,
+      direccion: campos.direccion,
+    }
 
-                                        <div className="form-outline mb-4">
+    if(tipoCuenta === 'Docente'){
+      cuenta.docente = {titulo: campos.titulo}
+      cuenta.rol = 1
+    }else if(tipoCuenta === 'Estudiante'){
+      cuenta.estudiante = {
+        carrera: campos.carrera,
+        ciclo: campos.ciclo,
+        paralelo: campos.paralelo
+      }
+      cuenta.rol = 2
+    }
 
-                                            <select style={{ border: "1px solid #d41d6d", borderradius: "5px", padding: "10px" }}>
-                                                <option value="docente">Docente</option>
-                                                <option value="estudiante">Estudiante</option>
-                                            </select>
+    const cuentaCreada = await GuardarCuenta(cuenta);
+    console.log(cuentaCreada);
+    if(cuentaCreada.data) {
+      if(tipoCuenta === 'Docente'){
+        const registroTutoria = {
+          periodoAcademico: '2023-2023',
+          externalIdDocente: cuentaCreada.data.docente.externalId
+        }
+        const registroTutoriasCreado = await crearRegistroTutoria(registroTutoria)
 
-                                        </div>
+        if(!registroTutoriasCreado.data)
+          mensajeError("No se pudo crear la cuenta, intente nuevamente")
+      }
+      mensajeOk("Cuenta creada con exito").then(() => navegacion('/'))
+    }else{
+      mensajeError("No se pudo crear la cuenta, intente nuevamente")
+    }
 
-                                        <div className="form-outline mb-4">
-                                            <input type="password" id="form2Example221" className="form-control" style={{border:"1px solid"}} />
-                                            <label className="form-label">Contraseña</label>
-                                        </div>
 
-                                        <div className="form-outline mb-4">
-                                            <input type="password" id="form2Example22" className="form-control" style={{border:"1px solid"}}/>
-                                            <label className="form-label">Confirmar Contraseña</label>
-                                        </div>
+    console.log(cuenta);
+  };
 
-                                        <div className="d-flex align-items-center justify-content-center pb-4">
-                                            
-                                            <button type="button" className="btn btn-dark mx-2"><b>GUARDAR</b></button>
-                                            <img src="https://img.icons8.com/ios-filled/50/d41d6d/save--v1.png" width={"45"} height={"45"} />
-                                        </div>
+  const handleSelectChange = (evt) => {
+    console.log(evt.target.value);
+    setTipoCuenta(evt.target.value)
+  };
 
-                                    </form>
+  return (
+    <>
+      <div className="background-registro">
+        <main className="main-registro">
+          <h3>Registrar Cuenta</h3>
+          <form action='submit' onSubmit={handleSubmit(onSubmit)}>
+            <div className='contenedor-datos-personales'>
+              <h4>Datos Personales</h4>
+              <section className='datos-personales'>
+                <label htmlFor="" className="test">
+                  Nombre: <br />
+                  <input type="text" id='nombre' {...register('nombre', { required: true })} />
+                  {errors.nombre && <div className="error">El campo es requerido</div>}
 
-                                </div>
-                            </div>
+                </label>
+                <label htmlFor="" className="test">
+                  Apellido: <br />
+                  <input type="text" id='apellido'{...register('apellido', { required: true })} />
+                  {errors.apellido && <div className="error">El campo es requerido</div>}
 
-                            <div className="col-lg-6 d-flex align-items-center gradient-custom-2" style={{ backgroundColor: "#ebf1ff" }}>
-                                <div className="container ">
-                                    <img src="https://www.edina.com.ec/logos/6210105553-378568.jpg" width={"350"} height={"355"}
-                                        className="img-fluid form-outline mb-4" alt="Sample image" style={{ borderStyle: "solid" }} />
+                </label>
+              </section>
+              <section className='datos-personales'>
+                <label htmlFor="" className="test">
+                  Identificación: <br />
+                  <input type="number" id='identificacion'{...register('identificacion', { required: true })} />
+                  {errors.identificacion && <div className="error">El campo es requerido</div>}
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </label>
+                <label htmlFor="" className="test">
+                  Correo Electronico: <br />
+                  <input type="text" id='correo'{...register('correo', { required: true, pattern: /\S+@\S+\.\S+/ })} />
+                  {errors.correo && errors.correo.type === 'required' && <div className='error' role='alert'>Se requiere su correo</div>}
+                  {errors.correo && errors.correo.type === 'pattern' && <div className='error' role='alert'>Ingrese un correo valido</div>}
+                </label>
+              </section>
+
+              <section className='datos-personales'>
+                <label htmlFor="" className="test">
+                  Clave: <br />
+                  <input type="text" id='clave'{...register('clave', { required: true })} />
+                  {errors.clave && <div className="error">El campo es requerido</div>}
+
+                </label>
+                <label htmlFor="" className="test">
+                  Telefono: <br />
+                  <input type="number" id='telefono'{...register('telefono', { required: true })} />
+                  {errors.clave && <div className="error">El campo es requerido</div>}
+                </label>
+              </section>
+
+              <section className='datos-personales'>
+                <label htmlFor="" className="test">
+                  Dirección: <br />
+                  <input type="text" id='direccion'{...register('direccion', { required: true })} />
+                  {errors.direccion && <div className="error">El campo es requerido</div>}
+                </label>
+              </section>
             </div>
-        </div>
-    );
+
+            <div className='contenedor-tipo-cuenta'>
+              <h4>Tipo de Cuenta</h4>
+              <section className='tipo-cuenta'>
+                <label htmlFor="" className="test">
+                  Tipo de Cuenta:
+                  <select className='form-control' name="tipo-cuenta" id="tipo-cuenta" onChange={handleSelectChange} >
+                    <option value="Docente">Docente</option>
+                    <option value="Estudiante">Estudiante</option>
+                  </select>
+                </label>
+              </section>
+              <section>
+                {tipoCuenta && tipoCuenta === 'Docente' ? (
+                  <div className='datos-docente'>
+                    <label htmlFor="" className="test">
+                      Titulo: <br />
+                      <input type="text" id='titulo'{...register('titulo', { required: true })} />
+                      {errors.titulo && <div className="error">El campo es requerido</div>}
+                    </label>
+                  </div>): tipoCuenta === 'Estudiante' ? (
+                    <div className='datos-estudiante'>
+                      <label htmlFor="" className="test">
+                        Carrera: <br />
+                        <input type="text" id='carrera'{...register('carrera', { required: true })} />
+                        {errors.carrera && <div className="error">El campo es requerido</div>}
+                      </label>
+                      <label htmlFor="">
+                        Ciclo: <br />
+                        <input type="text" id='ciclo'{...register('ciclo', { required: true })} />
+                        {errors.ciclo && <div className="error">El campo es requerido</div>}
+                      </label>
+                      <label htmlFor="">
+                        Paralelo: <br />
+                        <input type="text" id='paralelo'{...register('paralelo', { required: true })} />
+                        {errors.paralelo && <div className="error">El campo es requerido</div>}
+                      </label>
+                    </div>
+                  ): null}
+              </section>
+            </div>
+            <div className='contenedor-botones'>
+              <button type="submit" className='btn btn-success'>Crear Cuenta</button>
+              <a href='/' className='btn btn-danger'>Cancelar</a>
+            </div>
+
+          </form>
+        </main>
+      </div>
+    </>
+  );
 };
 
 export default CrearCuentaView;

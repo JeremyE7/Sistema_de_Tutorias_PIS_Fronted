@@ -1,0 +1,94 @@
+.background-registro{
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    background-color: #eaeef3;
+    padding: 20px;
+}
+
+.main-registro form{
+    background-color: #ebf1ff;
+    border: 1px solid rgba(49, 47, 47, 0.253);
+    border-radius: 10px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.contenedor-datos-personales{
+    background-color: rgb(230, 213, 213);
+    border: 1px solid rgba(49, 47, 47, 0.075);
+    border-radius: 20px;
+    padding: 40px;
+}
+
+.contenedor-tipo-cuenta{
+    background-color: rgb(230, 213, 213);
+    border: 1px solid rgba(49, 47, 47, 0.075);
+    border-radius: 20px;
+    padding: 40px;
+    margin-top: 20px;
+    max-width: 586px;
+
+}
+
+
+.contenedor-botones{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.datos-personales{
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+}
+
+.datos-personales label{
+    margin-left: 20px;
+}
+
+.datos-personales input{
+    margin-left: 20px;
+}
+
+.datos-personales label div{
+    margin-left: 50px;
+    margin-bottom: -25px;
+}
+
+.error{
+    color: red;
+}
+
+.tipo-cuenta{
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+
+}
+
+.tipo-cuenta select{
+    margin-left: 20px;
+}
+
+.datos-estudiante{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.datos-estudiante label{
+    width: 50%;
+}
+
+.datos-estudiante input, .datos-docente input{
+    margin-left: 20px;
+}
+
+.datos-estudiante label div, .datos-docente label div{
+    margin-left: 20px;
+}
+
+
