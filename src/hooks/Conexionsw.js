@@ -237,6 +237,26 @@ export const aceptarTutoria = async (external_id, datos) => {
   }
 }
 
+export const Materias_Docente = async (external_id_docente) => {
+  try {
+    const response = await fetch(URL + '/materias/docente/'+external_id_docente, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      },
+    });
+
+    const responseData = await response.json();
+
+    console.log(responseData);
+
+    return responseData;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
 export const solicitarTutoria = async (external_id, datos) => {
   try {
     console.log(datos);

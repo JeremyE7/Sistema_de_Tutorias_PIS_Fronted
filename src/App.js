@@ -11,6 +11,7 @@ import CrearCuentaView from './componentes/CrearCuentaView';
 import { useLocation, Navigate } from 'react-router-dom';
 import Solicitar from './componentes/Solicitar';
 import RolCrear from "./componentes/RolCrear";
+import RegistroTutorias from "./componentes/RegistoTutorias";
 
 function App() {
 
@@ -45,6 +46,7 @@ function App() {
         <Route path='/inicio' element={<Middleware><Inicioview /></Middleware>}></Route>
         <Route path='/estudiante/listar' element={<Middleware><ListarEstudianteView /></Middleware>}></Route>
         <Route path='/docente/listar' element={<Middleware><ListarDocenteView /></Middleware>}></Route>
+        <Route path='/tutoria/registros' element={<Middleware><RegistroTutorias/></Middleware>}></Route>
         <Route path="/solicitar" element={<Solicitar onSubmit={handleSolicitudTutoria}/>}></Route>
       </Routes>
     </div>
