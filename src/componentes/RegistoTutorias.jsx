@@ -7,7 +7,7 @@ import { Link, Navigate } from "react-router-dom";
 
 const RegistroTutorias = () => {
     const [listaMaterias, setMaterias] = useState([]);
-    const [numRegistro, setNumRegistro] = useState(0);
+    const [numRegistro, setNumRegistro] = useState(1);
     const [registroSelec, setRegistro] = useState(undefined);
     const [listaTutorias, setTutorias] = useState([]);
 
