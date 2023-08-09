@@ -27,7 +27,7 @@ const Inicioview = () => {
             <label htmlFor="" style={{ margin: "80px 0px 0px 50px", color: "#8d0b0e", fontWeight: 600, fontSize: 30 }}>Bienvendio:  </label> <label style={{ fontSize: 30 }}>{desencriptando("Nombre")}</label>
             <div>
                 {!esDocente && <div>
-                    <button onClick={() => setModalIsOpen(true)} style={{ margin: "10px 0px 0px 50px", backgroundColor: '#23394d', color: 'white', fontWeight: 'bold', borderColor: '#23394d', borderRadius: '4px' }}>Solicitar tutoria</button>
+                    <button onClick={() => setModalIsOpen(true)} style={{ margin: "10px 0px 0px 50px", backgroundColor: '#8d0b0e', color: 'white', fontWeight: 'bold', borderColor: '#8d0b0e', borderRadius: '4px' }}>Solicitar tutoria</button>
                 </div>}
                 <TablaTutoriasPendientes />
                 <TablaHistorialTutorias />
