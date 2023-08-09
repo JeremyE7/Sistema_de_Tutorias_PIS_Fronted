@@ -64,7 +64,7 @@ const TablaTutoriasPendientes = () => {
                             <th>Materia</th>
                             <th>Estado</th>
                             <th>Nombre de Tutoria</th>
-                            <th>Descripcion</th>
+                            <th>Descripción</th>
                             <th>Estudiantes</th>
                             <th>Fecha</th>
                             <th>Acciones</th>
