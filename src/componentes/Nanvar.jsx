@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
@@ -31,6 +31,7 @@ import { IconContext } from "react-icons";
 import logo from '../img/logo.png';
 import { BorrarDatos, CerrarSession, ObtenerDatos } from "../utilidades/UseSession";
 import { desencriptando } from "../utilidades/encryp";
+import { obtenerRolCuenta } from "../hooks/Conexionsw";
 
 const Nanvar = () => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -40,7 +41,17 @@ const Nanvar = () => {
   const excludedRoutes = ["/", "/CrearCuenta","/Rol"];
 
   const shouldRenderNavbar = !excludedRoutes.includes(location.pathname);
+  const [isAdmin, setIsAdmin] = useState(false);
 
+  useEffect(() => {
+    const getRol = async () => {
+      const rol = await obtenerRolCuenta(ObtenerDatos("ExternalCuenta"))
+      if(rol.nombre === "Administrador"){
+        setIsAdmin(true)
+      }
+    }
+    getRol()
+  },[])
 
   if (!shouldRenderNavbar) {
     return null;
@@ -74,17 +85,17 @@ const Nanvar = () => {
           </MobileIcon>
 
           <Menu open={showMobileMenu}>
-            <MenuItem>
+            {isAdmin && <MenuItem>
               <MenuItemLink onClick={() => {
                 setShowMobileMenu(!showMobileMenu);
                 //navegacion('estudiante/listar') --> aqui va la ruta del componente tutoria ponerla ojo
               }}>
-                <div style={{ color: "black", fontWeight: "500" }}>
+                <div style={{ color: "black", fontWeight: "500" }} onClick={() =>{navegacion('/administracion')}}>
                   <AiFillSchedule />
-                  Reportes
+                  Administrador
                 </div>
               </MenuItemLink>
-            </MenuItem>
+            </MenuItem>}
             <MenuItem>
               <MenuItemLink onClick={() => {
                 setShowMobileMenu(!showMobileMenu);

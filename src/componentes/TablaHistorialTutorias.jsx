@@ -22,6 +22,7 @@ const TablaHistorialTutorias = () => {
 
             const cuenta =  await obtenerCuenta(ObtenerDatos("ExternalCuenta"))
             const rol = await obtenerRolCuenta(ObtenerDatos("ExternalCuenta"))
+            if(rol.nombre === "Administrador") return
             console.log(rol);
             setRol(rol.nombre)
             let externalAux;
@@ -75,7 +76,7 @@ const TablaHistorialTutorias = () => {
                         )}
                     </tbody>
                 </table>
-                <PaginacionTabla totalItems={listaTutorias} itemsPorPagina={itemsPorPagina} paginaActual={pagina} setPagina={setPagina} />
+                {/* <PaginacionTabla totalItems={listaTutorias} itemsPorPagina={itemsPorPagina} paginaActual={pagina} setPagina={setPagina} /> */}
             </div>
         </>
     )

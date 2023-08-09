@@ -339,3 +339,23 @@ export const crearRegistroTutoria = async (datos) => {
     console.log(error);
   }
 }
+
+export const crearMateria = async (datos) => {
+  try {
+    console.log(datos);
+    const response = await fetch(URL + '/materias', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      },
+      body: JSON.stringify(datos)
+    })
+    console.log(response);
+    const tutoria = await response.json();
+
+    return tutoria.data;
+  } catch (error) {
+    console.log(error);
+  }
+}

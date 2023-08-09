@@ -19,6 +19,7 @@ const TablaTutoriasPendientes = () => {
     const obtTutorias = async () => {
         const cuenta = await obtenerCuenta(ObtenerDatos("ExternalCuenta"))
         const rol = await obtenerRolCuenta(ObtenerDatos("ExternalCuenta"))
+        if(rol.nombre === "Administrador") return
         console.log(rol);
         let externalAux;
         if (rol.nombre === "Estudiante") {

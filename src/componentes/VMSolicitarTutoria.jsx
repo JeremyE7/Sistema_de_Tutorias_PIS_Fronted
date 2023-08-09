@@ -118,7 +118,7 @@ const VModalSolicitarTutoria = ({ setModalIsOpen, externalIdTutoria, modalIsOpen
                             </datalist>
                                 <label>
                                     Materia: <br />
-                                    <input onInput={handleTypedMateria} id='materia' type="text" list='materias' disabled={selectedDocente ? false : true} placeholder={selectedDocente ? '' : 'No disponible'} />
+                                    <input autocomplete="off" onInput={handleTypedMateria} id='materia' type="text" list='materias' disabled={selectedDocente ? false : true} placeholder={selectedDocente ? '' : 'No disponible'} />
                                 </label>
                                 <datalist id='materias'>
                                     {selectedDocente && selectedDocente.materia && selectedDocente.materia.map((materia) => (
