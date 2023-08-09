@@ -19,11 +19,21 @@ const TablaHistorialTutorias = () => {
 
     useEffect(() => {
         const getRol = async () => {
+
             const cuenta =  await obtenerCuenta(ObtenerDatos("ExternalCuenta"))
-            setRol(cuenta.data.rol.nombre)
-            const externalAux = (cuenta.data.rol.nombre === "DOCENTE") ? cuenta.data : cuenta.data.persona.estudiante.externalId;
+            const rol = await obtenerRolCuenta(ObtenerDatos("ExternalCuenta"))
+            console.log(rol);
+            setRol(rol.nombre)
+            let externalAux;
+            if(rol.nombre === "Estudiante"){ 
+                console.log("Es estudiante");
+                externalAux = cuenta.data.persona.estudiante.externalId;
+            }else{
+                console.log("Es docente");
+                externalAux = cuenta.data.persona.docente.externalId;
+            }
             const tutsAux = await obtenerTutorias(rol, externalAux)
-            if (tutsAux) {
+            if (tutsAux.data) {
                 setTutorias(tutsAux.data.filter(tutoria => tutoria.estado !== "Espera" && tutoria.estado !== "Aceptada").reverse())
             }
         }
