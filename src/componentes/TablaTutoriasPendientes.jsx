@@ -93,7 +93,7 @@ const TablaTutoriasPendientes = () => {
                                         </>
                                     ) : (
                                         <>
-                                            {(new Date(tutoria.fechaInicio)).toLocaleString() <= new Date().toLocaleString() ? (
+                                            {(new Date(tutoria.fechaInicio)) <= new Date() ? (
                                                 <button className="btn btn-danger" onClick={() => {
                                                     setExternalIdTutoria(tutoria.externalId)
                                                     setModalFinalizarIsOpen(true)
