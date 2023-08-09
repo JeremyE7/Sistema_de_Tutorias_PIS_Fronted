@@ -7,6 +7,7 @@ const CrearValoresDefecto = () => {
         const cargarDAtos = async () => {
             const res = await valoresDefecto();
         }
+        cargarDAtos();
     }, []);        
 
     return (
