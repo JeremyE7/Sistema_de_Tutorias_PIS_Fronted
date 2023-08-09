@@ -45,6 +45,7 @@ const Nanvar = () => {
 
   useEffect(() => {
     const getRol = async () => {
+      if(ObtenerDatos("ExternalCuenta") === null) return
       const rol = await obtenerRolCuenta(ObtenerDatos("ExternalCuenta"))
       if(rol.nombre === "Administrador"){
         setIsAdmin(true)
