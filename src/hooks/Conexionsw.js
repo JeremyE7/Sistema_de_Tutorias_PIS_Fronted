@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Session } from '../utilidades/UseSession'
 import { ObtenerSession } from '../utilidades/UseSession'
 
-const URL = process.env.URL
+const URL = process.env.REACT_APP_API_BASE_URL
 
 export const Opac = (accion = true) => {
   const [info, setInfo] = useState(null);
@@ -46,6 +46,8 @@ export const InicioSesion = (data, accion = true) => {
 
 export const IngresarSistema = async (data) => {
   try {
+    console.log(URL + '/cuenta/login');
+    console.log(process.env);
     const response = await fetch(URL + '/cuenta/login', {
       method: 'POST',
       headers: {
