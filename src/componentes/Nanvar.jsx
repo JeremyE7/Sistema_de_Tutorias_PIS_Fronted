@@ -88,7 +88,7 @@ const Nanvar = () => {
             <MenuItem>
               <MenuItemLink onClick={() => {
                 setShowMobileMenu(!showMobileMenu);
-                //navegacion('estudiante/listar') --> aqui va la ruta delcomponente reporte ponerla ojo
+                navegacion('/tutoria/registros');
               }}>
                 <div style={{ color: "black", fontWeight: "500" }}>
                   <AiFillFilePdf />
