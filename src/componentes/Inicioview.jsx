@@ -7,7 +7,7 @@ import { set } from 'react-hook-form';
 import { desencriptando } from '../utilidades/encryp';
 import VModalSolicitarTutoria from './VMSolicitarTutoria';
 
-const Inicioview = () => {
+const Inicioview = ({setIsAdmin, setIsEstudiante}) => {
     const [esDocente, setDocente] = useState(false)
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -15,6 +15,20 @@ const Inicioview = () => {
         if (rol === 'Docente') {
             setDocente(true)
             console.log("Es docente");
+            setIsAdmin(false)
+            setIsEstudiante(false)
+        }
+        else if(rol === 'Administrador'){
+            setIsAdmin(true)
+            setIsEstudiante(false)
+            setDocente(false)
+            console.log("Es admin");
+        }
+        else if(rol === 'Estudiante'){
+            setIsAdmin(false)
+            setIsEstudiante(true)
+            setDocente(false)
+            console.log("Es estudiante");
         }
     }
     useEffect(() => {

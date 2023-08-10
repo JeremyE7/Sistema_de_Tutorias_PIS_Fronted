@@ -33,7 +33,7 @@ import { BorrarDatos, CerrarSession, ObtenerDatos } from "../utilidades/UseSessi
 import { desencriptando } from "../utilidades/encryp";
 import { obtenerRolCuenta } from "../hooks/Conexionsw";
 
-const Nanvar = () => {
+const Nanvar = ({isAdmin, isEstudiante}) => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const location = useLocation();
   const navegacion = useNavigate();
@@ -41,18 +41,6 @@ const Nanvar = () => {
   const excludedRoutes = ["/", "/CrearCuenta","/Rol"];
 
   const shouldRenderNavbar = !excludedRoutes.includes(location.pathname);
-  const [isAdmin, setIsAdmin] = useState(false);
-
-  useEffect(() => {
-    const getRol = async () => {
-      if(ObtenerDatos("ExternalCuenta") === null) return
-      const rol = await obtenerRolCuenta(ObtenerDatos("ExternalCuenta"))
-      if(rol.nombre === "Administrador"){
-        setIsAdmin(true)
-      }
-    }
-    getRol()
-  },[])
 
   if (!shouldRenderNavbar) {
     return null;
@@ -91,13 +79,13 @@ const Nanvar = () => {
                 setShowMobileMenu(!showMobileMenu);
                 //navegacion('estudiante/listar') --> aqui va la ruta del componente tutoria ponerla ojo
               }}>
-                <div style={{ color: "black", fontWeight: "500" }} onClick={() =>{navegacion('/administracion')}}>
+                {isAdmin && <div style={{ color: "black", fontWeight: "500" }} onClick={() =>{navegacion('/administracion')}}>
                   <AiFillSchedule />
                   Administrador
-                </div>
+                </div>}
               </MenuItemLink>
             </MenuItem>}
-            <MenuItem>
+            {!isEstudiante && <MenuItem>
               <MenuItemLink onClick={() => {
                 setShowMobileMenu(!showMobileMenu);
                 navegacion('/tutoria/registros');
@@ -107,7 +95,7 @@ const Nanvar = () => {
                   Reportes
                 </div>
               </MenuItemLink>
-            </MenuItem>
+            </MenuItem>}
             <MenuItem>
               <MenuItemLink onClick={() => {
                 setShowMobileMenu(!showMobileMenu);
