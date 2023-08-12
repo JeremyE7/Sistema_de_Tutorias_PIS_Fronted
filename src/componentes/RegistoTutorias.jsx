@@ -7,7 +7,7 @@ import { Link, Navigate } from "react-router-dom";
 
 const RegistroTutorias = () => {
     const [listaMaterias, setMaterias] = useState([]);
-    const [numRegistro, setNumRegistro] = useState(1);
+    const [numRegistro, setNumRegistro] = useState(0);
     const [registroSelec, setRegistro] = useState(undefined);
     const [listaTutorias, setTutorias] = useState([]);
 
@@ -25,10 +25,10 @@ const RegistroTutorias = () => {
             const cuenta = await obtenerCuenta(ObtenerDatos("ExternalCuenta"));
             const materias = await Materias_Docente(cuenta.data.persona.docente.externalId);
             setMaterias(materias.data);
-            let auxMateria = materias.data;
+            const auxMateria = materias.data.filter(materia => materia.id === numRegistro);
             const tutoriasAux = await obtenerTutorias(cuenta.data.rol, cuenta.data.persona.docente.externalId);
             if (tutoriasAux) {
-                setTutorias(tutoriasAux.data.filter(tutoria => tutoria.estado === "Realizada" && tutoria.materia.externalId === auxMateria[numRegistro].externalId));
+                setTutorias(tutoriasAux.data.filter(tutoria => tutoria.estado === "Realizada" && tutoria.materia.externalId === auxMateria[0].externalId));
             }
             console.log(auxMateria);
             console.log(tutoriasAux);
@@ -42,7 +42,7 @@ const RegistroTutorias = () => {
             <div className="btn-group container" style={{ margin: "20px", flexDirection: 'column', height: '100vh', width: '15%' }}>
                 <label htmlFor="" className='ttl-tabla'>Asignaturas</label>
                 {listaMaterias && listaMaterias.map((materia) => (
-                    <button onClick={()=>cambiarMateria(materia.id-1)}style={{ backgroundColor: '#8d0b0e', color: 'white', fontFamily: 'sans-serif', fontWeight: 'bold', borderColor: '#8d0b0e', borderRadius: '2px', outline: 'none' }} key={materia.id}>
+                    <button onClick={()=>cambiarMateria(materia.id)}style={{ backgroundColor: '#8d0b0e', color: 'white', fontFamily: 'sans-serif', fontWeight: 'bold', borderColor: '#8d0b0e', borderRadius: '2px', outline: 'none' }} key={materia.id}>
                         {materia.nombre}
                     </button>
                 ))}
