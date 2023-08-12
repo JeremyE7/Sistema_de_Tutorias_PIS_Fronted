@@ -7,7 +7,7 @@ import { Link, Navigate } from "react-router-dom";
 
 const RegistroTutorias = () => {
     const [listaMaterias, setMaterias] = useState([]);
-    const [numRegistro, setNumRegistro] = useState(0);
+    const [numRegistro, setNumRegistro] = useState();
     const [registroSelec, setRegistro] = useState(undefined);
     const [listaTutorias, setTutorias] = useState([]);
 
@@ -25,13 +25,14 @@ const RegistroTutorias = () => {
             const cuenta = await obtenerCuenta(ObtenerDatos("ExternalCuenta"));
             const materias = await Materias_Docente(cuenta.data.persona.docente.externalId);
             setMaterias(materias.data);
+            if(!numRegistro){
+                setNumRegistro(materias.data[0].id);
+            }
             const auxMateria = materias.data.filter(materia => materia.id === numRegistro);
             const tutoriasAux = await obtenerTutorias(cuenta.data.rol, cuenta.data.persona.docente.externalId);
-            if (tutoriasAux) {
+            if (tutoriasAux && numRegistro) {
                 setTutorias(tutoriasAux.data.filter(tutoria => tutoria.estado === "Realizada" && tutoria.materia.externalId === auxMateria[0].externalId));
             }
-            console.log(auxMateria);
-            console.log(tutoriasAux);
         }
 
         getMaterias()
