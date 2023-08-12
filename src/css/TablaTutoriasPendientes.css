@@ -86,24 +86,6 @@
 }
 
 
-
-
-
-@media (max-width: 600px) {
-    .tablaTP-mobile {
-        display: block;
-    }
-
-    .tablaTP-desktop {
-        display: none;
-    }
-
-    .tutDocente-modal-open {
-        width: 100%;
-        margin-top: 0%;
-    }
-}
-
 .contenedor-tablaTP {
     margin: 5px 100px 25px 100px;
     overflow-x: scroll;
@@ -114,7 +96,19 @@
     font-family: 'Montserrat';
     font-weight: 600;
     font-size: 30px;
-    color: #8d0b0e;
+    color: #052342;
     margin-bottom: 20px;
 
+}
+
+@media (max-width: 600px) {
+
+    .contenedor-tablaTP {
+        margin: 5px 20px 25px 20px;
+    }
+
+    .tutDocente-modal-open {
+        width: 100%;
+        margin-top: 0%;
+    }
 }

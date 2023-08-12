@@ -50,7 +50,7 @@ const RegistroTutorias = () => {
             </div>
             <div className="container" style={{ margin: "20px", width: '100%'}}>
                 <TablaRegistroTutorias listTutorias={listaTutorias}></TablaRegistroTutorias>
-                <Link className='btn' style={{backgroundColor: '#8d0b0e', color: 'white', fontFamily: 'sans-serif', fontWeight: 'bold', borderColor: '#8d0b0e'}}to={"/reporte/pdf"} target="_blank" onClick={navegacion}>Generar PDF</Link>
+                <Link className='btn' style={{backgroundColor: '#052342', color: 'white', fontFamily: 'sans-serif', fontWeight: 'bold', borderColor: '#052342'}}to={"/reporte/pdf"} target="_blank" onClick={navegacion}>Generar PDF</Link>
             </div>
         </div>
     )

@@ -45,7 +45,6 @@ const TablaHistorialTutorias = () => {
     return (
         <>
             <div className='contenedor-tablaTP'>
-                <label htmlFor="" className='ttl-tabla'>Historial de tutorias</label>
                 <table className='tablaTP-desktop'>
                     <thead>
                         <tr>

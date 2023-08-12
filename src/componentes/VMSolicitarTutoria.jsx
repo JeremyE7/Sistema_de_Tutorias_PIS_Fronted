@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Docentes, aceptarTutoria, obtenerCuenta, solicitarTutoria } from '../hooks/Conexionsw';
+import { Docentes, obtenerCuenta, solicitarTutoria } from '../hooks/Conexionsw';
 import Modal from 'react-modal';
 import { ObtenerDatos } from '../utilidades/UseSession';
 import '../css/VMSolicitarTutoria.css'
@@ -118,7 +118,7 @@ const VModalSolicitarTutoria = ({ setModalIsOpen, externalIdTutoria, modalIsOpen
                             </datalist>
                                 <label>
                                     Materia: <br />
-                                    <input autocomplete="off" onInput={handleTypedMateria} id='materia' type="text" list='materias' disabled={selectedDocente ? false : true} placeholder={selectedDocente ? '' : 'No disponible'} />
+                                    <input autocomplete="off" onInput={handleTypedMateria} id='materia' type="text" list='materias' disabled={selectedDocente ? false : true} placeholder={selectedDocente ? '' : 'Escoga un docente valido'} />
                                 </label>
                                 <datalist id='materias'>
                                     {selectedDocente && selectedDocente.materia && selectedDocente.materia.map((materia) => (
@@ -127,14 +127,14 @@ const VModalSolicitarTutoria = ({ setModalIsOpen, externalIdTutoria, modalIsOpen
                                 </datalist>
                                 <label>
                                     Nombre: <br />
-                                    <input type="text" name="nombreTutoria" id='nombreTutoria' />
+                                    <input type="text" name="nombreTutoria" autocomplete="off" id='nombreTutoria' disabled={selectedMateria ? false : true} placeholder={selectedMateria ? '' : 'Escoga una materia valida'}/>
                                 </label>
                                 <label>
                                     Descripción: <br />
-                                    <input type="text" name="descripcion" id='descripcion' />
+                                    <input type="text" name="descripcion" autocomplete="off" id='descripcion' disabled={selectedMateria ? false : true} placeholder={selectedMateria ? '' : 'Escoga una materia valida'}/>
                                 </label>
                         </div>
-                        <button type="submit" className="btn btn-primary">Guardar</button>
+                        <button type="submit" className="btn btn-primary" disabled={selectedDocente && selectedMateria ? false : true}>Guardar</button>
                         <button onClick={closeModal} className="btn btn-danger">Cerrar</button>
                     </form>
                 </div>

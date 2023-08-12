@@ -241,7 +241,7 @@ export const aceptarTutoria = async (external_id, datos) => {
 
 export const Materias_Docente = async (external_id_docente) => {
   try {
-    const response = await fetch(URL + '/materias/docente/'+external_id_docente, {
+    const response = await fetch(URL + '/materias/docente/' + external_id_docente, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -379,3 +379,153 @@ export const valoresDefecto = async () => {
     console.log(error);
   }
 }
+
+export const obtenerTodasMaterias = async () => {
+  try {
+    const response = await fetch(URL + '/materias', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      },
+    });
+
+    const responseData = await response.json();
+
+    console.log(responseData);
+
+    return responseData;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+export const editarMateria = async (external_id, datos) => {
+  try {
+    const response = await fetch(URL + '/materias/' + external_id, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      },
+      body: JSON.stringify(datos)
+    })
+    const materia = await response.json();
+    console.log(materia);
+    return materia.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const eliminarMateria = async (external_id) => {
+  try {
+    const response = await fetch(URL + '/materias/' + external_id, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      },
+    })
+    const materia = await response.json();
+    console.log(materia);
+    return materia.data;
+
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const obtenerTodasCuentas = async () => {
+  try {
+    const response = await fetch(URL + '/cuenta', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      },
+    });
+
+    const responseData = await response.json();
+
+    console.log(responseData);
+
+    return responseData;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+export const eliminarCuenta = async (external_id) => {
+  try {
+    console.log(external_id);
+    const response = await fetch(URL + '/cuenta/' + external_id, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      },
+    })
+    const materia = await response.json();
+    console.log(materia);
+    return materia.data;
+
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const editarCuenta = async (external_id, datos) => {
+  try {
+    const response = await fetch(URL + '/cuenta/' + external_id, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      },
+      body: JSON.stringify(datos)
+    })
+    const cuenta = await response.json();
+    console.log(cuenta);
+    return cuenta.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const editarCuentaRol = async (external_id, rol) => {
+  try {
+    const response = await fetch(URL + '/cuenta/' + external_id + '/' + rol, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      },
+    })
+    const cuenta = await response.json();
+    console.log(cuenta);
+    return cuenta.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const obtenerTodosRoles = async () => {
+  try {
+    const response = await fetch(URL + '/rol/listar', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      },
+    });
+
+    const responseData = await response.json();
+
+    console.log(responseData.data);
+
+    return responseData;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+} 

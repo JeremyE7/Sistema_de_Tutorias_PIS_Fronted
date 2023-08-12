@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../css/TablaTutoriasPendientes.css';
-import { cambiarEstadoTutoria, obtenerCuenta, obtenerRolCuenta, obtenerTutorias, tutoriasPendientes } from '../hooks/Conexionsw';
-import TablaTutoriasPendientesMobile from './TablaTutoriasPendientesMobile';
+import { cambiarEstadoTutoria, obtenerCuenta, obtenerRolCuenta, obtenerTutorias } from '../hooks/Conexionsw';
 import VModalTutoriaDocente from './VModalTutoriaDocente';
 import { ObtenerDatos } from '../utilidades/UseSession';
 import VModalFinalizarTutoria from './VModalFinalizarTutoria';
@@ -19,7 +18,7 @@ const TablaTutoriasPendientes = () => {
     const obtTutorias = async () => {
         const cuenta = await obtenerCuenta(ObtenerDatos("ExternalCuenta"))
         const rol = await obtenerRolCuenta(ObtenerDatos("ExternalCuenta"))
-        if(rol.nombre === "Administrador") return
+        if (rol.nombre === "Administrador") return
         console.log(rol);
         let externalAux;
         if (rol.nombre === "Estudiante") {
@@ -57,7 +56,6 @@ const TablaTutoriasPendientes = () => {
     if (tutorias) return (
         <>
             <div className='contenedor-tablaTP'>
-                <label htmlFor="" className='ttl-tabla'>Tutorias Pendientes</label>
                 <table className='tablaTP-desktop'>
                     <thead>
                         <tr>
@@ -135,7 +133,6 @@ const TablaTutoriasPendientes = () => {
             </div>
             <VModalTutoriaDocente externalIdTutoria={externalIdTutoria} setModalIsOpen={setModalIsOpen} modalIsOpen={modalIsOpen} />
             <VModalFinalizarTutoria externalIdTutoria={externalIdTutoria} setModalIsOpen={setModalFinalizarIsOpen} modalIsOpen={modalFinalizarIsOpen} />
-            <TablaTutoriasPendientesMobile tutorias={tutorias} setModalIsOpen={setModalIsOpen} setExternalIdTutoria={setExternalIdTutoria} handleRechazar={handleRechazar} />
         </>
     )
 };

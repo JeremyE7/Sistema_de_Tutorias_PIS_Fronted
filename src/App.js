@@ -20,6 +20,7 @@ function App() {
 
   const [isAdmin, setIsAdmin] = useState(false);
   const [isEstudiante, setIsEstudiante] = useState(false);
+  const [isDocente, setIsDocente] = useState(false);
 
   const Middleware = ({ children }) => {
     const autenticado = EstaSession();
@@ -53,7 +54,19 @@ const MiddlewareAdmin = ({ children }) => {
 
 const MiddlewareEstudiante = ({ children }) => {
   const location = useLocation();
+  console.log(isEstudiante);
   if (isEstudiante) {
+    console.log("awdawd");
+    return children;
+  } else {
+    return <Navigate to="/" state={location} />
+  }
+}
+
+const MiddlewareDocente = ({ children }) => {
+  const location = useLocation();
+  console.log(isDocente);
+  if (isDocente) {
     return children;
   } else {
     return <Navigate to="/" state={location} />
@@ -67,12 +80,12 @@ const MiddlewareEstudiante = ({ children }) => {
         <Route path='/' element={<MiddlewareSession><InicioSesionView /></MiddlewareSession>}></Route>
         <Route path='/CrearCuenta' element={<MiddlewareSession><CrearCuentaView /></MiddlewareSession>}></Route>
         <Route path='/Rol' element={<MiddlewareSession><RolCrear /></MiddlewareSession>}></Route>
-        <Route path='/inicio' element={<Middleware><Inicioview setIsAdmin={setIsAdmin} setIsEstudiante={setIsEstudiante}/></Middleware>}></Route>
+        <Route path='/inicio' element={<Middleware><Inicioview setIsAdmin={setIsAdmin} setIsEstudiante={setIsEstudiante} esDocente={isDocente} setDocente={setIsDocente} esEstudiante={isEstudiante}/></Middleware>}></Route>
         <Route path='/estudiante/listar' element={<Middleware><ListarEstudianteView /></Middleware>}></Route>
         <Route path='/docente/listar' element={<Middleware><ListarDocenteView /></Middleware>}></Route>
-        <Route path='/tutoria/registros' element={<Middleware><MiddlewareEstudiante><RegistroTutorias/></MiddlewareEstudiante></Middleware>}></Route>
+        <Route path='/tutoria/registros' element={<Middleware><MiddlewareDocente><RegistroTutorias/></MiddlewareDocente></Middleware>}></Route>
         <Route path="/solicitar" element={<Solicitar onSubmit={handleSolicitudTutoria}/>}></Route>
-        <Route path='/reporte/pdf' element={<Middleware><MiddlewareEstudiante><ReportePDFView/></MiddlewareEstudiante></Middleware>}></Route>
+        <Route path='/reporte/pdf' element={<Middleware><MiddlewareDocente><ReportePDFView/></MiddlewareDocente></Middleware>}></Route>
         <Route path="/administracion" element={<MiddlewareAdmin><AdministradorView/></MiddlewareAdmin>}></Route>
         <Route path="/valoresDefecto" element={<CrearValoresDefecto/>}></Route>
 

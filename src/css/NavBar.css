@@ -6,3 +6,17 @@
   .dropdown-menu {
     z-index:2
   }
+
+  .label-navbar{
+    color: white;
+  }
+
+  .label-navbar:hover{
+    color: black;
+  }
+
+  @media screen and (max-width: 960px) {
+    .label-navbar{
+      color: black;
+    }
+  }

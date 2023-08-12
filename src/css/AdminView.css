@@ -1,0 +1,39 @@
+.contenedor-Admin{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.form-admin{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #ffff;
+    padding: 10px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    box-shadow: 1px 22px 43px -28px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 1px 22px 43px -28px rgba(0, 0, 0, 0.75);
+    margin-bottom: 30px;
+}
+
+.form-admin button{
+    margin-top: 7px;
+    background-color: #1c1c1c;
+    color: #ffff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    max-height: 50px;
+}
+
+.label-admin{
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 10px;
+}

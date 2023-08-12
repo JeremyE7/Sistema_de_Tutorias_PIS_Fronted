@@ -29,6 +29,7 @@ import {
 } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import logo from '../img/logo.png';
+import unlEscudo from '../img/unlEscudo.png';
 import { BorrarDatos, CerrarSession, ObtenerDatos } from "../utilidades/UseSession";
 import { desencriptando } from "../utilidades/encryp";
 import { obtenerRolCuenta } from "../hooks/Conexionsw";
@@ -49,11 +50,19 @@ const Nanvar = ({isAdmin, isEstudiante}) => {
     <Container>
       <Wrapper>
         <IconContext.Provider value={{ style: { fontSize: "2em" } }}>
-          <div className="" style={{ display: "flex", backgroundColor: "#8d0b0e", padding: "0px 50px", alignItems: "center", justifyContent: "center"}}>
-            <img onClick={() => navegacion('/Inicio')}
+          <div onClick={() => navegacion('/Inicio')} className="" style={{ display: "flex", backgroundColor: "#052342", padding: "0px 50px", alignItems: "center", justifyContent: "center"}}>
+            <img
+              src={unlEscudo}
+              width={"60"}
+              height={"60"}
+              alt="logo-unl"
+              style={{ marginRight: "10px" }}
+            />
+            <img
               src={logo}
               width={"60"}
               height={"60"}
+              alt="logo-unl"
             />
             {desencriptando("Nombre") !== null ? (
               <h5 className="ml-3 mt-3" style={{ color: "white", fontWeight: 500 }}>
@@ -79,7 +88,7 @@ const Nanvar = ({isAdmin, isEstudiante}) => {
                 setShowMobileMenu(!showMobileMenu);
                 //navegacion('estudiante/listar') --> aqui va la ruta del componente tutoria ponerla ojo
               }}>
-                {isAdmin && <div style={{ color: "black", fontWeight: "500" }} onClick={() =>{navegacion('/administracion')}}>
+                {isAdmin && <div onClick={() =>{navegacion('/administracion')}}>
                   <AiFillSchedule />
                   Administrador
                 </div>}
@@ -90,7 +99,7 @@ const Nanvar = ({isAdmin, isEstudiante}) => {
                 setShowMobileMenu(!showMobileMenu);
                 navegacion('/tutoria/registros');
               }}>
-                <div style={{ color: "black", fontWeight: "500" }}>
+                <div> 
                   <AiFillFilePdf />
                   Reportes
                 </div>
@@ -101,7 +110,7 @@ const Nanvar = ({isAdmin, isEstudiante}) => {
                 setShowMobileMenu(!showMobileMenu);
                 //navegacion('estudiante/listar') --> aqui va la ruta del componente cuenta ponerla ojo
               }}>
-                <div style={{ color: "black", fontWeight: "500" }} >
+                <div>
                   <AiOutlineUser />
                   Cuenta
                 </div>
@@ -116,7 +125,7 @@ const Nanvar = ({isAdmin, isEstudiante}) => {
                 navegacion('/');
               }}>
 
-                <div style={{ color: "black", fontWeight: 500 }}>
+                <div>
 
                   <AiOutlineLogout />
                   Cerrar Sesión

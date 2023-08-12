@@ -1,0 +1,41 @@
+.contenedor-main {
+    text-align: center;
+}
+
+.contenedor-subheader {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    justify-content: space-around;
+}
+
+.boton-solicitar{
+    margin: 10px 0px 0px 50px;
+    background-color: #052342;
+    color: white;
+    font-weight: 'bold';
+    border-color: #052342;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.boton-solicitar:hover{
+    transform: scale(1.1);
+    background-color: #052342; /* Escalar el botón al 110% */
+}
+
+
+.boton-crecer:not(:hover) {
+    transform: scale(1); /* Volver al tamaño original cuando el ratón no está sobre el botón */
+}
+
+@media screen and (max-width: 960px) {
+    .contenedor-subheader {
+        flex-direction: column;
+    }
+    .boton-solicitar{
+        margin: 10px 0px 0px 0px;
+    }
+}
+    

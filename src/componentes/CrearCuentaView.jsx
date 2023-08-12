@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { GuardarCuenta, crearRegistroTutoria } from '../hooks/Conexionsw';
 import { mensajeError, mensajeOk } from '../utilidades/Mensajes';
 import { useNavigate } from "react-router-dom";
+import isValidCI from '../utilidades/validadorDeCedulas';
 
 
 const CrearCuentaView = () => {
@@ -14,7 +15,7 @@ const CrearCuentaView = () => {
 
 
   const onSubmit = async (campos) => {
-    const cuenta ={
+    const cuenta = {
       nombre: campos.nombre,
       apellido: campos.apellido,
       identificacion: campos.identificacion,
@@ -24,10 +25,10 @@ const CrearCuentaView = () => {
       direccion: campos.direccion,
     }
 
-    if(tipoCuenta === 'Docente'){
-      cuenta.docente = {titulo: campos.titulo}
+    if (tipoCuenta === 'Docente') {
+      cuenta.docente = { titulo: campos.titulo }
       cuenta.rol = 1
-    }else if(tipoCuenta === 'Estudiante'){
+    } else if (tipoCuenta === 'Estudiante') {
       cuenta.estudiante = {
         carrera: campos.carrera,
         ciclo: campos.ciclo,
@@ -38,20 +39,25 @@ const CrearCuentaView = () => {
 
     const cuentaCreada = await GuardarCuenta(cuenta);
     console.log(cuentaCreada);
-    if(cuentaCreada.data) {
-      if(tipoCuenta === 'Docente'){
+    if (cuentaCreada.data) {
+      if (tipoCuenta === 'Docente') {
         const registroTutoria = {
           periodoAcademico: '2023-2023',
           externalIdDocente: cuentaCreada.data.docente.externalId
         }
         const registroTutoriasCreado = await crearRegistroTutoria(registroTutoria)
 
-        if(!registroTutoriasCreado.data)
+        if (!registroTutoriasCreado.data)
           mensajeError("No se pudo crear la cuenta, intente nuevamente")
       }
       mensajeOk("Cuenta creada con exito").then(() => navegacion('/'))
-    }else{
-      mensajeError("No se pudo crear la cuenta, intente nuevamente")
+    } else {
+      if (cuentaCreada.error === 'Identificacion ya registrada') {
+        mensajeError("La identificacion ya se encuentra registrada")
+      }
+      else if (cuentaCreada.error === 'Correo ya registrado') {
+        mensajeError("El correo ya se encuentra registrado")
+      }
     }
 
 
@@ -88,8 +94,23 @@ const CrearCuentaView = () => {
               <section className='datos-personales'>
                 <label htmlFor="" className="test">
                   Identificación: <br />
-                  <input type="number" id='identificacion'{...register('identificacion', { required: true })} />
-                  {errors.identificacion && <div className="error">El campo es requerido</div>}
+                  <input type="number" id='identificacion'{...register('identificacion', {
+                    required: true,
+                    validate: (value) => {
+                      const isValid = isValidCI(value);
+                      if (!isValid) {
+                        return 'La cédula no es válida';
+                      }
+                      return true;
+                    },
+                  })}
+                  />
+                  {errors.identificacion?.type === 'required' &&(
+                    <div className="error">El campo es requerido</div>
+                  )}
+                  {errors.identificacion?.type === 'validate' && (
+                    <div className="error">{errors.identificacion.message}</div>
+                  )}
 
                 </label>
                 <label htmlFor="" className="test">
@@ -142,7 +163,7 @@ const CrearCuentaView = () => {
                       <input type="text" id='titulo'{...register('titulo', { required: true })} />
                       {errors.titulo && <div className="error">El campo es requerido</div>}
                     </label>
-                  </div>): tipoCuenta === 'Estudiante' ? (
+                  </div>) : tipoCuenta === 'Estudiante' ? (
                     <div className='datos-estudiante'>
                       <label htmlFor="" className="test">
                         Carrera: <br />
@@ -160,7 +181,7 @@ const CrearCuentaView = () => {
                         {errors.paralelo && <div className="error">El campo es requerido</div>}
                       </label>
                     </div>
-                  ): null}
+                  ) : null}
               </section>
             </div>
             <div className='contenedor-botones'>
