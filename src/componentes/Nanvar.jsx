@@ -34,7 +34,7 @@ import { BorrarDatos, CerrarSession, ObtenerDatos } from "../utilidades/UseSessi
 import { desencriptando } from "../utilidades/encryp";
 import { obtenerRolCuenta } from "../hooks/Conexionsw";
 
-const Nanvar = ({isAdmin, isEstudiante}) => {
+const Nanvar = ({isAdmin, isEstudiante, isDocente}) => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const location = useLocation();
   const navegacion = useNavigate();
@@ -94,7 +94,7 @@ const Nanvar = ({isAdmin, isEstudiante}) => {
                 </div>}
               </MenuItemLink>
             </MenuItem>}
-            {!isEstudiante && <MenuItem>
+            {isDocente && <MenuItem>
               <MenuItemLink onClick={() => {
                 setShowMobileMenu(!showMobileMenu);
                 navegacion('/tutoria/registros');

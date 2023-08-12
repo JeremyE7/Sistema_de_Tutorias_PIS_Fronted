@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { mensajeError, mensajeOk } from '../../utilidades/Mensajes';
-import { Docentes, crearMateria, eliminarCuenta, eliminarMateria, obtenerTodasCuentas, obtenerTodasMaterias } from '../../hooks/Conexionsw';
+import {eliminarCuenta, obtenerTodasCuentas } from '../../hooks/Conexionsw';
 import ConfirmarAccion from './ModalAdminView/ConfirmarAccion';
 import EditarRol from './ModalAdminView/EditarRol';
 
@@ -28,6 +28,11 @@ const CuentasAdminView = () => {
         const res = await eliminarCuenta(selectedCuenta.externalId)
         if (res) {
             mensajeOk("Cuenta eliminada con exito", "").then(() => {
+            getCuentas();
+            })
+        }
+        else{
+            mensajeError("No se pudo eliminar la cuenta", "").then(() => {
             getCuentas();
             })
         }

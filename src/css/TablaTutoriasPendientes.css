@@ -7,6 +7,7 @@
     background-color: #ffffff;
     font-family: 'Montserrat';
     overflow-x: scroll;
+    overflow-y: scroll;
     box-shadow: 1px 22px 43px -28px rgba(0, 0, 0, 0.75);
     -webkit-box-shadow: 1px 22px 43px -28px rgba(0, 0, 0, 0.75);
     margin-bottom: 30px;
@@ -111,4 +112,21 @@
         width: 100%;
         margin-top: 0%;
     }
+}
+
+.tr-historial:hover{
+    transform: scale(1.001);
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+.tr-historial:active{
+    transform: scale(0.99);
+    background-color: #e6e6e6;
+    cursor: pointer;
+}
+
+.tablaTP-desktop tbody{
+    overflow-y: scroll;
+    overflow-x: hidden;
 }

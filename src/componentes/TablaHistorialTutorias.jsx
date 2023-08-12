@@ -53,20 +53,20 @@ const TablaHistorialTutorias = () => {
                             <th>Nombre</th>
                             <th>Descripción</th>
                             <th>Fecha</th>
+                            <th>Tipo</th>
                             <th>Estudiantes</th>
                         </tr>
                     </thead>
                     <tbody>
                         {listaTutorias.length > 0 ? listaTutorias.map((tutoria) => (
-                            <tr key={tutoria.id}>
-                                {console.log(tutoria)}
+                            <tr key={tutoria.id} className='tr-historial'>
                                 <td>{tutoria.materia.nombre}</td>
                                 <td>{tutoria.estado}</td>
                                 <td>{tutoria.nombreTutoria}</td>
                                 <td>{tutoria.descripcion}</td>
                                 <td>{tutoria.estado === "Rechazada" ? "Rechazada" : (new Date(tutoria.fechaInicio)).toLocaleString()}</td>
+                                <td>{tutoria.tipoReunionTutoria}</td>
                                 <td>{tutoria.estudiantes.map((estudiante, key) => { return estudiante.persona.nombre + " " + estudiante.persona.apellido + ((key === tutoria.estudiantes.length - 1) ? "" : ", ") })}</td>
-                                
                             </tr>
                         )):(
                             <tr style={{backgroundColor: "#dee2e6"}}>

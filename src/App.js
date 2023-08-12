@@ -9,7 +9,6 @@ import ListarDocenteView from './componentes/ListarDocenteView';
 import { EstaSession } from './utilidades/UseSession';
 import CrearCuentaView from './componentes/CrearCuentaView';
 import { useLocation, Navigate } from 'react-router-dom';
-import Solicitar from './componentes/Solicitar';
 import RolCrear from "./componentes/RolCrear";
 import RegistroTutorias from "./componentes/RegistoTutorias";
 import AdministradorView from "./componentes/AdministradorView";
@@ -75,7 +74,7 @@ const MiddlewareDocente = ({ children }) => {
 
   return (
     <div>
-      <Nanvar isAdmin={isAdmin} isEstudiante={isEstudiante}/>
+      <Nanvar isAdmin={isAdmin} isEstudiante={isEstudiante} isDocente={isDocente}/>
       <Routes>
         <Route path='/' element={<MiddlewareSession><InicioSesionView /></MiddlewareSession>}></Route>
         <Route path='/CrearCuenta' element={<MiddlewareSession><CrearCuentaView /></MiddlewareSession>}></Route>
@@ -84,7 +83,6 @@ const MiddlewareDocente = ({ children }) => {
         <Route path='/estudiante/listar' element={<Middleware><ListarEstudianteView /></Middleware>}></Route>
         <Route path='/docente/listar' element={<Middleware><ListarDocenteView /></Middleware>}></Route>
         <Route path='/tutoria/registros' element={<Middleware><MiddlewareDocente><RegistroTutorias/></MiddlewareDocente></Middleware>}></Route>
-        <Route path="/solicitar" element={<Solicitar onSubmit={handleSolicitudTutoria}/>}></Route>
         <Route path='/reporte/pdf' element={<Middleware><MiddlewareDocente><ReportePDFView/></MiddlewareDocente></Middleware>}></Route>
         <Route path="/administracion" element={<MiddlewareAdmin><AdministradorView/></MiddlewareAdmin>}></Route>
         <Route path="/valoresDefecto" element={<CrearValoresDefecto/>}></Route>

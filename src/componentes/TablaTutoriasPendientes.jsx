@@ -5,6 +5,7 @@ import VModalTutoriaDocente from './VModalTutoriaDocente';
 import { ObtenerDatos } from '../utilidades/UseSession';
 import VModalFinalizarTutoria from './VModalFinalizarTutoria';
 import { mensajeOk } from '../utilidades/Mensajes';
+import VmCancelarTutoria from './VmCancelarTutoria';
 
 const TablaTutoriasPendientes = () => {
 
@@ -12,8 +13,10 @@ const TablaTutoriasPendientes = () => {
     const [tutorias, setTutorias] = useState([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [modalFinalizarIsOpen, setModalFinalizarIsOpen] = useState(false);
+    const [modalCancelarIsOpen, setModalCancelarIsOpen] = useState(false);
     const [externalIdTutoria, setExternalIdTutoria] = useState(null);
     const [tipoRol, setTipoRol] = useState(null);
+    const [tipoModalTutoriaDocente ,setTipoModalTutoriaDocente] = useState(null);
 
     const obtTutorias = async () => {
         const cuenta = await obtenerCuenta(ObtenerDatos("ExternalCuenta"))
@@ -42,17 +45,6 @@ const TablaTutoriasPendientes = () => {
         obtTutorias();
     }, []);
 
-    const handleRechazar = async (estado, externalIdAux) => {
-        console.log(externalIdAux);
-        setExternalIdTutoria(externalIdAux)
-        const res = await cambiarEstadoTutoria(externalIdAux, estado);
-        if (res) {
-            console.log(res);
-            mensajeOk("Tutoria rechazada correctamente").then(() => window.location.reload());
-        }
-    }
-
-
     if (tutorias) return (
         <>
             <div className='contenedor-tablaTP'>
@@ -61,10 +53,11 @@ const TablaTutoriasPendientes = () => {
                         <tr>
                             <th>Materia</th>
                             <th>Estado</th>
-                            <th>Nombre de Tutoria</th>
+                            <th>Nombre</th>
                             <th>Descripción</th>
                             <th>Estudiantes</th>
                             <th>Fecha</th>
+                            <th>Tipo</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -77,16 +70,19 @@ const TablaTutoriasPendientes = () => {
                                 <td>{tutoria.descripcion}</td>
                                 <td>{tutoria.estudiantes.map((estudiante, key) => { return estudiante.persona.nombre + " " + estudiante.persona.apellido + ((key === tutoria.estudiantes.length - 1) ? "" : ", ") })}</td>
                                 <td>{tutoria.estado === "Espera" ? "Aun no asignada" : (new Date(tutoria.fechaInicio)).toLocaleString()}</td>
+                                <td>{tutoria.tipoReunionTutoria}</td>
                                 {tipoRol === "Docente" ? (<td>
                                     {tutoria.estado === "Espera" ? (
                                         <>
                                             <button className="btn btn-primary" onClick={() => {
                                                 setModalIsOpen(true)
                                                 setExternalIdTutoria(tutoria.externalId)
+                                                console.log(tipoModalTutoriaDocente);
+
                                             }}>Aceptar</button>
                                             <button className="btn btn-danger" onClick={() => {
                                                 setExternalIdTutoria(tutoria.externalId)
-                                                handleRechazar("Rechazada", tutoria.externalId)
+                                                setModalCancelarIsOpen(true)
                                             }}>Rechazar</button>
                                         </>
                                     ) : (
@@ -102,12 +98,13 @@ const TablaTutoriasPendientes = () => {
                                                     <button className="btn btn-warning" onClick={() => {
                                                         setModalIsOpen(true)
                                                         console.log(tutoria.externalId);
+                                                        setTipoModalTutoriaDocente("Reagendar")
                                                         setExternalIdTutoria(tutoria.externalId)
                                                     }}>Reagendar</button>
                                                     <button className="btn btn-danger mx-10" onClick={() => {
                                                         console.log(tutoria.externalId);
                                                         setExternalIdTutoria(tutoria.externalId)
-                                                        handleRechazar("Rechazada", tutoria.externalId)
+                                                        setModalCancelarIsOpen(true)
                                                     }}>Cancelar</button>
                                                 </>
                                             )}
@@ -118,21 +115,22 @@ const TablaTutoriasPendientes = () => {
                                     <td>
                                         <button className="btn btn-danger" onClick={() => {
                                             setExternalIdTutoria(tutoria.externalId)
-                                            handleRechazar("Rechazada", tutoria.externalId)
+                                            setModalCancelarIsOpen(true)
                                         }}>Cancelar</button>
                                     </td>
                                 )}
                             </tr>
                         )) : (
                             <tr style={{ backgroundColor: "#dee2e6" }}>
-                                <td colSpan="7">No hay tutorias pendientes</td>
+                                <td colSpan="9">No hay tutorias pendientes</td>
                             </tr>
                         )}
                     </tbody>
                 </table>
             </div>
-            <VModalTutoriaDocente externalIdTutoria={externalIdTutoria} setModalIsOpen={setModalIsOpen} modalIsOpen={modalIsOpen} />
+            <VModalTutoriaDocente externalIdTutoria={externalIdTutoria} setModalIsOpen={setModalIsOpen} modalIsOpen={modalIsOpen} tipo={tipoModalTutoriaDocente}/>
             <VModalFinalizarTutoria externalIdTutoria={externalIdTutoria} setModalIsOpen={setModalFinalizarIsOpen} modalIsOpen={modalFinalizarIsOpen} />
+            <VmCancelarTutoria setModalIsOpen={setModalCancelarIsOpen} modalIsOpen={modalCancelarIsOpen} externalId={externalIdTutoria} tipoRol={tipoRol} />
         </>
     )
 };

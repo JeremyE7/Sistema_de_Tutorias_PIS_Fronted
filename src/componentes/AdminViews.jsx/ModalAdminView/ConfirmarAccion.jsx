@@ -29,7 +29,10 @@ const ConfirmarAccion = ({mensaje, accion, modalIsOpen, setModalIsOpen}) => {
             <h1>Confirmación</h1>
             <p>Esta seguro de que desea realizar esta acción: <br />{mensaje}</p>
             <div>
-                <button onClick={accion}>
+                <button onClick={() =>{
+                    accion();
+                    closeModal();
+                }}>
                     Confirmar
                 </button>
                 <button onClick={closeModal}>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../css/CrearCuentaView.css';
 import { useForm } from 'react-hook-form';
-import { GuardarCuenta, crearRegistroTutoria } from '../hooks/Conexionsw';
+import { GuardarCuenta, crearRegistroTutoria, guardarFirma } from '../hooks/Conexionsw';
 import { mensajeError, mensajeOk } from '../utilidades/Mensajes';
 import { useNavigate } from "react-router-dom";
 import isValidCI from '../utilidades/validadorDeCedulas';
@@ -10,11 +10,26 @@ import isValidCI from '../utilidades/validadorDeCedulas';
 const CrearCuentaView = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [tipoCuenta, setTipoCuenta] = useState('Docente');
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
 
   const navegacion = useNavigate();
 
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedFile(file);
+    console.log("===========", selectedFile);
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreviewUrl(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const onSubmit = async (campos) => {
+    console.log(campos);
     const cuenta = {
       nombre: campos.nombre,
       apellido: campos.apellido,
@@ -50,6 +65,13 @@ const CrearCuentaView = () => {
         if (!registroTutoriasCreado.data)
           mensajeError("No se pudo crear la cuenta, intente nuevamente")
       }
+      console.log(campos.firma[0]);
+      const cuentaFirmada = await guardarFirma(cuentaCreada.data.externalId, campos.firma[0]);
+      console.log(cuentaFirmada);
+      if (!cuentaFirmada) {
+        mensajeError("No se pudo crear la cuenta, intente nuevamente")
+      }
+
       mensajeOk("Cuenta creada con exito").then(() => navegacion('/'))
     } else {
       if (cuentaCreada.error === 'Identificacion ya registrada') {
@@ -105,7 +127,7 @@ const CrearCuentaView = () => {
                     },
                   })}
                   />
-                  {errors.identificacion?.type === 'required' &&(
+                  {errors.identificacion?.type === 'required' && (
                     <div className="error">El campo es requerido</div>
                   )}
                   {errors.identificacion?.type === 'validate' && (
@@ -182,6 +204,19 @@ const CrearCuentaView = () => {
                       </label>
                     </div>
                   ) : null}
+              </section>
+              <section>
+                <label htmlFor="firma">Selecciona una imagen de firma:</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  id="firma"
+                  onInput={handleFileChange}
+                  {...register('firma', { required: true })}
+                />
+                {previewUrl && (
+                  <img src={previewUrl} alt="Vista previa de la imagen de firma" style={{ maxWidth: '100%', marginTop: '10px' }} />
+                )}
               </section>
             </div>
             <div className='contenedor-botones'>

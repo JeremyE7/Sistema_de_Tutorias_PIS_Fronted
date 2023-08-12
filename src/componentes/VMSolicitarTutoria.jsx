@@ -42,12 +42,16 @@ const VModalSolicitarTutoria = ({ setModalIsOpen, externalIdTutoria, modalIsOpen
         const campos = new window.FormData(event.target);
         const nombreTutoria = campos.get('nombreTutoria');
         const descripcion = campos.get('descripcion');
+        const tipoReunionTutoria = campos.get('tipoReunionTutoria');
+        
+        console.log(tipoReunionTutoria);
         console.log(external, selectedDocente.externalId, selectedMateria.externalId, nombreTutoria, descripcion);
         const tutoria = {
             nombreTutoria: nombreTutoria,
             descripcion: descripcion,
             external_id_docente: selectedDocente.externalId,
-            external_id_materia: selectedMateria.externalId
+            external_id_materia: selectedMateria.externalId,
+            tipoReunionTutoria: tipoReunionTutoria
         }
 
         const res = await solicitarTutoria(external, tutoria);
@@ -133,8 +137,19 @@ const VModalSolicitarTutoria = ({ setModalIsOpen, externalIdTutoria, modalIsOpen
                                     Descripción: <br />
                                     <input type="text" name="descripcion" autocomplete="off" id='descripcion' disabled={selectedMateria ? false : true} placeholder={selectedMateria ? '' : 'Escoga una materia valida'}/>
                                 </label>
+                                <label htmlFor="">
+                                    Tipo:
+                                    <label htmlFor="">
+                                        Presencial
+                                        <input checked type="radio" name="tipoReunionTutoria" value="Presencial" id='tipoReunionTutoriaPresencial'/>
+                                    </label>
+                                    <label htmlFor="">
+                                        Virtual
+                                        <input type="radio" name="tipoReunionTutoria" value="Virtual" id='tipoReunionTutoriaVirtual'/>
+                                    </label>
+                                </label>
                         </div>
-                        <button type="submit" className="btn btn-primary" disabled={selectedDocente && selectedMateria ? false : true}>Guardar</button>
+                        <button type="submit" className="btn btn-primary" disabled={selectedDocente && selectedMateria ? false : true}>Solicitar</button>
                         <button onClick={closeModal} className="btn btn-danger">Cerrar</button>
                     </form>
                 </div>

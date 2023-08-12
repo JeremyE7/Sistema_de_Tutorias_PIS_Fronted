@@ -80,7 +80,7 @@ export const GuardarCuenta = async (data) => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     });
     const responseData = await response.json();
     console.log(responseData);
@@ -279,8 +279,9 @@ export const solicitarTutoria = async (external_id, datos) => {
   }
 }
 
-export const cambiarEstadoTutoria = async (external_id, estado) => {
+export const cambiarEstadoTutoria = async (external_id, estado, justificacion) => {
   try {
+    console.log(justificacion);
     const response = await fetch(URL + '/tutorias/estado/' + external_id, {
       method: 'PUT',
       headers: {
@@ -288,11 +289,12 @@ export const cambiarEstadoTutoria = async (external_id, estado) => {
         'Authorization': ObtenerSession()
       },
       body: JSON.stringify({
-        "estado": estado
+        "estado": estado,
+        "justificacion": justificacion,
       })
     })
     const tutoria = await response.json();
-
+    console.log(tutoria);
     return tutoria.data;
   } catch (error) {
     console.log(error);
@@ -529,3 +531,24 @@ export const obtenerTodosRoles = async () => {
     console.error('Error:', error);
   }
 } 
+
+export const guardarFirma = async (external_id, firma) => {
+  try {
+    console.log(firma);
+    const formData = new FormData();
+    formData.append('firma', firma);
+    console.log(external_id);
+    const response = await fetch(URL + '/persona/firma/' + external_id,{
+      method: 'PUT',
+      headers: {
+        'Authorization': ObtenerSession()
+      },
+      body: formData
+    })
+    const cuenta = await response.json();
+    console.log(cuenta);
+    return cuenta.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
