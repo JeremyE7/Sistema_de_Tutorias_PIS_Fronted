@@ -69,7 +69,7 @@ const TablaTutoriasPendientes = () => {
                                 <td>{tutoria.materia.nombre}</td>
                                 <td><label htmlFor="" className={'px-2 rounded' +
                                     (tutoria.estado === "Espera" ? ' bg-warning' :
-                                        tutoria.estado === "Aceptada" ? ' bg-success' : tutoria.estado === "Semirealizada" ? ' bg-info' : ' bg-danger')}
+                                        tutoria.estado === "Aceptada" ? ' bg-info' : tutoria.estado === "Semirealizada" ? ' bg-primary' : ' bg-danger')}
                                 >{tutoria.estado}</label></td>
                                 <td>{tutoria.nombreTutoria}</td>
                                 <td>{tutoria.descripcion}</td>
