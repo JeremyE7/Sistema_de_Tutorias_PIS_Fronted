@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { aceptarTutoria } from '../hooks/Conexionsw';
 import Modal from 'react-modal';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 
 const modalStyle = {
@@ -18,14 +20,27 @@ const modalStyle = {
 
 const VModalTutoriaDocente = ({ setModalIsOpen, externalIdTutoria, modalIsOpen, tipo }) => {
 
-    const [fechaActual] = useState(new Date().toISOString().slice(0, 14));
+    const [selectedDate, setSelectedDate] = useState(null);
+    const [selectedTime, setSelectedTime] = useState('');
+
+    const filterMonday = (date) => {
+        return date.getDay() === 1; // Retorna true solo si es lunes (0: domingo, 1: lunes, ...)
+    };
+
+    const handleDateChange = (date) => {
+        setSelectedDate(date);
+    };
+
+    const handleTimeChange = (event) => {
+        setSelectedTime(event.target.value);
+    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const campos = new window.FormData(event.target);
         const fecha = new Date(campos.get('fecha')).toISOString();
         const justificacion = "Tutoria reagendada por docente el dia " + (new Date().toLocaleString()) + ": " + campos.get('justificacion');
-        if(tipo !== "Reagendar"){
+        if (tipo !== "Reagendar") {
             const tutoria = {
                 fecha,
             };
@@ -35,7 +50,7 @@ const VModalTutoriaDocente = ({ setModalIsOpen, externalIdTutoria, modalIsOpen, 
                 console.log(res);
             }
         }
-        else{
+        else {
             const tutoria = {
                 fecha,
                 justificacion
@@ -69,7 +84,20 @@ const VModalTutoriaDocente = ({ setModalIsOpen, externalIdTutoria, modalIsOpen, 
                     <form action="submit" onSubmit={handleSubmit}>
                         <div className="form-groups">
                             <label htmlFor="fecha">Fecha</label>
-                            <input name="fecha" type="datetime-local" className="form-control" id="fecha" min={fechaActual} />
+                            <DatePicker
+                                minDate={new Date()}
+                                selected={selectedDate}
+                                onChange={handleDateChange}
+                                filterDate={filterMonday} // Aplica el filtro de días
+                                placeholderText="Selecciona un lunes"
+                                dateFormat="dd/MM/yyyy"
+                            /> <br />
+                            <label>Hora:</label>
+                            <input
+                                type="time"
+                                value={selectedTime}
+                                onChange={handleTimeChange}
+                            />
                         </div>
                         <button type="submit" className="btn btn-primary">Guardar</button>
                         <button onClick={closeModal} className="btn btn-danger">Cerrar</button>
