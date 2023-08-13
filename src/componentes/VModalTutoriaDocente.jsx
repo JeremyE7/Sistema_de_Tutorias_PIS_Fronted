@@ -19,8 +19,11 @@ const modalStyle = {
 
 const VModalTutoriaDocente = ({ setModalIsOpen, externalIdTutoria, modalIsOpen, tipo }) => {
 
-    const [fechaActual] = useState(new Date().toISOString().slice(0, 14));
+    const [selectedDateTime, setSelectedDateTime] = useState('');
 
+    const handleDateTimeChange = (event) => {
+        setSelectedDateTime(event.target.value);
+    };
     const handleSubmit = async (event) => {
         event.preventDefault();
         const campos = new window.FormData(event.target);
@@ -58,6 +61,7 @@ const VModalTutoriaDocente = ({ setModalIsOpen, externalIdTutoria, modalIsOpen, 
 
     const closeModal = () => {
         setModalIsOpen(false);
+        setSelectedDateTime('');
     };
 
     console.log(tipo);
@@ -75,9 +79,9 @@ const VModalTutoriaDocente = ({ setModalIsOpen, externalIdTutoria, modalIsOpen, 
                     <form action="submit" onSubmit={handleSubmit}>
                         <div className="form-groups">
                             <label htmlFor="fecha">Fecha</label>
-                            <input min={new Date().toISOString().slice(0, 14)} name="fecha" type="datetime-local" className="form-control" id="fecha" />
+                            <input min={new Date().toISOString().slice(0, 14)} name="fecha" type="datetime-local" className="form-control" id="fecha" value={selectedDateTime} onChange={handleDateTimeChange} />
                         </div>
-                        <button type="submit" className="btn btn-primary">Guardar</button>
+                        <button type="submit" className="btn btn-primary" disabled={selectedDateTime.length > 0 ? false : true }>Guardar</button>
                         <button onClick={closeModal} className="btn btn-danger">Cerrar</button>
                         {tipo === "Reagendar" ? (
                             <label htmlFor="">Escriba la razón por la que reagenda esta tutoria:

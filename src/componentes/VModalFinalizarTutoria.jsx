@@ -17,9 +17,13 @@ const modalStyle = {
     },
 };
 
-const VModalFinalizarTutoria = ({setModalIsOpen, externalIdTutoria, modalIsOpen}) => {
+const VModalFinalizarTutoria = ({ setModalIsOpen, externalIdTutoria, modalIsOpen }) => {
 
-    const [fechaActual] = useState(new Date().toISOString().slice(0, 14));
+    const [selectedDateTime, setSelectedDateTime] = useState('');
+
+    const handleDateTimeChange = (event) => {
+        setSelectedDateTime(event.target.value);
+    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -38,6 +42,8 @@ const VModalFinalizarTutoria = ({setModalIsOpen, externalIdTutoria, modalIsOpen}
 
     const closeModal = () => {
         setModalIsOpen(false);
+        setSelectedDateTime('');
+
     };
 
     return (
@@ -54,12 +60,12 @@ const VModalFinalizarTutoria = ({setModalIsOpen, externalIdTutoria, modalIsOpen}
                     <form action="submit" onSubmit={handleSubmit}>
                         <div className="form-groups">
                             <label htmlFor="fechaFinalizacion">Fecha de finalización</label>
-                            <input name="fecha" type="datetime-local" className="form-control" id="fecha" min={fechaActual}/>
+                            <input name="fecha" type="datetime-local" className="form-control" id="fecha" value={selectedDateTime} onChange={handleDateTimeChange} />
                             <label htmlFor="">Observaciones:
                                 <textarea name="observacion" id="observacion" cols="30" rows="10"></textarea>
                             </label>
                         </div>
-                        <button type="submit" className="btn btn-primary">Guardar</button>
+                        <button type="submit" disabled={selectedDateTime.length > 0 ? false : true } className="btn btn-primary">Guardar</button>
                         <button onClick={closeModal} className="btn btn-danger">Cerrar</button>
                     </form>
                 </div>

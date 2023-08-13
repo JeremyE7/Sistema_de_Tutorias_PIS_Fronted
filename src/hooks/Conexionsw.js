@@ -491,7 +491,7 @@ export const editarCuenta = async (external_id, datos) => {
     })
     const cuenta = await response.json();
     console.log(cuenta);
-    return cuenta.data;
+    return cuenta;
   } catch (error) {
     console.log(error);
   }

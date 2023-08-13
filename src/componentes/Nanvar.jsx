@@ -108,7 +108,7 @@ const Nanvar = ({isAdmin, isEstudiante, isDocente}) => {
             <MenuItem>
               <MenuItemLink onClick={() => {
                 setShowMobileMenu(!showMobileMenu);
-                //navegacion('estudiante/listar') --> aqui va la ruta del componente cuenta ponerla ojo
+                navegacion('/cuenta')
               }}>
                 <div>
                   <AiOutlineUser />

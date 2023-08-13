@@ -146,7 +146,7 @@ const CrearCuentaView = () => {
               <section className='datos-personales'>
                 <label htmlFor="" className="test">
                   Clave: <br />
-                  <input type="text" id='clave'{...register('clave', { required: true })} />
+                  <input type="password" id='clave'{...register('clave', { required: true })} />
                   {errors.clave && <div className="error">El campo es requerido</div>}
 
                 </label>

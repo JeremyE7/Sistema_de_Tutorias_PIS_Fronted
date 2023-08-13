@@ -115,7 +115,7 @@ const TablaTutoriasPendientes = () => {
                                             )}
                                         </>
                                     ) : tutoria.estado === "Semirealizada" && (
-                                        <label htmlFor="" className='text-secondary'>Esperando a que estudiante finalize la tutoria</label>
+                                        <label htmlFor="" className='text-secondary'>Esperando a que el estudiante finalize la tutoria</label>
                                     )}
                                 </td>) : tutoria.estado !== "Semirealizada" ? (
                                     <td>
@@ -126,7 +126,7 @@ const TablaTutoriasPendientes = () => {
                                     </td>
                                 ) : (
                                     <td>
-                                        <button className='btn btn-secondary px-1' onClick={() =>{                                            
+                                        <button className='btn btn-secondary' onClick={() =>{                                            
                                             setExternalIdTutoria(tutoria.externalId)
                                             setModalFinalizarEstudianteIsOpen(true)
                                         }}>
