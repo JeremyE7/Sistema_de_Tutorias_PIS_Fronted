@@ -37,7 +37,9 @@ const VModalDetalleTutoria = ({ tutoria, setModalIsOpen, modalIsOpen }) => {
                 <div className='header-detalleTut shadow'>
                     <p className=''><b>Materia:</b> <br />{tutoria.materia.nombre}</p>
                     <p className=''><b>Modalidad:</b> <br />{tutoria.tipoReunionTutoria}</p>
-                    <p className=''><b>Estado:</b> <br />{tutoria.estado}</p>
+                    <p className=''><b>Estado:</b> <br /><label htmlFor="" className={'px-2 rounded' +
+                                    (tutoria.estado === "Realizada" ? ' bg-success' : tutoria.estado === "Rechazada" ? ' bg-danger' : ' bg-primary')}
+                                >{tutoria.estado}</label></p>
                     <p><b>Fecha de inicio:</b> <br /> {new Date(tutoria.fechaInicio).toLocaleString()}</p>
                     <p><b>Duración:</b> <br />{new Date(tutoria.fechaFinalizacion).getHours() - new Date(tutoria.fechaInicio).getHours() + 'H'} </p>
                     {tutoria.valoracion && <p><b>Valoracion del estudiante:</b> <br />{[...Array(tutoria.valoracion)].map((star) => {
