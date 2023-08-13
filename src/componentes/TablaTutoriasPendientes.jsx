@@ -11,7 +11,7 @@ import VMFinalizarTutoriaEstudiante from './VMFinalizarTutoriaEstudiante';
 const TablaTutoriasPendientes = () => {
 
 
-    const [tutorias, setTutorias] = useState([]);
+    const [tutorias, setTutorias] = useState(null);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [modalFinalizarIsOpen, setModalFinalizarIsOpen] = useState(false);
     const [modalCancelarIsOpen, setModalCancelarIsOpen] = useState(false);
@@ -63,7 +63,7 @@ const TablaTutoriasPendientes = () => {
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    {tutorias ? (<tbody>
                         {tutorias.length > 0 ? tutorias.map((tutoria) => (
                             <tr key={tutoria.id}>
                                 <td>{tutoria.materia.nombre}</td>
@@ -126,7 +126,7 @@ const TablaTutoriasPendientes = () => {
                                     </td>
                                 ) : (
                                     <td>
-                                        <button className='btn btn-secondary' onClick={() =>{                                            
+                                        <button className='btn btn-secondary' onClick={() => {
                                             setExternalIdTutoria(tutoria.externalId)
                                             setModalFinalizarEstudianteIsOpen(true)
                                         }}>
@@ -140,13 +140,19 @@ const TablaTutoriasPendientes = () => {
                                 <td colSpan="9">No hay tutorias pendientes</td>
                             </tr>
                         )}
-                    </tbody>
+                    </tbody>) : (
+                        <tr style={{ backgroundColor: "#dee2e6"}}>
+                            <td colSpan="9">
+                                <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                            </td>
+                        </tr>
+                    )}
                 </table>
             </div>
             <VModalTutoriaDocente externalIdTutoria={externalIdTutoria} setModalIsOpen={setModalIsOpen} modalIsOpen={modalIsOpen} tipo={tipoModalTutoriaDocente} />
             <VModalFinalizarTutoria externalIdTutoria={externalIdTutoria} setModalIsOpen={setModalFinalizarIsOpen} modalIsOpen={modalFinalizarIsOpen} />
             <VmCancelarTutoria setModalIsOpen={setModalCancelarIsOpen} modalIsOpen={modalCancelarIsOpen} externalId={externalIdTutoria} tipoRol={tipoRol} />
-            <VMFinalizarTutoriaEstudiante setModalIsOpen={setModalFinalizarEstudianteIsOpen} modalIsOpen={modalFinalizarEstudianteIsOpen} externalIdTutoria={externalIdTutoria}/>
+            <VMFinalizarTutoriaEstudiante setModalIsOpen={setModalFinalizarEstudianteIsOpen} modalIsOpen={modalFinalizarEstudianteIsOpen} externalIdTutoria={externalIdTutoria} />
         </>
     )
 };

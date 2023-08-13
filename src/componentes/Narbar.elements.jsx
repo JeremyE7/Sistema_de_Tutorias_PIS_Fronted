@@ -19,6 +19,12 @@ export const Wrapper = styled.div`
   @media screen and (max-width: 960px) {
     background-color: #052342;
   }
+
+  @media screen and (max-width: 430px) {
+    h5{
+      display: none;
+    }
+  }
 `;
 
 export const LogoContainer = styled.div`

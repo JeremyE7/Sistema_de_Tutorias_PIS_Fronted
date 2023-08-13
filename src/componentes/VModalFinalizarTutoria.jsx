@@ -61,11 +61,11 @@ const VModalFinalizarTutoria = ({ setModalIsOpen, externalIdTutoria, modalIsOpen
                         <div className="form-groups">
                             <label htmlFor="fechaFinalizacion">Fecha de finalización</label>
                             <input name="fecha" type="datetime-local" className="form-control" id="fecha" value={selectedDateTime} onChange={handleDateTimeChange} />
-                            <label htmlFor="">Observaciones:
+                            <label htmlFor="" className='mt-2'>Observaciones: <br />
                                 <textarea name="observacion" id="observacion" cols="30" rows="10"></textarea>
                             </label>
                         </div>
-                        <button type="submit" disabled={selectedDateTime.length > 0 ? false : true } className="btn btn-primary">Guardar</button>
+                        <button type="submit" disabled={selectedDateTime.length > 0 ? false : true } className="btn btn-primary mr-3">Guardar</button>
                         <button onClick={closeModal} className="btn btn-danger">Cerrar</button>
                     </form>
                 </div>

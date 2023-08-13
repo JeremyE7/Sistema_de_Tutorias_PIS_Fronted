@@ -60,7 +60,7 @@ const TablaHistorialTutorias = () => {
                             <th>Estudiantes</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    {tutorias ? (<tbody>
                         {listaTutorias.length > 0 ? listaTutorias.map((tutoria) => (
                             <tr key={tutoria.id} className='tr-historial' onClick={() => {
                                 setModalIsOpen(true)
@@ -82,7 +82,13 @@ const TablaHistorialTutorias = () => {
                                 <td colSpan="7">Historial de tutorias vacio</td>
                             </tr>
                         )}
-                    </tbody>
+                    </tbody>) : (
+                        <tr style={{ backgroundColor: "#dee2e6"}}>
+                            <td colSpan="9">
+                                <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                            </td>
+                        </tr>
+                    )}
                 </table>
                 {/* <PaginacionTabla totalItems={listaTutorias} itemsPorPagina={itemsPorPagina} paginaActual={pagina} setPagina={setPagina} /> */}
                 <VModalDetalleTutoria tutoria={selectedTutoria} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />
