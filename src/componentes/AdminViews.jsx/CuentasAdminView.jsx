@@ -63,7 +63,7 @@ const CuentasAdminView = () => {
                                 <td>{cuenta.persona.apellido}</td>
                                 <td>{cuenta.correo}</td>
                                 <td>{cuenta.rol.nombre}</td>
-                                <td><img src={cuenta.firma} alt="Firma de cuenta" /></td>
+                                <td><img src={cuenta.persona.firma} alt="Firma de cuenta" width={'100px'}/></td>
                                 <td>
                                     <button className='btn btn-danger' onClick={() => {
                                         setSelectedCuenta(cuenta);
