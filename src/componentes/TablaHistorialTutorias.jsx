@@ -35,7 +35,7 @@ const TablaHistorialTutorias = () => {
             }
             const tutsAux = await obtenerTutorias(rol, externalAux)
             if (tutsAux.data) {
-                setTutorias(tutsAux.data.filter(tutoria => tutoria.estado !== "Espera" && tutoria.estado !== "Aceptada").reverse())
+                setTutorias(tutsAux.data.filter(tutoria => tutoria.estado !== "Espera" && tutoria.estado !== "Aceptada" && tutoria.estado !== "Semirealizada").reverse())
             }
         }
 
@@ -61,7 +61,10 @@ const TablaHistorialTutorias = () => {
                         {listaTutorias.length > 0 ? listaTutorias.map((tutoria) => (
                             <tr key={tutoria.id} className='tr-historial'>
                                 <td>{tutoria.materia.nombre}</td>
-                                <td>{tutoria.estado}</td>
+                                <td><label htmlFor="" className={'px-2 rounded' +
+                                    (tutoria.estado === "Espera" ? ' bg-warning' :
+                                        tutoria.estado === "Realizada" ? ' bg-success' : tutoria.estado === "Semirealizada" ? ' bg-info' : ' bg-danger')}
+                                >{tutoria.estado}</label></td>
                                 <td>{tutoria.nombreTutoria}</td>
                                 <td>{tutoria.descripcion}</td>
                                 <td>{tutoria.estado === "Rechazada" ? "Rechazada" : (new Date(tutoria.fechaInicio)).toLocaleString()}</td>

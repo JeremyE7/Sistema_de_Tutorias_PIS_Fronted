@@ -37,10 +37,6 @@ function App() {
       return <Navigate to="/Inicio" />;
     } else return children;
   }
- const handleSolicitudTutoria = (data) => {
-  // Aquí puedes manejar la lógica para enviar la solicitud al docente
-  console.log("Solicitud enviada:", data);
-};
 
 const MiddlewareAdmin = ({ children }) => {
   const location = useLocation();

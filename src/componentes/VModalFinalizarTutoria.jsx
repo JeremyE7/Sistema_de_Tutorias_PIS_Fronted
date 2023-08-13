@@ -25,8 +25,10 @@ const VModalFinalizarTutoria = ({setModalIsOpen, externalIdTutoria, modalIsOpen}
         event.preventDefault();
         const campos = new window.FormData(event.target);
         const fechaFinalizacion = new Date(campos.get('fecha')).toISOString();
+        const observacion = campos.get('observacion');
+        console.log(observacion);
         console.log(new Date(fechaFinalizacion));
-        const res = await finalizarTutoria(externalIdTutoria, fechaFinalizacion);
+        const res = await finalizarTutoria(externalIdTutoria, fechaFinalizacion, observacion);
         if (res) {
             console.log(res);
             mensajeOk("Tutoria finalizada correctamente").then(() => window.location.reload());
@@ -53,6 +55,9 @@ const VModalFinalizarTutoria = ({setModalIsOpen, externalIdTutoria, modalIsOpen}
                         <div className="form-groups">
                             <label htmlFor="fechaFinalizacion">Fecha de finalización</label>
                             <input name="fecha" type="datetime-local" className="form-control" id="fecha" min={fechaActual}/>
+                            <label htmlFor="">Observaciones:
+                                <textarea name="observacion" id="observacion" cols="30" rows="10"></textarea>
+                            </label>
                         </div>
                         <button type="submit" className="btn btn-primary">Guardar</button>
                         <button onClick={closeModal} className="btn btn-danger">Cerrar</button>

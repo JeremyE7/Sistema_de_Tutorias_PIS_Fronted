@@ -301,8 +301,9 @@ export const cambiarEstadoTutoria = async (external_id, estado, justificacion) =
   }
 }
 
-export const finalizarTutoria = async (external_id, fechaFinalizacion) => {
+export const finalizarTutoria = async (external_id, fechaFinalizacion, observacion) => {
   try {
+    console.log(observacion);
     const response = await fetch(URL + '/tutorias/estado/' + external_id, {
       method: 'PUT',
       headers: {
@@ -310,8 +311,9 @@ export const finalizarTutoria = async (external_id, fechaFinalizacion) => {
         'Authorization': ObtenerSession()
       },
       body: JSON.stringify({
-        "estado": "Realizada",
-        "fechaFinalizacion": fechaFinalizacion
+        "estado": "Semirealizada",
+        "fechaFinalizacion": fechaFinalizacion,
+        "observacionDocente": observacion
       })
     })
     const tutoria = await response.json();
@@ -548,6 +550,33 @@ export const guardarFirma = async (external_id, firma) => {
     const cuenta = await response.json();
     console.log(cuenta);
     return cuenta.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const finalizarTutoriaEstudiante = async (external_id, valoracion, observacion) => {
+  try {
+    console.log(observacion);
+    console.log(valoracion);
+    console.log(external_id);
+    const response = await fetch(URL + '/tutorias/estado/' + external_id, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      },
+      body: JSON.stringify({
+        "estado": "Realizada",
+        "valoracion": valoracion,
+        "observacionEstudiante": observacion
+      })
+    })
+    const tutoria = await response.json();
+
+    console.log(tutoria);
+
+    return tutoria.data;
   } catch (error) {
     console.log(error);
   }
