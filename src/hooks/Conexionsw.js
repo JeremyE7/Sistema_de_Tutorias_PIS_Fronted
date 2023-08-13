@@ -581,3 +581,20 @@ export const finalizarTutoriaEstudiante = async (external_id, valoracion, observ
     console.log(error);
   }
 }
+
+export const obtenerRegistroTutoria = async (external_id) => {
+  try {
+    const response = await fetch(URL + '/registro_tutorias/docente/' + external_id,{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      },
+    })
+    const cuenta = await response.json();
+    console.log(cuenta);
+    return cuenta.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
