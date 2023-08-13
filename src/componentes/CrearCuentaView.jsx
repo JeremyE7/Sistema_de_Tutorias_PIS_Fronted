@@ -1,20 +1,36 @@
 import React, { useState } from 'react';
 import '../css/CrearCuentaView.css';
 import { useForm } from 'react-hook-form';
-import { GuardarCuenta, crearRegistroTutoria } from '../hooks/Conexionsw';
+import { GuardarCuenta, crearRegistroTutoria, guardarFirma } from '../hooks/Conexionsw';
 import { mensajeError, mensajeOk } from '../utilidades/Mensajes';
 import { useNavigate } from "react-router-dom";
+import isValidCI from '../utilidades/validadorDeCedulas';
 
 
 const CrearCuentaView = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [tipoCuenta, setTipoCuenta] = useState('Docente');
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
 
   const navegacion = useNavigate();
 
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedFile(file);
+    console.log("===========", selectedFile);
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreviewUrl(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const onSubmit = async (campos) => {
-    const cuenta ={
+    console.log(campos);
+    const cuenta = {
       nombre: campos.nombre,
       apellido: campos.apellido,
       identificacion: campos.identificacion,
@@ -24,10 +40,10 @@ const CrearCuentaView = () => {
       direccion: campos.direccion,
     }
 
-    if(tipoCuenta === 'Docente'){
-      cuenta.docente = {titulo: campos.titulo}
+    if (tipoCuenta === 'Docente') {
+      cuenta.docente = { titulo: campos.titulo }
       cuenta.rol = 1
-    }else if(tipoCuenta === 'Estudiante'){
+    } else if (tipoCuenta === 'Estudiante') {
       cuenta.estudiante = {
         carrera: campos.carrera,
         ciclo: campos.ciclo,
@@ -38,20 +54,32 @@ const CrearCuentaView = () => {
 
     const cuentaCreada = await GuardarCuenta(cuenta);
     console.log(cuentaCreada);
-    if(cuentaCreada.data) {
-      if(tipoCuenta === 'Docente'){
+    if (cuentaCreada.data) {
+      if (tipoCuenta === 'Docente') {
         const registroTutoria = {
           periodoAcademico: '2023-2023',
           externalIdDocente: cuentaCreada.data.docente.externalId
         }
         const registroTutoriasCreado = await crearRegistroTutoria(registroTutoria)
 
-        if(!registroTutoriasCreado.data)
+        if (!registroTutoriasCreado.data)
           mensajeError("No se pudo crear la cuenta, intente nuevamente")
       }
+      console.log(campos.firma[0]);
+      const cuentaFirmada = await guardarFirma(cuentaCreada.data.externalId, campos.firma[0]);
+      console.log(cuentaFirmada);
+      if (!cuentaFirmada) {
+        mensajeError("No se pudo crear la cuenta, intente nuevamente")
+      }
+
       mensajeOk("Cuenta creada con exito").then(() => navegacion('/'))
-    }else{
-      mensajeError("No se pudo crear la cuenta, intente nuevamente")
+    } else {
+      if (cuentaCreada.error === 'Identificacion ya registrada') {
+        mensajeError("La identificacion ya se encuentra registrada")
+      }
+      else if (cuentaCreada.error === 'Correo ya registrado') {
+        mensajeError("El correo ya se encuentra registrado")
+      }
     }
 
 
@@ -88,8 +116,23 @@ const CrearCuentaView = () => {
               <section className='datos-personales'>
                 <label htmlFor="" className="test">
                   Identificación: <br />
-                  <input type="number" id='identificacion'{...register('identificacion', { required: true })} />
-                  {errors.identificacion && <div className="error">El campo es requerido</div>}
+                  <input type="number" id='identificacion'{...register('identificacion', {
+                    required: true,
+                    validate: (value) => {
+                      const isValid = isValidCI(value);
+                      if (!isValid) {
+                        return 'La cédula no es válida';
+                      }
+                      return true;
+                    },
+                  })}
+                  />
+                  {errors.identificacion?.type === 'required' && (
+                    <div className="error">El campo es requerido</div>
+                  )}
+                  {errors.identificacion?.type === 'validate' && (
+                    <div className="error">{errors.identificacion.message}</div>
+                  )}
 
                 </label>
                 <label htmlFor="" className="test">
@@ -103,7 +146,7 @@ const CrearCuentaView = () => {
               <section className='datos-personales'>
                 <label htmlFor="" className="test">
                   Clave: <br />
-                  <input type="text" id='clave'{...register('clave', { required: true })} />
+                  <input type="password" id='clave'{...register('clave', { required: true })} />
                   {errors.clave && <div className="error">El campo es requerido</div>}
 
                 </label>
@@ -142,7 +185,7 @@ const CrearCuentaView = () => {
                       <input type="text" id='titulo'{...register('titulo', { required: true })} />
                       {errors.titulo && <div className="error">El campo es requerido</div>}
                     </label>
-                  </div>): tipoCuenta === 'Estudiante' ? (
+                  </div>) : tipoCuenta === 'Estudiante' ? (
                     <div className='datos-estudiante'>
                       <label htmlFor="" className="test">
                         Carrera: <br />
@@ -160,7 +203,20 @@ const CrearCuentaView = () => {
                         {errors.paralelo && <div className="error">El campo es requerido</div>}
                       </label>
                     </div>
-                  ): null}
+                  ) : null}
+              </section>
+              <section>
+                <label htmlFor="firma">Selecciona una imagen de firma:</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  id="firma"
+                  onInput={handleFileChange}
+                  {...register('firma', { required: true })}
+                />
+                {previewUrl && (
+                  <img src={previewUrl} alt="Vista previa de la imagen de firma" style={{ maxWidth: '100%', marginTop: '10px' }} />
+                )}
               </section>
             </div>
             <div className='contenedor-botones'>

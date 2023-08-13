@@ -1,0 +1,8 @@
+.disabled-div {
+    background-color: #f2f2f2; /* Cambia el color de fondo a un tono más claro */
+    color: #999; /* Cambia el color del texto a uno más tenue */
+    cursor: not-allowed; /* Cambia el cursor del mouse a "no permitido" */
+    opacity: 0.6; /* Reduce la opacidad para dar una apariencia de desactivado */
+    pointer-events: none; /* Evita que el contenido del div sea interactivo */
+  }
+  

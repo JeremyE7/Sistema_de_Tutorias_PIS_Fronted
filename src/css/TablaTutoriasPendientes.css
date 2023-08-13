@@ -7,6 +7,7 @@
     background-color: #ffffff;
     font-family: 'Montserrat';
     overflow-x: scroll;
+    overflow-y: scroll;
     box-shadow: 1px 22px 43px -28px rgba(0, 0, 0, 0.75);
     -webkit-box-shadow: 1px 22px 43px -28px rgba(0, 0, 0, 0.75);
     margin-bottom: 30px;
@@ -83,26 +84,9 @@
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
     padding: 20px;
     box-sizing: border-box;
+    text-align: center;
 }
 
-
-
-
-
-@media (max-width: 600px) {
-    .tablaTP-mobile {
-        display: block;
-    }
-
-    .tablaTP-desktop {
-        display: none;
-    }
-
-    .tutDocente-modal-open {
-        width: 100%;
-        margin-top: 0%;
-    }
-}
 
 .contenedor-tablaTP {
     margin: 5px 100px 25px 100px;
@@ -114,7 +98,36 @@
     font-family: 'Montserrat';
     font-weight: 600;
     font-size: 30px;
-    color: #8d0b0e;
+    color: #052342;
     margin-bottom: 20px;
 
+}
+
+@media (max-width: 600px) {
+
+    .contenedor-tablaTP {
+        margin: 5px 20px 25px 20px;
+    }
+
+    .tutDocente-modal-open {
+        width: 100%;
+        margin-top: 0%;
+    }
+}
+
+.tr-historial:hover{
+    transform: scale(1.001);
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+.tr-historial:active{
+    transform: scale(0.99);
+    background-color: #e6e6e6;
+    cursor: pointer;
+}
+
+.tablaTP-desktop tbody{
+    overflow-y: scroll;
+    overflow-x: hidden;
 }

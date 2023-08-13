@@ -80,7 +80,7 @@ export const GuardarCuenta = async (data) => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     });
     const responseData = await response.json();
     console.log(responseData);
@@ -241,7 +241,7 @@ export const aceptarTutoria = async (external_id, datos) => {
 
 export const Materias_Docente = async (external_id_docente) => {
   try {
-    const response = await fetch(URL + '/materias/docente/'+external_id_docente, {
+    const response = await fetch(URL + '/materias/docente/' + external_id_docente, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -279,8 +279,9 @@ export const solicitarTutoria = async (external_id, datos) => {
   }
 }
 
-export const cambiarEstadoTutoria = async (external_id, estado) => {
+export const cambiarEstadoTutoria = async (external_id, estado, justificacion) => {
   try {
+    console.log(justificacion);
     const response = await fetch(URL + '/tutorias/estado/' + external_id, {
       method: 'PUT',
       headers: {
@@ -288,19 +289,21 @@ export const cambiarEstadoTutoria = async (external_id, estado) => {
         'Authorization': ObtenerSession()
       },
       body: JSON.stringify({
-        "estado": estado
+        "estado": estado,
+        "justificacion": justificacion,
       })
     })
     const tutoria = await response.json();
-
+    console.log(tutoria);
     return tutoria.data;
   } catch (error) {
     console.log(error);
   }
 }
 
-export const finalizarTutoria = async (external_id, fechaFinalizacion) => {
+export const finalizarTutoria = async (external_id, fechaFinalizacion, observacion) => {
   try {
+    console.log(observacion);
     const response = await fetch(URL + '/tutorias/estado/' + external_id, {
       method: 'PUT',
       headers: {
@@ -308,8 +311,9 @@ export const finalizarTutoria = async (external_id, fechaFinalizacion) => {
         'Authorization': ObtenerSession()
       },
       body: JSON.stringify({
-        "estado": "Realizada",
-        "fechaFinalizacion": fechaFinalizacion
+        "estado": "Semirealizada",
+        "fechaFinalizacion": fechaFinalizacion,
+        "observacionDocente": observacion
       })
     })
     const tutoria = await response.json();
@@ -375,6 +379,221 @@ export const valoresDefecto = async () => {
     const tutoria = await response.json();
 
     return tutoria.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const obtenerTodasMaterias = async () => {
+  try {
+    const response = await fetch(URL + '/materias', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      },
+    });
+
+    const responseData = await response.json();
+
+    console.log(responseData);
+
+    return responseData;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+export const editarMateria = async (external_id, datos) => {
+  try {
+    const response = await fetch(URL + '/materias/' + external_id, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      },
+      body: JSON.stringify(datos)
+    })
+    const materia = await response.json();
+    console.log(materia);
+    return materia.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const eliminarMateria = async (external_id) => {
+  try {
+    const response = await fetch(URL + '/materias/' + external_id, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      },
+    })
+    const materia = await response.json();
+    console.log(materia);
+    return materia.data;
+
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const obtenerTodasCuentas = async () => {
+  try {
+    const response = await fetch(URL + '/cuenta', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      },
+    });
+
+    const responseData = await response.json();
+
+    console.log(responseData);
+
+    return responseData;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+export const eliminarCuenta = async (external_id) => {
+  try {
+    console.log(external_id);
+    const response = await fetch(URL + '/cuenta/' + external_id, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      },
+    })
+    const materia = await response.json();
+    console.log(materia);
+    return materia.data;
+
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const editarCuenta = async (external_id, datos) => {
+  try {
+    const response = await fetch(URL + '/cuenta/' + external_id, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      },
+      body: JSON.stringify(datos)
+    })
+    const cuenta = await response.json();
+    console.log(cuenta);
+    return cuenta;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const editarCuentaRol = async (external_id, rol) => {
+  try {
+    const response = await fetch(URL + '/cuenta/' + external_id + '/' + rol, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      },
+    })
+    const cuenta = await response.json();
+    console.log(cuenta);
+    return cuenta.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const obtenerTodosRoles = async () => {
+  try {
+    const response = await fetch(URL + '/rol/listar', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      },
+    });
+
+    const responseData = await response.json();
+
+    console.log(responseData.data);
+
+    return responseData;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+} 
+
+export const guardarFirma = async (external_id, firma) => {
+  try {
+    console.log(firma);
+    const formData = new FormData();
+    formData.append('firma', firma);
+    console.log(external_id);
+    const response = await fetch(URL + '/persona/firma/' + external_id,{
+      method: 'PUT',
+      headers: {
+        'Authorization': ObtenerSession()
+      },
+      body: formData
+    })
+    const cuenta = await response.json();
+    console.log(cuenta);
+    return cuenta.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const finalizarTutoriaEstudiante = async (external_id, valoracion, observacion) => {
+  try {
+    console.log(observacion);
+    console.log(valoracion);
+    console.log(external_id);
+    const response = await fetch(URL + '/tutorias/estado/' + external_id, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      },
+      body: JSON.stringify({
+        "estado": "Realizada",
+        "valoracion": valoracion,
+        "observacionEstudiante": observacion
+      })
+    })
+    const tutoria = await response.json();
+
+    console.log(tutoria);
+
+    return tutoria.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const obtenerRegistroTutoria = async (external_id) => {
+  try {
+    const response = await fetch(URL + '/registro_tutorias/docente/' + external_id,{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      },
+    })
+    const cuenta = await response.json();
+    console.log(cuenta);
+    return cuenta.data;
   } catch (error) {
     console.log(error);
   }
