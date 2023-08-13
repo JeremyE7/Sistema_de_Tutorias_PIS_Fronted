@@ -141,7 +141,7 @@ const TablaTutoriasPendientes = () => {
                             </tr>
                         )}
                     </tbody>) : (
-                        <tr style={{ backgroundColor: "#dee2e6"}}>
+                        <tr style={{ backgroundColor: "#dee2e6" }}>
                             <td colSpan="9">
                                 <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
                             </td>
@@ -153,6 +153,33 @@ const TablaTutoriasPendientes = () => {
             <VModalFinalizarTutoria externalIdTutoria={externalIdTutoria} setModalIsOpen={setModalFinalizarIsOpen} modalIsOpen={modalFinalizarIsOpen} />
             <VmCancelarTutoria setModalIsOpen={setModalCancelarIsOpen} modalIsOpen={modalCancelarIsOpen} externalId={externalIdTutoria} tipoRol={tipoRol} />
             <VMFinalizarTutoriaEstudiante setModalIsOpen={setModalFinalizarEstudianteIsOpen} modalIsOpen={modalFinalizarEstudianteIsOpen} externalIdTutoria={externalIdTutoria} />
+        </>
+    )
+    else return (
+        <>
+            <div className='contenedor-tablaTP'>
+                <table className='tablaTP-desktop'>
+                    <thead>
+                        <tr>
+                            <th>Materia</th>
+                            <th>Estado</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Estudiantes</th>
+                            <th>Fecha</th>
+                            <th>Tipo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style={{ backgroundColor: "#dee2e6" }}>
+                            <td colSpan="9">
+                                <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </>
     )
 };

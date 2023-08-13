@@ -101,7 +101,7 @@ const CuentaView = () => {
 
     return (
         <>
-            {cuenta && <div className="background-registro">
+            {cuenta ? <div className="background-registro">
                 <main className="main-registro">
                     <h3 className='shadow'>Cuenta</h3>
                     <button onClick={() => setEditar(!editar)} className={'boton-editar btn btn-' + (editar ? 'dark' : 'danger')}>{editar ? "Cancelar edición" : "Editar"}</button>
@@ -226,7 +226,9 @@ const CuentaView = () => {
 
                     </form>
                 </main>
-            </div>}
+            </div> : (
+                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+            )}
         </>
     );
 };
