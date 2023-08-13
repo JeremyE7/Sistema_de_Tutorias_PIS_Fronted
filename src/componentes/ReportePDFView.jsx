@@ -1,11 +1,12 @@
-import { PDFViewer, Text, View, Document, Page, Image } from '@react-pdf/renderer';
+import { PDFViewer, Text, View, Document, Page, Image, StyleSheet, Font } from '@react-pdf/renderer';
 import React, { Fragment, useEffect, useState } from 'react';
 import { set, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { Materias_Docente, obtenerCuenta, obtenerTutorias } from '../hooks/Conexionsw';
 import { ObtenerDatos } from '../utilidades/UseSession';
 import logoUNL from "../img/logoPDF.png"
-import '../css/ReportePDF.css'
+import fontCentury from "../fonts/CenturyGothic.ttf"
+import centuryBold from "../fonts/GothicB0.tff"
 
 const ReportePDFView = () => {
     const [numFilasTabla, setNumFilasTabla] = useState(17);
@@ -14,6 +15,17 @@ const ReportePDFView = () => {
     const [materias, setMaterias] = useState(undefined);
     const [contador, setContador] = useState(1);
     const [totalHoras, setTotal] = useState(0);
+
+    Font.register({
+        family: 'CenturyGothic', fonts: [
+            { src: fontCentury, fontWeight: 'normal' }, { src: centuryBold, fontWeight: 'bold' }
+        ]
+    })
+
+    const styles = StyleSheet.create({
+        titulo: { textAlign: 'center', fontFamily: 'CenturyGothic', fontSize: 12, fontWeight: 'bold' },
+        etiqueta: { textAlign: 'left', fontFamily: 'CenturyGothic', fontSize: 11, fontWeight: 'bold' }
+    });
 
     useEffect(() => {
         const getMaterias = async () => {
@@ -38,12 +50,21 @@ const ReportePDFView = () => {
         <div>
             <PDFViewer style={{ width: window.innerWidth, height: '100vh' }}>
                 <Document>
-                    <Page className='pagina-reporte' size="A4" orientation='landscape'>
-                        <div className='container' style={{ margin: '50px', display: 'flex', flexDirection:'row'}}>
-                            <View style={{flexDirection:'column'}}>
-                                <Text className='texto-titulo' st>UNIVERSIDAD NACIONAL DE LOJA</Text>
+                    <Page size="A4" orientation='landscape'>
+                        <View style={{ margin: '50px', display: 'flex', flexDirection: 'column' }}>
+                            <View style={{flexDirection:'row', alignItems:'center'}}>
+                                <Image source={logoUNL} style={{width:'75%', flex:1}}></Image>
+                                <View style={{flexDirection:'column', flex:2}}>
+                                    <Text style={styles.titulo}>UNIVERSIDAD NACIONAL DE LOJA</Text>
+                                    <Text style={styles.titulo}>COMISIÓN DE ARTICULACIÓN DE LAS FUNCIONES SUSTANTIVAS</Text>
+                                    <Text style={styles.titulo}>FORMATO PARA EL INFORME CONSOLIDADO DE TUTORÍAS ACADÉMICAS DE LA CARRERA</Text>
+                                </View>
                             </View>
-                        </div>
+                            <View style={{ marginTop: '10px' }}>
+                                <Text style={styles.etiqueta}>Carrera:</Text>
+                                <Text style={styles.etiqueta}>Período académico ordinario (PAO):</Text>
+                            </View>
+                        </View>
                     </Page>
                 </Document>
             </PDFViewer>

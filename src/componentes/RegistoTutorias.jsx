@@ -43,7 +43,7 @@ const RegistroTutorias = () => {
             <div className="btn-group container" style={{ margin: "20px", flexDirection: 'column', height: '100vh', width: '15%' }}>
                 <label htmlFor="" className='ttl-tabla'>Asignaturas</label>
                 {listaMaterias && listaMaterias.map((materia) => (
-                    <button onClick={()=>cambiarMateria(materia.id)}style={{ backgroundColor: '#8d0b0e', color: 'white', fontFamily: 'sans-serif', fontWeight: 'bold', borderColor: '#8d0b0e', borderRadius: '2px', outline: 'none' }} key={materia.id}>
+                    <button onClick={()=>cambiarMateria(materia.id)}style={{ backgroundColor: '#052342', color: 'white', fontFamily: 'sans-serif', fontWeight: 'bold', borderColor: '#052342', borderRadius: '2px', outline: 'none' }} key={materia.id}>
                         {materia.nombre}
                     </button>
                 ))}
