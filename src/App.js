@@ -15,6 +15,7 @@ import AdministradorView from "./componentes/AdministradorView";
 import CrearValoresDefecto from "./componentes/CrearValoresDefecto";
 import ReportePDFView from "./componentes/ReportePDFView";
 import CuentaView from "./componentes/CuentaView";
+import PDFReporteMateria from "./componentes/PDFReporteMateria";
 
 function App() {
 
@@ -81,6 +82,7 @@ const MiddlewareDocente = ({ children }) => {
         <Route path='/docente/listar' element={<Middleware><ListarDocenteView /></Middleware>}></Route>
         <Route path='/tutoria/registros' element={<Middleware><MiddlewareDocente><RegistroTutorias/></MiddlewareDocente></Middleware>}></Route>
         <Route path='/reporte/pdf' element={<Middleware><ReportePDFView/></Middleware>}></Route>
+        <Route path='/reporte/materia/:external' element={<Middleware><PDFReporteMateria/></Middleware>}></Route>
         <Route path="/administracion" element={<MiddlewareAdmin><AdministradorView/></MiddlewareAdmin>}></Route>
         <Route path="/valoresDefecto" element={<CrearValoresDefecto/>}></Route>
         <Route path="/cuenta" element={<Middleware><CuentaView/></Middleware>}></Route>
