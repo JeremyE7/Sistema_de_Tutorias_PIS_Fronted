@@ -229,6 +229,7 @@ const CrearCuentaView = () => {
                     className='form form-control-file'
                     {...register('firma', { required: true })}
                   />
+                  {errors.firma && <small className="form-text text-danger">El campo es requerido</small>}
                   {previewUrl && (
                     <img src={previewUrl} alt="Vista previa de la imagen de firma" style={{ maxWidth: '200px', marginTop: '10px' }} />
                   )}
