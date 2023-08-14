@@ -46,13 +46,13 @@ const VmCancelarTutoria = ({ externalId, modalIsOpen, setModalIsOpen, tipoRol })
             onRequestClose={(closeModal)}
             style={modalStyle}
             className={"tutDocente-modal-open"}>
-            <h1>Cancelar tutoria</h1>
+            <h2>Cancelar tutoría</h2>
             <form action="submit" onSubmit={handleRechazar}>
                 <section>
                     <label htmlFor="">¿Está seguro de que desea cancelar esta tutoría?</label>
-                    <label htmlFor="">Escriba la razon por la que cancela esta tutoria</label><br />
+                    <label htmlFor="">Escriba la razón por la que cancela esta tutoría</label><br />
                     <textarea name="" id="" cols="30" rows="10" className='form-control'></textarea>
-                    <button className='btn btn-danger mt-2'>Cancelar tutoria</button>
+                    <button className='btn btn-danger mt-2'>Cancelar tutoría</button>
                 </section>
             </form>
         </Modal>

@@ -139,7 +139,7 @@ const PDFTablaMateria = ({ externalMateria }) => {
                         <View style={[styles.tableCol, { width: '10%', backgroundColor: 'white' }]}>
                             <View style={styles.tableCell}>
                                 {tutoria.estudiantes.map((estudiante) => {
-                                    return (estudiante.persona.firma) ?<Image source={estudiante.persona.firma} key={key} style={[styles.tableCell, {width:'70px', }]}>
+                                    return (estudiante.persona.firma) ?<Image source={estudiante.persona.firma} key={key} style={[styles.tableCell, {width:'100%', }]}>
                                     </Image>:""
                                 })
                                 }</View>
