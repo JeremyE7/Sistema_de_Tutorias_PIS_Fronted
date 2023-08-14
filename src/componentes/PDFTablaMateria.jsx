@@ -60,6 +60,7 @@ const PDFTablaMateria = ({ externalMateria }) => {
             const registro = await obtenerRegistroTutoria(cuenta.data.persona.docente.externalId);
             console.log(registro);
             setTutorias(registro[0].tutorias.filter(tutoria => tutoria.estado === "Realizada" && tutoria.materia.externalId === externalMateria));
+            console.log(tutorias);
         }
 
         getRegistro();
@@ -136,12 +137,12 @@ const PDFTablaMateria = ({ externalMateria }) => {
                             </View>
                         </View>
                         <View style={[styles.tableCol, { width: '10%', backgroundColor: 'white' }]}>
-                            <Text style={styles.tableCell}>
+                            <View style={styles.tableCell}>
                                 {tutoria.estudiantes.map((estudiante) => {
-                                    return (estudiante.persona.firma) ?<Image source={estudiante.persona.firma} key={key} style={[styles.tableCell, {width:'100%'}]}>
+                                    return (estudiante.persona.firma) ?<Image source={estudiante.persona.firma} key={key} style={[styles.tableCell, {width:'70px', }]}>
                                     </Image>:""
                                 })
-                                }</Text>
+                                }</View>
                         </View>
                     </View>
                 </View>
