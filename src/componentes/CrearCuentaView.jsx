@@ -5,6 +5,7 @@ import { GuardarCuenta, crearRegistroTutoria, guardarFirma } from '../hooks/Cone
 import { mensajeError, mensajeOk } from '../utilidades/Mensajes';
 import { useNavigate } from "react-router-dom";
 import isValidCI from '../utilidades/validadorDeCedulas';
+import CargandoView from './CargandoView';
 
 
 const CrearCuentaView = () => {
@@ -12,6 +13,7 @@ const CrearCuentaView = () => {
   const [tipoCuenta, setTipoCuenta] = useState('Docente');
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
+  const [creandoCuenta, setCreandoCuenta] = useState(false);
 
   const navegacion = useNavigate();
 
@@ -29,6 +31,7 @@ const CrearCuentaView = () => {
   };
 
   const onSubmit = async (campos) => {
+    setCreandoCuenta(true);
     console.log(campos);
     const cuenta = {
       nombre: campos.nombre,
@@ -62,17 +65,22 @@ const CrearCuentaView = () => {
         }
         const registroTutoriasCreado = await crearRegistroTutoria(registroTutoria)
 
-        if (!registroTutoriasCreado.data)
-          mensajeError("No se pudo crear la cuenta, intente nuevamente")
+        if (!registroTutoriasCreado){
+          mensajeError("No se pudo crear la cuenta, registro de tutorias no creado, intente nuevamente")
+          return
+        }
       }
       console.log(campos.firma[0]);
       const cuentaFirmada = await guardarFirma(cuentaCreada.data.externalId, campos.firma[0]);
       console.log(cuentaFirmada);
       if (!cuentaFirmada) {
-        mensajeError("No se pudo crear la cuenta, intente nuevamente")
+        setCreandoCuenta(false);
+        mensajeError("No se pudo crear la cuenta, firma no asignada, intente nuevamente")
       }
-
-      mensajeOk("Cuenta creada con exito").then(() => navegacion('/'))
+      setCreandoCuenta(false);
+      mensajeOk("Cuenta creada con exito").then(() => {
+        navegacion('/')
+      })
     } else {
       if (cuentaCreada.error === 'Identificacion ya registrada') {
         mensajeError("La identificacion ya se encuentra registrada")
@@ -80,6 +88,7 @@ const CrearCuentaView = () => {
       else if (cuentaCreada.error === 'Correo ya registrado') {
         mensajeError("El correo ya se encuentra registrado")
       }
+      setCreandoCuenta(false);
     }
 
 
@@ -136,7 +145,7 @@ const CrearCuentaView = () => {
 
                 </label>
                 <label htmlFor="" className="test">
-                  Correo Electronico: <br />
+                  Correo Electrónico: <br />
                   <input type="text" id='correo' className='form form-control' {...register('correo', { required: true, pattern: /\S+@\S+\.\S+/ })} />
                   {errors.correo && errors.correo.type === 'required' && <small className="form-text text-danger">El campo es requerido</small>
                   }
@@ -153,7 +162,7 @@ const CrearCuentaView = () => {
 
                 </label>
                 <label htmlFor="" className="test">
-                  Telefono: <br />
+                  Teléfono: <br />
                   <input type="number" id='telefono' className='form form-control' {...register('telefono', { required: true })} />
                   {errors.clave && <small className="form-text text-danger">El campo es requerido</small>}
                 </label>
@@ -185,7 +194,7 @@ const CrearCuentaView = () => {
                     {tipoCuenta && tipoCuenta === 'Docente' ? (
                       <div className='datos-docente'>
                         <label htmlFor="" className="test">
-                          Titulo: <br />
+                          Título: <br />
                           <input type="text" id='titulo' className='form form-control' {...register('titulo', { required: true })} />
                           {errors.titulo && <small className="form-text text-danger">El campo es requerido</small>}
                         </label>
@@ -235,6 +244,7 @@ const CrearCuentaView = () => {
           </form>
         </main>
       </div>
+      {creandoCuenta && <CargandoView/>}
     </>
   );
 };

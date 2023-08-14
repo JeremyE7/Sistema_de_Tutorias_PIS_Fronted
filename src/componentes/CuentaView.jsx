@@ -6,6 +6,8 @@ import { mensajeError, mensajeOk } from '../utilidades/Mensajes';
 import { useForm } from 'react-hook-form';
 import '../css/CuentaView.css'
 import { encriptando } from '../utilidades/encryp';
+import CargandoView from './CargandoView';
+
 
 const CuentaView = () => {
 
@@ -15,6 +17,7 @@ const CuentaView = () => {
     const [previewUrl, setPreviewUrl] = useState(null);
     const [cuenta, setCuenta] = useState(null);
     const [editar, setEditar] = useState(false);
+    const [editandoCuenta, setEditandoCuenta] = useState(false);
 
     const obtenerCuentaActual = async () => {
         const cuenta = await obtenerCuenta(ObtenerDatos("ExternalCuenta"))
@@ -37,6 +40,7 @@ const CuentaView = () => {
     };
 
     const onSubmit = async (campos) => {
+        setEditandoCuenta(true);
         console.log("Awdawdawd");
         console.log(campos);
         const cuentaAux = {
@@ -73,7 +77,7 @@ const CuentaView = () => {
                     return;
                 }
             }
-
+            setEditandoCuenta(false);
             mensajeOk("Cuenta editada con exito").then(() => {
                 obtenerCuentaActual();
                 setEditar(false)
@@ -88,6 +92,7 @@ const CuentaView = () => {
             else if (cuentaEditada.error === 'Correo ya registrado') {
                 mensajeError("El correo ya se encuentra registrado")
             }
+            setEditandoCuenta(false);
         }
 
 
@@ -145,7 +150,7 @@ const CuentaView = () => {
 
                                 </label>
                                 <label htmlFor="" className="">
-                                    Correo Electronico: <br />
+                                    Correo Electrónico: <br />
                                     <input type="text" id='correo' className='form-control'{...register('correo', { required: true, pattern: /\S+@\S+\.\S+/ })} defaultValue={cuenta.correo} />
                                     {errors.correo && errors.correo.type === 'required' && <small className="form-text text-danger">El campo es requerido</small>}
                                     {errors.correo && errors.correo.type === 'pattern' && <small className="form-text text-danger">Ingrese un correo valido</small>}
@@ -154,7 +159,7 @@ const CuentaView = () => {
 
                             <section className={'datos-personales ' + (editar ? '' : 'disabled-div')}>
                                 <label htmlFor="" className="">
-                                    Telefono: <br />
+                                    Teléfono: <br />
                                     <input type="number" id='telefono' className='form-control'{...register('telefono', { required: true })} defaultValue={cuenta.persona.telefono} />
                                     {errors.clave && <small className="form-text text-danger">El campo es requerido</small>}
                                 </label>
@@ -226,9 +231,8 @@ const CuentaView = () => {
 
                     </form>
                 </main>
-            </div> : (
-                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-            )}
+            </div> : <CargandoView/>}
+            {editandoCuenta && <CargandoView/>}
         </>
     );
 };

@@ -59,9 +59,9 @@ const Inicioview = ({ setIsAdmin, setIsEstudiante, esDocente, setDocente, esEstu
             <div>
 
                 <main className='contenedor-main'>
-                    <label htmlFor="" className='ttl-tabla'>Tutorias Pendientes</label>
+                    <label htmlFor="" className='ttl-tabla'>Tutorías Pendientes</label>
                     <TablaTutoriasPendientes />
-                    <label htmlFor="" className='ttl-tabla'>Historial de tutorias</label>
+                    <label htmlFor="" className='ttl-tabla'>Historial de tutorías</label>
                     <TablaHistorialTutorias />
                 </main>
             </div>

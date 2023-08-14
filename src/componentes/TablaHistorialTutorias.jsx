@@ -8,7 +8,7 @@ import VModalDetalleTutoria from './VModalDetalleTutoria';
 
 
 const TablaHistorialTutorias = () => {
-    const [tutorias, setTutorias] = useState([])
+    const [tutorias, setTutorias] = useState()
     const [rol, setRol] = useState(undefined)
     const [external, setExternal] = useState(undefined)
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -18,7 +18,7 @@ const TablaHistorialTutorias = () => {
     const itemsPorPagina = 10;
     const ulitmoIndice = pagina * itemsPorPagina;
     const primerIndice = ulitmoIndice - itemsPorPagina;
-    const listaTutorias = tutorias.slice(primerIndice, ulitmoIndice);
+    const listaTutorias = tutorias ? tutorias.slice(primerIndice, ulitmoIndice) : undefined;
 
     useEffect(() => {
         const getRol = async () => {
@@ -45,7 +45,7 @@ const TablaHistorialTutorias = () => {
         getRol()
     }, [])
 
-    return (
+    if(tutorias)return (
         <>
             <div className='contenedor-tablaTP'>
                 <table className='tablaTP-desktop'>
@@ -94,6 +94,30 @@ const TablaHistorialTutorias = () => {
                 <VModalDetalleTutoria tutoria={selectedTutoria} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />
             </div>
         </>
+    )
+    else return(
+        <div className='contenedor-tablaTP'>
+            <table className='tablaTP-desktop'>
+                <thead>
+                    <tr>
+                        <th>Materia</th>
+                        <th>Estado</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Fecha</th>
+                        <th>Tipo</th>
+                        <th>Estudiantes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style={{ backgroundColor: "#dee2e6"}}>
+                        <td colSpan="9">
+                            <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     )
 }
 
