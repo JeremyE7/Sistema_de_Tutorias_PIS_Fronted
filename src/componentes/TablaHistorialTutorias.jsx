@@ -8,7 +8,7 @@ import VModalDetalleTutoria from './VModalDetalleTutoria';
 
 
 const TablaHistorialTutorias = () => {
-    const [tutorias, setTutorias] = useState(null)
+    const [tutorias, setTutorias] = useState([])
     const [rol, setRol] = useState(undefined)
     const [external, setExternal] = useState(undefined)
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -45,7 +45,7 @@ const TablaHistorialTutorias = () => {
         getRol()
     }, [])
 
-    if (tutorias) return (
+    return (
         <>
             <div className='contenedor-tablaTP'>
                 <table className='tablaTP-desktop'>
@@ -83,7 +83,7 @@ const TablaHistorialTutorias = () => {
                             </tr>
                         )}
                     </tbody>) : (
-                        <tr style={{ backgroundColor: "#dee2e6" }}>
+                        <tr style={{ backgroundColor: "#dee2e6"}}>
                             <td colSpan="9">
                                 <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
                             </td>
@@ -92,32 +92,6 @@ const TablaHistorialTutorias = () => {
                 </table>
                 {/* <PaginacionTabla totalItems={listaTutorias} itemsPorPagina={itemsPorPagina} paginaActual={pagina} setPagina={setPagina} /> */}
                 <VModalDetalleTutoria tutoria={selectedTutoria} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />
-            </div>
-        </>
-    )
-    else return (
-        <>
-            <div className='contenedor-tablaTP'>
-                <table className='tablaTP-desktop'>
-                    <thead>
-                        <tr>
-                            <th>Materia</th>
-                            <th>Estado</th>
-                            <th>Nombre</th>
-                            <th>Descripción</th>
-                            <th>Fecha</th>
-                            <th>Tipo</th>
-                            <th>Estudiantes</th>         
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr style={{ backgroundColor: "#dee2e6" }}>
-                            <td colSpan="9">
-                                <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
         </>
     )
