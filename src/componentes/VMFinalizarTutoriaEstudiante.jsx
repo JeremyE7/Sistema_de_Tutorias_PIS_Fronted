@@ -74,11 +74,11 @@ const VMFinalizarTutoriaEstudiante = ({ setModalIsOpen, externalIdTutoria, modal
                         )
                     })}
                     <label htmlFor="">
-                        Observación(Opcional):
+                        Observación(Opcional): <br />
                         <textarea name="observacion" id="observacion" cols="30" rows="10"></textarea>
-                    </label>
-                    <button>Enviar</button>
-                    <button>Cancelar</button>
+                    </label><br />
+                    <button className='btn btn-success mr-3'>Enviar</button>
+                    <button className='btn btn-danger'>Cancelar</button>
                 </form>
             </div>
         </Modal>

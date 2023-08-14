@@ -101,7 +101,7 @@ const ReportePDFView = () => {
                                         <Text style={[styles.tableCell, { fontWeight: 'bold' }]}>1. Fundamentación:</Text>
                                     </View>
                                     <View style={[styles.tableCol, { width: '75%' }]}>
-                                        <Text style={styles.tableCell}>Formatos Instutucionales </Text>
+                                        <Text style={styles.tableCell}>Formatos Institucionales </Text>
                                     </View>
                                 </View>
                                 <View style={styles.tableRow}>

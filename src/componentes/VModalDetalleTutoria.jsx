@@ -31,33 +31,37 @@ const VModalDetalleTutoria = ({ tutoria, setModalIsOpen, modalIsOpen }) => {
             contentLabel="Detalles de tutoria"
             className={"contenedor-modal-detalleTut"}
         >
-            <h2>Detalle de tutoria</h2>
+            <h2 className='shadow'>Detalle de tutoria</h2>
             {tutoria && <div className='contenedor-detalleTut'>
                 <h3>{tutoria.nombreTutoria}</h3>
-                <div className='header-detalleTut'>
-                    <p>Materia: <br />{tutoria.materia.nombre}</p>
-                    <p>Modalidad: <br />{tutoria.tipoReunionTutoria}</p>
-                    <p>Estado: <br />{tutoria.estado}</p>
-                    <p>Fecha de Inicio: <br /> {new Date(tutoria.fechaInicio).toLocaleString()}</p>
-                    <p>Duración: <br />{new Date(tutoria.fechaFinalizacion).getHours() - new Date(tutoria.fechaInicio).getHours() + 'H'} </p>
-                    {tutoria.valoracion && <p>Valoracion del estudiante: <br />{[...Array(tutoria.valoracion)].map((star) => {
+                <div className='header-detalleTut shadow'>
+                    <p className=''><b>Materia:</b> <br />{tutoria.materia.nombre}</p>
+                    <p className=''><b>Modalidad:</b> <br />{tutoria.tipoReunionTutoria}</p>
+                    <p className=''><b>Estado:</b> <br /><label htmlFor="" className={'px-2 rounded' +
+                                    (tutoria.estado === "Realizada" ? ' bg-success' : tutoria.estado === "Rechazada" ? ' bg-danger' : ' bg-primary')}
+                                >{tutoria.estado}</label></p>
+                    <p><b>Fecha de inicio:</b> <br /> {new Date(tutoria.fechaInicio).toLocaleString()}</p>
+                    <p><b>Duración:</b> <br />{new Date(tutoria.fechaFinalizacion).getHours() - new Date(tutoria.fechaInicio).getHours() + 'H'} </p>
+                    {tutoria.valoracion && <p><b>Valoracion del estudiante:</b> <br />{[...Array(tutoria.valoracion)].map((star) => {
                         return <FaStar size={20} color={'#ffc107'} />
                     })}</p>}
                 </div>
-                <div className='main-detalleTut'>
-                    <p>Descripción: <br />{tutoria.descripcion}</p>
-                    <p>Estudiante: <br />{tutoria.estudiantes.map((estudiante, key) => { return estudiante.persona.nombre + " " + estudiante.persona.apellido + ((key === tutoria.estudiantes.length - 1) ? "" : ", ") })}</p>
-                    {tutoria.justificacion && <p>Justificacion: {tutoria.justificacion}</p>}
+                <div className='main-detalleTut shadow'>
+                    <p><b>-Descripción:</b> <br />{tutoria.descripcion}</p>
+                    <p><b>-Estudiante:</b> <br />{tutoria.estudiantes.map((estudiante, key) => { return estudiante.persona.nombre + " " + estudiante.persona.apellido + ((key === tutoria.estudiantes.length - 1) ? "" : ", ") })}</p>
+                    {tutoria.justificacion && <p><b>-Justificacion:</b> <br />{tutoria.justificacion}</p>}
 
-                    {tutoria.observacionEstudiante && <p>Observación del estudiante: {tutoria.observacionEstudiante}</p>}
-                    {tutoria.observacionDocente && <p>Observación del docente: {tutoria.observacionDocente}</p>}
+                    {tutoria.observacionEstudiante && <p><b>-Observación del estudiante:</b> <br />{tutoria.observacionEstudiante}</p>}
+                    {tutoria.observacionDocente && <p><b>-Observación del docente:</b> <br />{tutoria.observacionDocente}</p>}
                 </div>
                 <div className='footer-detalleTut'>
-                    <label htmlFor="">Firma del docente:
+                    <label htmlFor="" className='firma'>
                         <img src={tutoria.docente.persona.firma} alt="firma de docente" width={100} />
+                        <label htmlFor=""><b>Firma del docente</b></label>
                     </label>
-                    <label htmlFor="">Firma del estudiante:
+                    <label htmlFor="" className='firma'>
                         <img src={tutoria.estudiantes[0].persona.firma} alt="firma de docente" width={100} />
+                        <label htmlFor=""><b>Firma del estudiante</b></label>
                     </label>
                 </div>
             </div>}

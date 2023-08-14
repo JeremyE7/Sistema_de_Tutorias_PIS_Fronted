@@ -598,3 +598,19 @@ export const obtenerRegistroTutoria = async (external_id) => {
     console.log(error);
   }
 }
+
+export const obtenerEstudiante = async (external_id) => {
+  try {
+    const response = await fetch(URL + '/estudiante/obtener/' + external_id, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ObtenerSession()
+      },
+    })
+    const responseData = await response.json()
+    return responseData
+  } catch (error) {
+    console.log(error)
+  }
+}

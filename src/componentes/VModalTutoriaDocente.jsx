@@ -81,13 +81,13 @@ const VModalTutoriaDocente = ({ setModalIsOpen, externalIdTutoria, modalIsOpen, 
                             <label htmlFor="fecha">Fecha</label>
                             <input min={new Date().toISOString().slice(0, 14)} name="fecha" type="datetime-local" className="form-control" id="fecha" value={selectedDateTime} onChange={handleDateTimeChange} />
                         </div>
-                        <button type="submit" className="btn btn-primary" disabled={selectedDateTime.length > 0 ? false : true }>Guardar</button>
-                        <button onClick={closeModal} className="btn btn-danger">Cerrar</button>
                         {tipo === "Reagendar" ? (
-                            <label htmlFor="">Escriba la razón por la que reagenda esta tutoria:
-                                <textarea name="justificacion" id="justificacion" cols="30" rows="10"></textarea>
+                            <label htmlFor="" className='mb-3'>Escriba la razón por la que reagenda esta tutoria:
+                                <textarea className='form form-control' name="justificacion" id="justificacion" cols="30" rows="10"></textarea>
                             </label>
-                        ) : null}
+                        ) : null} <br />
+                        <button type="submit" className="btn btn-primary mr-3" disabled={selectedDateTime.length > 0 ? false : true }>Guardar</button>
+                        <button onClick={closeModal} className="btn btn-danger">Cerrar</button>
                     </form>
                 </div>
             </Modal>

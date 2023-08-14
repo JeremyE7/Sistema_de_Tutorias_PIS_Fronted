@@ -1,7 +1,6 @@
-.contenedor-modal-detalleTut{
+.contenedor-modal-detalleTut {
     border-radius: 20px;
     width: 800px;
-    margin-top: 2%;
     background-color: #fff;
     border: 1px solid #ccc;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
@@ -9,34 +8,57 @@
     box-sizing: border-box;
     text-align: center;
     overflow-y: scroll;
+    max-height: 630px;
+    animation: aparecerDesdeArriba 0.3s ease forwards;
 }
 
-.contenedor-detalleTut{
+.contenedor-modal-detalleTut::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.contenedor-modal-detalleTut {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.contenedor-detalleTut {
     display: flex;
     flex-direction: column;
     align-content: center;
     justify-content: center;
 }
 
-.header-detalleTut{
+.header-detalleTut {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     text-align: center;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 10px solid #ccc;
+    background-color: #dee2e6;
+    padding: 10px;
+    border-radius: 10px;
 }
 
-.header-detalleTut p{
+.header-detalleTut p {
     width: 33%;
+
 }
 
-.main-detalleTut{
+
+.main-detalleTut {
     text-align: left;
     margin-left: 20px;
     margin-top: 20px;
+    border-bottom: 10px solid #ccc;
+    background-color: #dee2e6;
+    padding: 10px;
+    border-radius: 10px;
 }
 
-.footer-detalleTut{
+.footer-detalleTut {
 
     display: flex;
     flex-direction: row;
@@ -46,7 +68,33 @@
     margin-top: 20px;
 }
 
-.footer-detalleTut label{
+.footer-detalleTut label {
     margin-top: 20px;
     width: 50%;
+}
+
+@keyframes aparecerDesdeArriba {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.firma{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 10px solid #ccc;
+    background-color: #dee2e6;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.firma label{
+    border-top: 1px solid #ccc;
 }

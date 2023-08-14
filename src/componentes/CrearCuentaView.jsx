@@ -5,6 +5,7 @@ import { GuardarCuenta, crearRegistroTutoria, guardarFirma } from '../hooks/Cone
 import { mensajeError, mensajeOk } from '../utilidades/Mensajes';
 import { useNavigate } from "react-router-dom";
 import isValidCI from '../utilidades/validadorDeCedulas';
+import CargandoView from './CargandoView';
 
 
 const CrearCuentaView = () => {
@@ -12,6 +13,7 @@ const CrearCuentaView = () => {
   const [tipoCuenta, setTipoCuenta] = useState('Docente');
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
+  const [creandoCuenta, setCreandoCuenta] = useState(false);
 
   const navegacion = useNavigate();
 
@@ -29,6 +31,7 @@ const CrearCuentaView = () => {
   };
 
   const onSubmit = async (campos) => {
+    setCreandoCuenta(true);
     console.log(campos);
     const cuenta = {
       nombre: campos.nombre,
@@ -62,17 +65,22 @@ const CrearCuentaView = () => {
         }
         const registroTutoriasCreado = await crearRegistroTutoria(registroTutoria)
 
-        if (!registroTutoriasCreado.data)
-          mensajeError("No se pudo crear la cuenta, intente nuevamente")
+        if (!registroTutoriasCreado){
+          mensajeError("No se pudo crear la cuenta, registro de tutorias no creado, intente nuevamente")
+          return
+        }
       }
       console.log(campos.firma[0]);
       const cuentaFirmada = await guardarFirma(cuentaCreada.data.externalId, campos.firma[0]);
       console.log(cuentaFirmada);
       if (!cuentaFirmada) {
-        mensajeError("No se pudo crear la cuenta, intente nuevamente")
+        setCreandoCuenta(false);
+        mensajeError("No se pudo crear la cuenta, firma no asignada, intente nuevamente")
       }
-
-      mensajeOk("Cuenta creada con exito").then(() => navegacion('/'))
+      setCreandoCuenta(false);
+      mensajeOk("Cuenta creada con exito").then(() => {
+        navegacion('/')
+      })
     } else {
       if (cuentaCreada.error === 'Identificacion ya registrada') {
         mensajeError("La identificacion ya se encuentra registrada")
@@ -80,6 +88,7 @@ const CrearCuentaView = () => {
       else if (cuentaCreada.error === 'Correo ya registrado') {
         mensajeError("El correo ya se encuentra registrado")
       }
+      setCreandoCuenta(false);
     }
 
 
@@ -95,28 +104,28 @@ const CrearCuentaView = () => {
     <>
       <div className="background-registro">
         <main className="main-registro">
-          <h3>Registrar Cuenta</h3>
-          <form action='submit' onSubmit={handleSubmit(onSubmit)}>
-            <div className='contenedor-datos-personales'>
-              <h4>Datos Personales</h4>
+          <h3 className='shadow'>Registrar Cuenta</h3>
+          <form action='submit shadow' onSubmit={handleSubmit(onSubmit)}>
+            <div className='contenedor-datos-personales shadow'>
+              <h4 className='shadow'>Datos Personales</h4>
               <section className='datos-personales'>
-                <label htmlFor="" className="test">
+                <label htmlFor="">
                   Nombre: <br />
-                  <input type="text" id='nombre' {...register('nombre', { required: true })} />
-                  {errors.nombre && <div className="error">El campo es requerido</div>}
+                  <input type="text" id='nombre' className='form form-control' {...register('nombre', { required: true })} />
+                  {errors.nombre && <small className="form-text text-danger">El campo es requerido</small>}
 
                 </label>
                 <label htmlFor="" className="test">
                   Apellido: <br />
-                  <input type="text" id='apellido'{...register('apellido', { required: true })} />
-                  {errors.apellido && <div className="error">El campo es requerido</div>}
+                  <input type="text" id='apellido' className='form form-control'{...register('apellido', { required: true })} />
+                  {errors.apellido && <small className="form-text text-danger">El campo es requerido</small>}
 
                 </label>
               </section>
               <section className='datos-personales'>
                 <label htmlFor="" className="test">
                   Identificación: <br />
-                  <input type="number" id='identificacion'{...register('identificacion', {
+                  <input type="number" id='identificacion' className='form form-control' {...register('identificacion', {
                     required: true,
                     validate: (value) => {
                       const isValid = isValidCI(value);
@@ -128,96 +137,104 @@ const CrearCuentaView = () => {
                   })}
                   />
                   {errors.identificacion?.type === 'required' && (
-                    <div className="error">El campo es requerido</div>
+                    <small className="form-text text-danger">El campo es requerido</small>
                   )}
                   {errors.identificacion?.type === 'validate' && (
-                    <div className="error">{errors.identificacion.message}</div>
+                    <small className="form-text text-danger">{errors.identificacion.message}</small>
                   )}
 
                 </label>
                 <label htmlFor="" className="test">
-                  Correo Electronico: <br />
-                  <input type="text" id='correo'{...register('correo', { required: true, pattern: /\S+@\S+\.\S+/ })} />
-                  {errors.correo && errors.correo.type === 'required' && <div className='error' role='alert'>Se requiere su correo</div>}
-                  {errors.correo && errors.correo.type === 'pattern' && <div className='error' role='alert'>Ingrese un correo valido</div>}
+                  Correo Electrónico: <br />
+                  <input type="text" id='correo' className='form form-control' {...register('correo', { required: true, pattern: /\S+@\S+\.\S+/ })} />
+                  {errors.correo && errors.correo.type === 'required' && <small className="form-text text-danger">El campo es requerido</small>
+                  }
+                  {errors.correo && errors.correo.type === 'pattern' && <small className="form-text text-danger">Se requiere un correo valido</small>
+                  }
                 </label>
               </section>
 
               <section className='datos-personales'>
                 <label htmlFor="" className="test">
                   Clave: <br />
-                  <input type="password" id='clave'{...register('clave', { required: true })} />
-                  {errors.clave && <div className="error">El campo es requerido</div>}
+                  <input type="password" id='clave' className='form form-control' {...register('clave', { required: true })} />
+                  {errors.clave && <small className="form-text text-danger">El campo es requerido</small>}
 
                 </label>
                 <label htmlFor="" className="test">
-                  Telefono: <br />
-                  <input type="number" id='telefono'{...register('telefono', { required: true })} />
-                  {errors.clave && <div className="error">El campo es requerido</div>}
+                  Teléfono: <br />
+                  <input type="number" id='telefono' className='form form-control' {...register('telefono', { required: true })} />
+                  {errors.clave && <small className="form-text text-danger">El campo es requerido</small>}
                 </label>
               </section>
 
               <section className='datos-personales'>
                 <label htmlFor="" className="test">
                   Dirección: <br />
-                  <input type="text" id='direccion'{...register('direccion', { required: true })} />
-                  {errors.direccion && <div className="error">El campo es requerido</div>}
+                  <input type="text" id='direccion' className='form form-control' {...register('direccion', { required: true })} />
+                  {errors.direccion && <small className="form-text text-danger">El campo es requerido</small>}
                 </label>
               </section>
             </div>
 
-            <div className='contenedor-tipo-cuenta'>
-              <h4>Tipo de Cuenta</h4>
-              <section className='tipo-cuenta'>
-                <label htmlFor="" className="test">
-                  Tipo de Cuenta:
-                  <select className='form-control' name="tipo-cuenta" id="tipo-cuenta" onChange={handleSelectChange} >
-                    <option value="Docente">Docente</option>
-                    <option value="Estudiante">Estudiante</option>
-                  </select>
-                </label>
-              </section>
-              <section>
-                {tipoCuenta && tipoCuenta === 'Docente' ? (
-                  <div className='datos-docente'>
+            <div className='contenedor-tipo-cuenta shadow'>
+              <h4 className='shadow'>Tipo de Cuenta</h4>
+              <div className='contenedor-tipo-cuenta-subcontenedor'>
+                <section className='tipo-cuenta-info'>
+                  <section className='tipo-cuenta'>
                     <label htmlFor="" className="test">
-                      Titulo: <br />
-                      <input type="text" id='titulo'{...register('titulo', { required: true })} />
-                      {errors.titulo && <div className="error">El campo es requerido</div>}
+                      Tipo de Cuenta:
+                      <select className='form-control' name="tipo-cuenta" id="tipo-cuenta" onChange={handleSelectChange} >
+                        <option value="Docente">Docente</option>
+                        <option value="Estudiante">Estudiante</option>
+                      </select>
                     </label>
-                  </div>) : tipoCuenta === 'Estudiante' ? (
-                    <div className='datos-estudiante'>
-                      <label htmlFor="" className="test">
-                        Carrera: <br />
-                        <input type="text" id='carrera'{...register('carrera', { required: true })} />
-                        {errors.carrera && <div className="error">El campo es requerido</div>}
-                      </label>
-                      <label htmlFor="">
-                        Ciclo: <br />
-                        <input type="text" id='ciclo'{...register('ciclo', { required: true })} />
-                        {errors.ciclo && <div className="error">El campo es requerido</div>}
-                      </label>
-                      <label htmlFor="">
-                        Paralelo: <br />
-                        <input type="text" id='paralelo'{...register('paralelo', { required: true })} />
-                        {errors.paralelo && <div className="error">El campo es requerido</div>}
-                      </label>
-                    </div>
-                  ) : null}
-              </section>
-              <section>
-                <label htmlFor="firma">Selecciona una imagen de firma:</label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  id="firma"
-                  onInput={handleFileChange}
-                  {...register('firma', { required: true })}
-                />
-                {previewUrl && (
-                  <img src={previewUrl} alt="Vista previa de la imagen de firma" style={{ maxWidth: '100%', marginTop: '10px' }} />
-                )}
-              </section>
+                  </section>
+                  <section>
+                    {tipoCuenta && tipoCuenta === 'Docente' ? (
+                      <div className='datos-docente'>
+                        <label htmlFor="" className="test">
+                          Título: <br />
+                          <input type="text" id='titulo' className='form form-control' {...register('titulo', { required: true })} />
+                          {errors.titulo && <small className="form-text text-danger">El campo es requerido</small>}
+                        </label>
+                      </div>) : tipoCuenta === 'Estudiante' ? (
+                        <div className='datos-estudiante'>
+                          <label htmlFor="" className="test">
+                            Carrera: <br />
+                            <input type="text" id='carrera' className='form form-control' {...register('carrera', { required: true })} />
+                            {errors.carrera && <small className="form-text text-danger">El campo es requerido</small>}
+                          </label>
+                          <label htmlFor="">
+                            Ciclo: <br />
+                            <input type="text" id='ciclo' className='form form-control' {...register('ciclo', { required: true })} />
+                            {errors.ciclo && <small className="form-text text-danger">El campo es requerido</small>}
+                          </label>
+                          <label htmlFor="">
+                            Paralelo: <br />
+                            <input type="text" id='paralelo' className='form form-control' {...register('paralelo', { required: true })} />
+                            {errors.paralelo && <small className="form-text text-danger">El campo es requerido</small>}
+                          </label>
+                        </div>
+                      ) : null}
+                  </section>
+                </section>
+                <section className='tipo-cuenta-info'>
+                  <label htmlFor="firma">Firma:</label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    id="firma"
+                    onInput={handleFileChange}
+                    className='form form-control-file'
+                    {...register('firma', { required: true })}
+                  />
+                  {previewUrl && (
+                    <img src={previewUrl} alt="Vista previa de la imagen de firma" style={{ maxWidth: '200px', marginTop: '10px' }} />
+                  )}
+                </section>
+              </div>
+
             </div>
             <div className='contenedor-botones'>
               <button type="submit" className='btn btn-success'>Crear Cuenta</button>
@@ -227,6 +244,7 @@ const CrearCuentaView = () => {
           </form>
         </main>
       </div>
+      {creandoCuenta && <CargandoView/>}
     </>
   );
 };

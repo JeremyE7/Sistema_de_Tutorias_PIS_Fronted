@@ -5,4 +5,11 @@
     opacity: 0.6; /* Reduce la opacidad para dar una apariencia de desactivado */
     pointer-events: none; /* Evita que el contenido del div sea interactivo */
   }
+
+.boton-editar{
+  margin-left: 41%;
+  margin-right: 41%;
+  margin-bottom: 10px;
+  width: 200px;
+}
   
