@@ -31,7 +31,7 @@ const VModalDetalleTutoria = ({ tutoria, setModalIsOpen, modalIsOpen }) => {
             contentLabel="Detalles de tutoria"
             className={"contenedor-modal-detalleTut"}
         >
-            <h2 className='shadow'>Detalle de tutoria</h2>
+            <h2 className='shadow'>Detalle de tutoría</h2>
             {tutoria && <div className='contenedor-detalleTut'>
                 <h3>{tutoria.nombreTutoria}</h3>
                 <div className='header-detalleTut shadow'>
@@ -42,14 +42,14 @@ const VModalDetalleTutoria = ({ tutoria, setModalIsOpen, modalIsOpen }) => {
                                 >{tutoria.estado}</label></p>
                     <p><b>Fecha de inicio:</b> <br /> {new Date(tutoria.fechaInicio).toLocaleString()}</p>
                     <p><b>Duración:</b> <br />{new Date(tutoria.fechaFinalizacion).getHours() - new Date(tutoria.fechaInicio).getHours() + 'H'} </p>
-                    {tutoria.valoracion && <p><b>Valoracion del estudiante:</b> <br />{[...Array(tutoria.valoracion)].map((star) => {
+                    {tutoria.valoracion && <p><b>Valoración del estudiante:</b> <br />{[...Array(tutoria.valoracion)].map((star) => {
                         return <FaStar size={20} color={'#ffc107'} />
                     })}</p>}
                 </div>
                 <div className='main-detalleTut shadow'>
                     <p><b>-Descripción:</b> <br />{tutoria.descripcion}</p>
                     <p><b>-Estudiante:</b> <br />{tutoria.estudiantes.map((estudiante, key) => { return estudiante.persona.nombre + " " + estudiante.persona.apellido + ((key === tutoria.estudiantes.length - 1) ? "" : ", ") })}</p>
-                    {tutoria.justificacion && <p><b>-Justificacion:</b> <br />{tutoria.justificacion}</p>}
+                    {tutoria.justificacion && <p><b>-Justificación:</b> <br />{tutoria.justificacion}</p>}
 
                     {tutoria.observacionEstudiante && <p><b>-Observación del estudiante:</b> <br />{tutoria.observacionEstudiante}</p>}
                     {tutoria.observacionDocente && <p><b>-Observación del docente:</b> <br />{tutoria.observacionDocente}</p>}
