@@ -28,7 +28,7 @@ const RegistroTutorias = () => {
             const materias = await Materias_Docente(cuenta.data.persona.docente.externalId);
             setMaterias(materias.data);
             if (!numRegistro) {
-                setNumRegistro(materias.data[0].id);
+                setNumRegistro(materias.data[0] ? materias.data[0].id : undefined);
             }
             const auxMateria = materias.data.filter(materia => materia.id === numRegistro);
             const tutoriasAux = await obtenerTutorias(cuenta.data.rol, cuenta.data.persona.docente.externalId);
