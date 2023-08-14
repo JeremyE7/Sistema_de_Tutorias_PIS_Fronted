@@ -4,19 +4,21 @@ import { ObtenerDatos } from "../utilidades/UseSession";
 import TablaHistorialTutorias from "./TablaHistorialTutorias";
 import TablaRegistroTutorias from "./TablaRegistroTutorias";
 import { Link, Navigate } from "react-router-dom";
+import { AiFillFilePdf } from "react-icons/ai";
+import '../css/TutoriaRegistros.css';
 
 const RegistroTutorias = () => {
     const [listaMaterias, setMaterias] = useState([]);
-    const [numRegistro, setNumRegistro] = useState(1);
+    const [numRegistro, setNumRegistro] = useState();
     const [registroSelec, setRegistro] = useState(undefined);
     const [listaTutorias, setTutorias] = useState([]);
 
-    function cambiarMateria(id){
+    function cambiarMateria(id) {
         setNumRegistro(id)
     }
-    function navegacion(){
-        return(
-            <Navigate to='ReportePDF'/>
+    function navegacion() {
+        return (
+            <Navigate to='ReportePDF' />
         )
     }
 
@@ -25,13 +27,14 @@ const RegistroTutorias = () => {
             const cuenta = await obtenerCuenta(ObtenerDatos("ExternalCuenta"));
             const materias = await Materias_Docente(cuenta.data.persona.docente.externalId);
             setMaterias(materias.data);
-            let auxMateria = materias.data;
-            const tutoriasAux = await obtenerTutorias(cuenta.data.rol, cuenta.data.persona.docente.externalId);
-            if (tutoriasAux) {
-                setTutorias(tutoriasAux.data.filter(tutoria => tutoria.estado === "Realizada" && tutoria.materia.externalId === auxMateria[numRegistro].externalId));
+            if (!numRegistro) {
+                setNumRegistro(materias.data[0] ? materias.data[0].id : undefined);
             }
-            console.log(auxMateria);
-            console.log(tutoriasAux);
+            const auxMateria = materias.data.filter(materia => materia.id === numRegistro);
+            const tutoriasAux = await obtenerTutorias(cuenta.data.rol, cuenta.data.persona.docente.externalId);
+            if (tutoriasAux && numRegistro) {
+                setTutorias(tutoriasAux.data.filter(tutoria => tutoria.estado === "Realizada" && tutoria.materia.externalId === auxMateria[0].externalId));
+            }
         }
 
         getMaterias()
@@ -40,16 +43,21 @@ const RegistroTutorias = () => {
     return (
         <div style={{ display: 'flex', flexDirection: 'row' }}>
             <div className="btn-group container" style={{ margin: "20px", flexDirection: 'column', height: '100vh', width: '15%' }}>
-                <label htmlFor="" className='ttl-tabla'>Asignaturas</label>
+                <label className='ttl-tabla'>Asignaturas</label>
                 {listaMaterias && listaMaterias.map((materia) => (
-                    <button onClick={()=>cambiarMateria(materia.id-1)}style={{ backgroundColor: '#8d0b0e', color: 'white', fontFamily: 'sans-serif', fontWeight: 'bold', borderColor: '#8d0b0e', borderRadius: '2px', outline: 'none' }} key={materia.id}>
-                        {materia.nombre}
-                    </button>
+                    <div className="btn-group">
+                        <button className="btn-asignaturas" style={{width: '75%' }} onClick={() => cambiarMateria(materia.id)} key={materia.id}>
+                            {materia.nombre}
+                        </button>
+                        <button className="btn-asignaturas" style={{width: '25%' }}>
+                            <Link style={{color:'white'}} to={"/reporte/materia/" + materia.externalId} target="_blank" onClick={() => { <Navigate to='/reporte/materia/"+materia.externalId' /> }}><AiFillFilePdf /></Link>
+                        </button>
+                    </div>
                 ))}
             </div>
-            <div className="container" style={{ margin: "20px", width: '100%'}}>
+            <div className="container" style={{ margin: "20px", width: '100%' }}>
                 <TablaRegistroTutorias listTutorias={listaTutorias}></TablaRegistroTutorias>
-                <Link className='btn' style={{backgroundColor: '#8d0b0e', color: 'white', fontFamily: 'sans-serif', fontWeight: 'bold', borderColor: '#8d0b0e'}}to={"/reporte/pdf"} target="_blank" onClick={navegacion}>Generar PDF</Link>
+                <Link className='btn' style={{ backgroundColor: '#052342', color: 'white', fontFamily: 'sans-serif', fontWeight: 'bold', borderColor: '#052342' }} to={"/reporte/pdf"} target="_blank" onClick={navegacion}>Generar reporte consolidado</Link>
             </div>
         </div>
     )

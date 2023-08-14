@@ -7,31 +7,73 @@
 }
 
 .main-registro form{
-    background-color: #ebf1ff;
-    border: 1px solid rgba(49, 47, 47, 0.253);
-    border-radius: 10px;
-    padding: 50px;
+    background: #eaeef3;
+    padding: 1px 20px 20px 20px ;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.main-registro h3{
+    text-align: center;
+    margin-bottom: 20px;
+    background-color: #052342;
+    color: white;
+    font-weight:600;
+    padding: 20px;
+}
+
+.main-registro form div{
+    width: 49%;
+    margin-right: 1px
 }
 
 .contenedor-datos-personales{
-    background-color: rgb(230, 213, 213);
+    background-color: #ffffff;
     border: 1px solid rgba(49, 47, 47, 0.075);
     border-radius: 20px;
     padding: 40px;
+}
+
+.contenedor-datos-personales h4{
+    text-align: center;
+    margin-bottom: 20px;
+    background-color: #052342;
+    color: white;
+    font-weight:600;
+    padding: 20px;
 }
 
 .contenedor-tipo-cuenta{
-    background-color: rgb(230, 213, 213);
+    background-color: #ffffff;
     border: 1px solid rgba(49, 47, 47, 0.075);
     border-radius: 20px;
     padding: 40px;
-    margin-top: 20px;
-    max-width: 586px;
 
 }
 
+.contenedor-tipo-cuenta-subcontenedor{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    min-width: 100%;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.tipo-cuenta-info{
+    width: 50%;
+}
+
+.contenedor-tipo-cuenta h4{
+    text-align: center;
+    margin-bottom: 20px;
+    background-color: #052342;
+    color: white;
+    font-weight:600;
+    padding: 20px;
+}
 
 .contenedor-botones{
     display: flex;
@@ -50,14 +92,6 @@
     margin-left: 20px;
 }
 
-.datos-personales input{
-    margin-left: 20px;
-}
-
-.datos-personales label div{
-    margin-left: 50px;
-    margin-bottom: -25px;
-}
 
 .error{
     color: red;
@@ -66,29 +100,42 @@
 .tipo-cuenta{
     display: flex;
     flex-direction: row;
-    margin-top: 20px;
-
-}
-
-.tipo-cuenta select{
-    margin-left: 20px;
 }
 
 .datos-estudiante{
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap;    
 }
 
 .datos-estudiante label{
-    width: 50%;
+    width: 100%;
 }
 
-.datos-estudiante input, .datos-docente input{
-    margin-left: 20px;
+
+.contenedor-tipo-cuenta section img{
+    width: 100%;
+    border: 1px solid rgb(49, 47, 47);
 }
 
-.datos-estudiante label div, .datos-docente label div{
-    margin-left: 20px;
+@media screen and (max-width: 768px){
+    .main-registro form div{
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .main-registro form section{
+        flex-direction: column;
+    }
+
+    .contenedor-tipo-cuenta-subcontenedor{
+        flex-direction: column;
+    }
+
+    .tipo-cuenta-info{
+        width: 100%;
+    }
 }
+    
+
 
 

@@ -1,19 +1,44 @@
 .form-group{
     margin-top: 20px;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    place-content: center;
     margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap
+}
+
+.form-group label{
+    width: 40%;
+    margin: 5px;
 }
 
 .form-groups{
     margin-bottom: 20px;
 }
 
-.form-group input{
+/* .form-group input{
     margin-top: 10px;
     margin-left: 10%;
 }
 
 .form-group label{
     margin-left: 20%;
+} */
+
+h2{
+    text-align: center;
+    margin-top: 5px;
+    background-color: #052342;
+    color: white;
+    padding: 15px;
 }
+
+input[type="radio"]{
+    margin-left: 10px;
+}
+
+.tipo-tutoria{
+    display: flex;
+    justify-content: space-between;
+}
+
